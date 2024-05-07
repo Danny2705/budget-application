@@ -1,10 +1,13 @@
 import React from "react";
-import Dashboard from "../Dashboard/Dashboard";
+import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../components/Footer/Footer";
 
-export default function Layout() {
+export default function Layout({ children }) {
   return (
-    <div>
-      <Dashboard />
-    </div>
+    <>
+      <Navbar />
+      {children}
+      <Footer />
+    </>
   );
 }

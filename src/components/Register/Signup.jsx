@@ -30,8 +30,8 @@ export default function SignUp() {
       setPassword("");
       if (user) {
         toast.success("User registered successfully");
-        dispatch(register({ user: user, token: user.accessToken }));
-        navigate("/");
+        // dispatch(register({ user: user, token: user.accessToken }));
+        navigate("/login");
       }
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {

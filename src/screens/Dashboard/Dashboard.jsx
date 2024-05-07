@@ -1,10 +1,10 @@
 import React from "react";
-import Navbar from "../../components/Navbar/Navbar";
+import Layout from "../Layout/Layout";
 
 export default function Dashboard() {
   return (
-    <div>
-      <Navbar />
-    </div>
+    <Layout>
+      <div>Hello, this is the Dashboard!</div>
+    </Layout>
   );
 }

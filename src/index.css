@@ -16,6 +16,10 @@ body {
   background: var(--background-color);
 }
 
+:root .content {
+  color: white;
+}
+
 .blur-circle {
   background-color: #3f2645;
   border-radius: 100px;

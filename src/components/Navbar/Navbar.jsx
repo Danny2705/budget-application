@@ -5,7 +5,6 @@ export default function Navbar() {
   return (
     <div>
       <h1>Budget Tracker</h1>
-
       <div>
         <Links />
       </div>
