@@ -5,6 +5,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { logIn } from "../../redux/authSlice";
+import GoogleAuth from "../Login/GoogleAuth";
+import GitHubAuth from "./GitHubAuth";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -13,8 +15,13 @@ export default function Login() {
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      e.preventDefault();
+      if (!email || !password) {
+        toast.error("Please fill in all fields");
+        return;
+      }
+
       const user = await signInWithEmailAndPassword(auth, email, password);
       console.log(user);
       setEmail("");
@@ -44,50 +51,37 @@ export default function Login() {
               <h1 className='font-bold text-2xl text-center'>Welcome</h1>
               <h2 className='text-sm text-center'>Log in to get started!</h2>
               <div className='login-form bg-main-darkPurple rounded-e-[2rem] mt-4 absolute left-6 w-[270px]'>
-                <form
-                  className='p-4 flex flex-col gap-4'
-                  onSubmit={handleSubmit}
-                >
-                  <div className='flex flex-col gap-1'>
-                    <label className='text-pink-600'>Email:</label>
-                    <input
-                      type='text'
-                      placeholder='budgetApp@gmail.com'
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className='bg-transparent border-2 rounded-sm px-2 border-main-lightPink outline-none text-white text-sm py-1 placeholder:text-[#b8b7b7]'
-                    />
-                  </div>
-                  <div className='flex flex-col gap-1'>
-                    <label className='text-pink-600'>Password:</label>
-                    <input
-                      type='password'
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className='bg-transparent border-2 rounded-sm px-2 border-main-lightPink outline-none text-white text-sm py-1'
-                    />
-                  </div>
-                  <button
-                    type='submit'
-                    className='bg-white py-1 hover:bg-slate-300 duration-300 rounded-full mt-[20px]'
-                  >
-                    Log In
-                  </button>
-                  <button
-                    type='submit'
-                    className='bg-white py-1 flex items-center gap-3 px-3 justify-center hover:bg-slate-300 duration-300 rounded-full'
-                  >
-                    <img src='/google.png' alt='Google' width={20} />
-                    Log in with Google
-                  </button>
-                  <button
-                    type='submit'
-                    className='bg-white py-1 flex items-center gap-3 px-3 justify-center hover:bg-slate-300 duration-300 rounded-full'
-                  >
-                    <img src='/github.png' alt='GitHub' width={20} />
-                    Log in with GitHub
-                  </button>
-                </form>
+                <div className='flex flex-col p-4 gap-4'>
+                  <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
+                    <div className='flex flex-col gap-1'>
+                      <label className='text-pink-600'>Email:</label>
+                      <input
+                        type='text'
+                        placeholder='budgetApp@gmail.com'
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className='bg-transparent border-2 rounded-sm px-2 border-main-lightPink outline-none text-white text-sm py-1 placeholder:text-[#b8b7b7]'
+                      />
+                    </div>
+                    <div className='flex flex-col gap-1'>
+                      <label className='text-pink-600'>Password:</label>
+                      <input
+                        type='password'
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className='bg-transparent border-2 rounded-sm px-2 border-main-lightPink outline-none text-white text-sm py-1'
+                      />
+                    </div>
+                    <button
+                      type='submit'
+                      className='bg-white py-1 hover:bg-slate-300 duration-300 rounded-full mt-[20px]'
+                    >
+                      Log In
+                    </button>
+                  </form>
+                  <GoogleAuth />
+                  <GitHubAuth />
+                </div>
                 <p className='px-4 pb-4 flex items-center justify-between'>
                   <span className='text-[10px] text-white'>
                     Don't have an account?

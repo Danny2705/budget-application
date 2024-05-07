@@ -3,19 +3,21 @@ import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../firebase";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
-import { register } from "../../redux/authSlice";
 
 export default function SignUp() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      if (!username || !email || !password) {
+        toast.error("Please fill in all fields");
+        return;
+      }
+
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -30,12 +32,15 @@ export default function SignUp() {
       setPassword("");
       if (user) {
         toast.success("User registered successfully");
-        // dispatch(register({ user: user, token: user.accessToken }));
         navigate("/login");
       }
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         toast.error("Email is already in use");
+      } else if (error.code === "auth/invalid-email") {
+        toast.error("Please enter the email");
+      } else if (error.code === "auth/weak-password") {
+        toast.error("Password must be at least 6 characters");
       } else {
         console.log(error);
       }
