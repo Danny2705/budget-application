@@ -6,6 +6,9 @@ import NoMatch from "./screens/NoMatch/NoMatch";
 import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import Dashboard from "./screens/Dashboard/Dashboard";
+import Transaction from "./screens/Transaction/Transaction";
+import Budget from "./screens/Budget/Budget";
+import Profile from "./screens/Profile/Profile";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -25,6 +28,18 @@ function App() {
         <Route
           path='/dashboard'
           element={user ? <Dashboard /> : <Navigate to='/login' />}
+        />
+        <Route
+          path='/transaction'
+          element={user ? <Transaction /> : <Navigate to='/login' />}
+        />
+        <Route
+          path='/budget'
+          element={user ? <Budget /> : <Navigate to='/login' />}
+        />
+        <Route
+          path='/profile'
+          element={user ? <Profile /> : <Navigate to='/login' />}
         />
         <Route path='/nomatch' element={<NoMatch />} />
         <Route

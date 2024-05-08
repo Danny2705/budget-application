@@ -1,9 +1,10 @@
 import React from "react";
+import Layout from "../Layout/Layout";
 
 export default function Transaction() {
   return (
-    <div>
-      <h1>Transaction</h1>
-    </div>
+    <Layout>
+      <h1 className='mt-[60px]'>Transaction</h1>
+    </Layout>
   );
 }

@@ -1,9 +1,10 @@
 import React from "react";
+import Layout from "../Layout/Layout";
 
-export default function budget() {
+export default function Budget() {
   return (
-    <div>
-      <h1>Budget</h1>
-    </div>
+    <Layout>
+      <h1 className='mt-[60px]'>Budget</h1>
+    </Layout>
   );
 }

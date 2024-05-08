@@ -27,7 +27,7 @@ export default function Login() {
       setEmail("");
       setPassword("");
       if (user) {
-        toast.success("User logged in successfully");
+        toast.success("Log in successfully");
         dispatch(logIn({ user: user.user, token: user.user.accessToken }));
         navigate("/dashboard");
       }

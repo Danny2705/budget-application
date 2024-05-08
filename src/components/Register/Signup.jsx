@@ -31,7 +31,7 @@ export default function SignUp() {
       setEmail("");
       setPassword("");
       if (user) {
-        toast.success("User registered successfully");
+        toast.success("Register successfully");
         navigate("/login");
       }
     } catch (error) {
