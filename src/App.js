@@ -7,7 +7,7 @@ import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import Dashboard from "./screens/Dashboard/Dashboard";
 import Transaction from "./screens/Transaction/Transaction";
-import Budget from "./screens/Budget/Budget";
+import Budget from "./screens/Budget/budget.jsx";
 import Profile from "./screens/Profile/Profile";
 
 function App() {
@@ -42,10 +42,16 @@ function App() {
           element={user ? <Profile /> : <Navigate to='/login' />}
         />
         <Route path='/nomatch' element={<NoMatch />} />
-        <Route
+        {/* <Route
           path='*'
           element={
             !user ? <Navigate to='/login' /> : <Navigate to='/nomatch' />
+          }
+        /> */}
+        <Route
+          path='*'
+          element={
+            !user ? <Navigate to='/login' /> : <Login />
           }
         />
       </Routes>
