@@ -17,7 +17,7 @@ export default function GitHubAuth() {
           toast.success("Login successfully");
           dispatch(logIn({ user: res.user, token: res.user.accessToken }));
 
-          navigate("/dashboard");
+          navigate("/");
         } else {
           toast.error("There is something wrong");
         }

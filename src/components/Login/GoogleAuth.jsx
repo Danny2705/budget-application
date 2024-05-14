@@ -18,7 +18,7 @@ export default function OAuth() {
         toast.success("Login successfully");
         dispatch(logIn({ user: result.user, token: result.user.accessToken }));
 
-        navigate("/dashboard");
+        navigate("/");
       } else {
         toast.error("There is something wrong");
       }

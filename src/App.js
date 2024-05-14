@@ -19,14 +19,14 @@ function App() {
       <Routes>
         <Route
           path='/login'
-          element={!user ? <Login /> : <Navigate to='/dashboard' />}
+          element={!user ? <Login /> : <Navigate to='/' />}
         />
         <Route
           path='/signup'
-          element={!user ? <Signup /> : <Navigate to='/dashboard' />}
+          element={!user ? <Signup /> : <Navigate to='/' />}
         />
         <Route
-          path='/dashboard'
+          path='/'
           element={user ? <Dashboard /> : <Navigate to='/login' />}
         />
         <Route
@@ -42,12 +42,12 @@ function App() {
           element={user ? <Profile /> : <Navigate to='/login' />}
         />
         <Route path='/nomatch' element={<NoMatch />} />
-        <Route
+        {/* <Route
           path='*'
           element={
             !user ? <Navigate to='/login' /> : <Navigate to='/nomatch' />
           }
-        />
+        /> */}
       </Routes>
     </BrowserRouter>
   );
