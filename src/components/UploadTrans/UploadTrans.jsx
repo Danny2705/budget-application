@@ -6,7 +6,7 @@ import SaveButton from "./SaveButton";
 
 const UploadTrans = () => {
   return (
-    <div class="mt-100 bg-white md:flex flex-col">
+    <div class="mt-100 bg-white md:flex flex-col rounded-[24px]">
       <DragDrop />
       <div class="flex flex-row py-[16px] px-[32px]">
         <FileDisplay />
