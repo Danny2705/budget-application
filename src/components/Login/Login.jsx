@@ -29,7 +29,7 @@ export default function Login() {
       if (user) {
         toast.success("Log in successfully");
         dispatch(logIn({ user: user.user, token: user.user.accessToken }));
-        navigate("/dashboard");
+        navigate("/");
       }
     } catch (error) {
       if (error.code === "auth/invalid-credential") {
