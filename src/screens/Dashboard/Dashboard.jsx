@@ -1,10 +1,9 @@
 import React from "react";
 import Layout from "../Layout/Layout";
-import { IoSearch } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import Search from "../../components/Search/Search";
 import RecentBudget from "../../components/RecentBudget/RecentBudget";
-import UploadTrans from "../../components/UploadTrans/UploadTrans";
+import BudgetImage from "../../components/BudgetImage/BudgetImage";
 
 export default function Dashboard() {
   const user = useSelector((state) => state.auth.user);
@@ -30,7 +29,7 @@ export default function Dashboard() {
           />
         </div>
 
-        <div className='mt-[1rem] px-20'>
+        <div className='mt-4 px-20'>
           <div className='flex items-center justify-between'>
             <h2 className='text-[#E5E8EB] text-2xl font-bold tracking-wide'>
               Recent Budgets
@@ -40,7 +39,10 @@ export default function Dashboard() {
 
           <div>
             <RecentBudget />
-            <UploadTrans />
+          </div>
+
+          <div className='mt-4'>
+            <BudgetImage />
           </div>
         </div>
       </div>
