@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
+import "../../index.css";
 
 export default function Layout({ children }) {
   const [scroll, setScroll] = useState(0);

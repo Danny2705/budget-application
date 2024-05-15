@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Links = () => {
   const links = [
-    { title: "Home", path: "/dashboard" },
+    { title: "Home", path: "/" },
     { title: "Transaction Management", path: "/transaction" },
     { title: "Budget Management", path: "/budget" },
     { title: "Profile", path: "/profile" },
