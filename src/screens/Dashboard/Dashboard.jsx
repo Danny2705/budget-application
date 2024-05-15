@@ -12,16 +12,15 @@ export default function Dashboard() {
     <Layout>
       <div className='mt-[90px]'>
         <div>
-          hi
           <Search />
         </div>
 
-        <h1 className='text-main-darkPink font-bold text-4xl mt-[1rem] tracking-wider px-20'>
+        <h1 className=' text-main-darkPink font-bold text-2xl md:text-4xl lg:text-4xl mt-4 tracking-wider px-4 xl:px-20'>
           Good morning,{" "}
           <span className='text-[#801AE5]'>{user.displayName}!</span>
         </h1>
 
-        <div className='h-[460px] w-full mt-[1rem]'>
+        <div className='h-[360px] lg:h-[460px] w-full mt-[1rem]'>
           <img
             src='/banner.jpg'
             alt='Recipe Machine'
@@ -29,19 +28,19 @@ export default function Dashboard() {
           />
         </div>
 
-        <div className='mt-4 px-20'>
+        <div className='mt-4 px-4 xl:px-20'>
           <div className='flex items-center justify-between'>
-            <h2 className='text-[#E5E8EB] text-2xl font-bold tracking-wide'>
+            <h2 className='text-[#E5E8EB] text-xl md:text-2xl font-bold tracking-wide'>
               Recent Budgets
             </h2>
-            <button className='text-white'>View more budgets</button>
+            <button className='text-white text-sm'>View more budgets</button>
           </div>
 
           <div>
             <RecentBudget />
           </div>
 
-          <div className='mt-4'>
+          <div className=''>
             <BudgetImage />
           </div>
         </div>
