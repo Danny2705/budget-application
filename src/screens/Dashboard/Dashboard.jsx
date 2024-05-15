@@ -4,6 +4,8 @@ import { IoSearch } from "react-icons/io5";
 import { useSelector } from "react-redux";
 import Search from "../../components/Search/Search";
 import RecentBudget from "../../components/RecentBudget/RecentBudget";
+import BudgetImage from "../../components/BudgetImage/BudgetImage";
+// import UploadTrans from "../../components/UploadTrans/UploadTrans";
 
 export default function Dashboard() {
   const user = useSelector((state) => state.auth.user);
@@ -15,8 +17,8 @@ export default function Dashboard() {
           <Search />
         </div>
 
-        <h1 className='text-main-darkPink font-bold text-4xl mt-[1rem] tracking-wider px-20'>
-          Good morning,{" "}
+        <h1 className='intro-text text-main-darkPink font-bold text-4xl mt-[1rem] tracking-wider px-20 flex gap-2'>
+          Good morning,
           <span className='text-[#801AE5]'>{user.displayName}!</span>
         </h1>
 
@@ -28,7 +30,7 @@ export default function Dashboard() {
           />
         </div>
 
-        <div className='mt-[1rem] px-20'>
+        <div className='mt-4 px-20'>
           <div className='flex items-center justify-between'>
             <h2 className='text-[#E5E8EB] text-2xl font-bold tracking-wide'>
               Recent Budgets
@@ -39,6 +41,14 @@ export default function Dashboard() {
           <div>
             <RecentBudget />
           </div>
+
+          <div className='mt-6'>
+            <BudgetImage />
+          </div>
+
+          {/* <div>
+            <UploadTrans />
+          </div> */}
         </div>
       </div>
     </Layout>

@@ -7,8 +7,9 @@ import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
 import Dashboard from "./screens/Dashboard/Dashboard";
 import Transaction from "./screens/Transaction/Transaction";
-import Budget from "./screens/Budget/budget.jsx";
+import Budget from "./screens/Budget/Budget.jsx";
 import Profile from "./screens/Profile/Profile";
+import "../src/App.scss";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
