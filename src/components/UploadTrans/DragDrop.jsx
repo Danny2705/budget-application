@@ -10,15 +10,15 @@ const DragDrop = () => {
     setFile(file);
   };
   return (
-    <div className="w-1040 bg-[#D4B4F3] my-[16px] mx-[32px] rounded-[16px] h-[80px] flex justify-center">
-      <div className="content-center">
-        <div className="dragAndDropFile">
+    <div className='w-1040 bg-[#D4B4F3] my-[16px] mx-[32px] rounded-[16px] h-[80px] flex justify-center'>
+      <div className='content-center'>
+        <div className='dragAndDropFile'>
           <FileUploader
             handleChange={handleChange}
-            name="file"
+            name='file'
             types={fileTypes}
             multiple={false}
-            label="Drag & Drop your file here"
+            label='Drag & Drop your file here'
           />
         </div>
       </div>
