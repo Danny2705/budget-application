@@ -5,6 +5,7 @@ import Search from "../../components/Search/Search";
 import RecentBudget from "../../components/RecentBudget/RecentBudget";
 import BudgetImage from "../../components/BudgetImage/BudgetImage";
 
+
 export default function Dashboard() {
   const user = useSelector((state) => state.auth.user);
   console.log(user);

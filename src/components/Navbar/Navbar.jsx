@@ -7,6 +7,9 @@ import toast from "react-hot-toast";
 import { MotionConfig, motion } from "framer-motion";
 import { VARIANTS } from "../../utils/Variants";
 
+// TODO: Logo component for import, contains erroe
+// import {ReactComponent as Logo} from "./logo-no-background.svg"
+
 export default function Navbar({ scroll }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,7 +32,7 @@ export default function Navbar({ scroll }) {
       } flex items-center bg-transparent text-white h-[50px] px-4 justify-between fixed top-3 left-0 right-0 z-20`}
     >
       <Link to={"/"}>
-        <h1 className='text-lg'>Budget Tracker</h1>
+        <h1 className='text-lg'>no name</h1>
       </Link>
       <div className='h-full'>
         <Links />

@@ -1,16 +1,6 @@
 export default function NewBudget() {
   return (
     <div className="flex items-center justify-center h-screen">
-      {/* <div className="flex flex-col w-[400px] bg-gray-100 p-4 rounded shadow-lg">
-        <div className="text-xl flex p-2 bg-white justify-center rounded-t">
-          <div>New Budget</div>
-        </div>
-        <div className="mt-4">
-          <div className="text-xl flex p-2 bg-white justify-center rounded-b">
-            Title: 
-          </div>
-        </div>
-      </div> */}
       <div className="flex flex-col py-10 bg-white rounded-3xl border border-fuchsia-800 border-solid max-w-[726px]">
         <div className="self-center text-3xl font-bold text-black tracking-[2.1px]">
           New Budget
