@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import Links from "./Links/Links";
-import { logout } from "../../redux/authSlice";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
 import { MotionConfig, motion } from "framer-motion";
 import { VARIANTS } from "../../utils/Variants";
+import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
+import DropDownMenu from "../DropDownMenu";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/authSlice";
+import toast from "react-hot-toast";
 
 export default function Navbar({ scroll }) {
+  const [active, setActive] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [active, setActive] = useState(false);
 
   const handleLogOut = () => {
     dispatch(logout());
@@ -31,17 +34,11 @@ export default function Navbar({ scroll }) {
       <Link to={"/"}>
         <h1 className='text-lg'>Budget Tracker</h1>
       </Link>
-      <div className='h-full'>
+      <div className='h-full hidden md:flex'>
         <Links />
       </div>
       <div className='flex items-center gap-4 h-full'>
-        <button onClick={handleLogOut}>Logout</button>
-        <img
-          src='/gojo.jpeg'
-          alt='user avatar'
-          className='text-2xl text-main-red duration-500 hover:text-[#da3354] w-9 h-9 rounded-full border border-[#801AE5]'
-        />
-
+        <DropDownMenu />
         <MotionConfig
           transition={{
             duration: 0.5,
@@ -52,7 +49,7 @@ export default function Navbar({ scroll }) {
             initial={false}
             animate={active ? "open" : "closed"}
             onClick={toggleMenu}
-            className='relative h-10 w-10 rounded-full bg-white/0 transition-colors hover:bg-white/20 z-20'
+            className='relative h-10 w-10 rounded-full bg-white/0 transition-colors hover:bg-white/20 z-20 block md:hidden'
           >
             <motion.span
               variants={VARIANTS.top}
@@ -84,30 +81,67 @@ export default function Navbar({ scroll }) {
         animate={active ? "open" : "closed"}
         variants={VARIANTS.cornerMenu}
         className='fixed h-screen top-0 right-0 bottom-0 left-0 bg-gradient-to-br from-violet-500 to-indigo-500 z-10 p-8'
-        style={{ clipPath: "circle(0px at 100% 0)" }}
       >
-        <div className='flex items-start space-y-6 h-full'>
-          <div>
-            <Link to={"/"}>
-              <h1 className='text-lg'>Budget Tracker</h1>
+        <div className='w-full h-full flex flex-col justify-between '>
+          <Link to={"/"}>
+            <h1 className='text-2xl'>Budget Tracker</h1>
+          </Link>
+
+          <div className='space-y-6 p-12 pl-4 md:pl-20 flex flex-col items-start'>
+            <Link
+              to='/'
+              className='text-link duration-150 text-[2.5rem] md:text-7xl font-poppins font-semibold hover:text-indigo-800 block w-full'
+              style={{ opacity: 1, transform: "none" }}
+              onClick={toggleMenu}
+            >
+              home.
             </Link>
-          </div>
-          <div>
-            <Link to='/' className='text-white text-lg' onClick={toggleMenu}>
-              Home
+            <Link
+              to='/transaction'
+              className='text-link duration-150 text-[2.5rem] md:text-7xl font-poppins font-semibold hover:text-indigo-800 block w-full'
+              style={{ opacity: 1, transform: "none" }}
+              onClick={toggleMenu}
+            >
+              transaction.
             </Link>
-            <Link to='/transaction' className='text-white text-lg'>
-              Transaction Management
+            <Link
+              to='/budget'
+              className='text-link duration-150 text-[2.5rem] md:text-7xl font-poppins font-semibold hover:text-indigo-800 block w-full'
+              style={{ opacity: 1, transform: "none" }}
+              onClick={toggleMenu}
+            >
+              budget.
             </Link>
-            <Link to='/budget' className='text-white text-lg'>
-              BUdget Management
+            <Link
+              to='/profile'
+              className='text-link duration-150 text-[2.5rem] md:text-7xl font-poppins font-semibold hover:text-indigo-800 block w-full'
+              style={{ opacity: 1, transform: "none" }}
+              onClick={toggleMenu}
+            >
+              profile.
             </Link>
-            <Link to='/profile' className='text-white text-lg'>
-              Profile
-            </Link>
-            <button onClick={handleLogOut} className='text-white text-lg'>
-              Logout
+            <button
+              onClick={handleLogOut}
+              className='text-link duration-150 text-[2.5rem] md:text-7xl font-poppins font-semibold hover:text-indigo-800 block w-fit'
+              style={{ opacity: 1, transform: "none" }}
+            >
+              logout.
             </button>
+          </div>
+
+          <div className='flex gap-4 justify-start md:flex-col'>
+            <FaInstagram
+              size={30}
+              className='hover:text-indigo-800 duration-150 cursor-pointer'
+            />
+            <FaLinkedin
+              size={30}
+              className='hover:text-indigo-800 duration-150 cursor-pointer'
+            />
+            <FaGithub
+              size={30}
+              className='hover:text-indigo-800 duration-150 cursor-pointer'
+            />
           </div>
         </div>
       </motion.div>
