@@ -3,8 +3,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        roboto: "Roboto Sans",
-        poppins: "Poppins Sans",
+        roboto: "Roboto",
+        poppins: "Poppins",
       },
       colors: {
         main: {
