@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import Search from "../../components/Search/Search";
 import RecentBudget from "../../components/RecentBudget/RecentBudget";
 import BudgetImage from "../../components/BudgetImage/BudgetImage";
+import RecentTransaction from "../../components/RecentTransaction/RecentTransaction";
 
 export default function Dashboard() {
   const user = useSelector((state) => state.auth.user);
@@ -45,6 +46,12 @@ export default function Dashboard() {
           <div className=''>
             <BudgetImage />
           </div>
+
+          <div>
+          <RecentTransaction />
+        </div>
+
+
         </div>
       </div>
     </Layout>
