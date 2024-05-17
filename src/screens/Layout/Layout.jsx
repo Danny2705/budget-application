@@ -7,7 +7,7 @@ export default function Layout({ children }) {
   const [scroll, setScroll] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = () => {kfymjyfm
       setScroll(window.scrollY);
     };
 

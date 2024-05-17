@@ -7,8 +7,8 @@ import toast from "react-hot-toast";
 import { MotionConfig, motion } from "framer-motion";
 import { VARIANTS } from "../../utils/Variants";
 
-// TODO: Logo component for import, contains erroe
-// import {ReactComponent as Logo} from "./logo-no-background.svg"
+// TODO: Logo component for import, contains error
+// import {ReactComponent as Logo} from ""
 
 export default function Navbar({ scroll }) {
   const dispatch = useDispatch();
