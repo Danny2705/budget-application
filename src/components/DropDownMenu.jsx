@@ -49,7 +49,7 @@ const DropDownMenu = () => {
           initial={{ scaleY: 0 }}
           animate={{ scaleY: 1 }}
           exit={{ scaleY: 0 }}
-          className='absolute top-full right-0 w-48 p-2 bg-white rounded-lg shadow-lg'
+          className='absolute top-full right-0 w-48 p-2 bg-[#5a2d85] rounded-lg shadow-[#AA2D4F] shadow-xl'
         >
           <div className='flex items-center gap-3 cursor-pointer'>
             <img
@@ -58,7 +58,7 @@ const DropDownMenu = () => {
               className='text-2xl text-main-red duration-500 hover:text-[#da3354] w-9 h-9 rounded-full border border-[#801AE5]'
             />
             <div className='flex flex-col'>
-              <span className='text-black text-sm font-bold'>
+              <span className='text-white text-sm font-bold'>
                 {user.displayName}
               </span>
               <span className='text-[grey] text-[11px]'>{user.email}</span>
@@ -82,7 +82,7 @@ const MenuItem = ({ text, Icon, handleClick }) => {
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       onClick={handleClick}
-      className='flex items-center gap-2 w-full p-2 text-xs font-medium whitespace-nowrap rounded-md hover:bg-indigo-100 text-slate-700 hover:text-indigo-500 transition-colors cursor-pointer'
+      className='flex items-center gap-2 w-full p-2 text-xs font-medium whitespace-nowrap rounded-md hover:bg-indigo-100 text-white hover:text-black transition-colors cursor-pointer'
     >
       <Icon />
       <span>{text}</span>
