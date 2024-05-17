@@ -77,3 +77,8 @@ body {
   padding: 15px 1rem;
   height: 60px;
 }
+
+.text-link {
+  --tw-text-opacity: 1;
+  color: rgb(167 139 250 / var(--tw-text-opacity));
+}
