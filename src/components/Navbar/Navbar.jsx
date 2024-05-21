@@ -29,10 +29,11 @@ export default function Navbar({ scroll }) {
     <div
       className={`navbar ${
         scroll > 50 ? "scrolled" : undefined
-      } flex items-center bg-transparent text-white h-[50px] px-4 justify-between fixed top-3 left-0 right-0 z-20`}
+      } flex items-center bg-transparent text-white h-[50px] px-4 justify-between fixed top-3 left-0 right-0 z-20 py-10`}
     >
-      <Link to={"/"}>
-        <h1 className='text-lg'>Budget Tracker</h1>
+      <Link to={"/"} className='flex items-center gap-3'>
+        <img src='/logo.png' alt='Wallet' width={40} />
+        <h1>VioVault</h1>
       </Link>
       <div className='h-full hidden md:flex'>
         <Links />
