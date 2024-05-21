@@ -12,6 +12,9 @@ import {
   isSameMonth,
   isSameDay,
   addMonths,
+  isAfter,
+  isBefore,
+  isEqual,
 } from "date-fns";
 
 // MODED from ChatGPT: { can you write me a calender i can use in that component? }
@@ -76,8 +79,11 @@ function DateCalendar() {
             className={`flex-1 p-2 text-center cursor-pointer ${
               !isSameMonth(day, monthStart)
                 ? "text-gray-400"
-                : isSameDay(day, selectedStartDate) || isSameDay(day, selectedEndDate)
+                : isSameDay(day, selectedStartDate) ||
+                  isSameDay(day, selectedEndDate)
                 ? "bg-purple-700 text-white rounded-lg"
+                : isWithinRange(day, selectedStartDate, selectedEndDate)
+                ? "bg-purple-300 text-white rounded-lg"
                 : "hover:bg-purple-300 "
             }`}
             key={day}
@@ -102,9 +108,21 @@ function DateCalendar() {
     if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
       setSelectedStartDate(day);
       setSelectedEndDate(null);
-    } else if (selectedStartDate && !selectedEndDate && day > selectedStartDate) {
+    } else if (
+      selectedStartDate &&
+      !selectedEndDate &&
+      day > selectedStartDate
+    ) {
       setSelectedEndDate(day);
     }
+  };
+
+  const isWithinRange = (date, startDate, endDate) => {
+    if (!startDate || !endDate) return false;
+    return (
+      (isAfter(date, startDate) || isEqual(date, startDate)) &&
+      (isBefore(date, endDate) || isEqual(date, endDate))
+    );
   };
 
   const nextMonth = () => {
@@ -116,7 +134,7 @@ function DateCalendar() {
   };
 
   return (
-    <div className="flex rounded-lg my-2 py-2 shadow-lg gap-2 mt-6 bg-black">
+    <div className="flex rounded-lg my-2 py-2 shadow-lg gap-2 mt-6">
       <div className="w-full max-w-md mx-auto">
         {renderHeader()}
         {renderDays()}
