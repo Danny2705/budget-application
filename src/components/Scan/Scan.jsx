@@ -5,11 +5,7 @@ import { FiBatteryCharging, FiWifi } from "react-icons/fi";
 const Scan = () => {
   return (
     <section className='items-center w-full justify-evenly place-content-center bg-neutral-900 p-2 mt-6 flex flex-wrap'>
-      <AnimatedImage
-        src='/scan-receipt.png'
-        alt='Scan Receipt Phone'
-        width={230}
-      />
+      <AnimatedImage src='/scan-receipt.png' alt='Scan Receipt Phone' />
       <FloatingPhone />
     </section>
   );
@@ -20,7 +16,6 @@ const AnimatedImage = ({ src, alt, width }) => {
     <motion.img
       src={src}
       alt={alt}
-      width={width}
       initial={{
         transform: "translateZ(8px) translateY(-2px)",
       }}
@@ -33,7 +28,7 @@ const AnimatedImage = ({ src, alt, width }) => {
         duration: 2,
         ease: "easeInOut",
       }}
-      className='rounded-lg shadow-lg'
+      className='rounded-lg shadow-lg w-[12rem] lg:w-[15rem]'
     />
   );
 };
