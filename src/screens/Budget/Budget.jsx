@@ -10,7 +10,7 @@ export default function Budget() {
     <Layout>
       <h1 className='mt-[60px] text-white'>Budget</h1>
       <div>
-        <NewBudget/>
+        <NewBudget />
       </div>
     </Layout>
   );
