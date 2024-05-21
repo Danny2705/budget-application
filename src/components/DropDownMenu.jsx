@@ -34,7 +34,7 @@ const DropDownMenu = () => {
           <img
             src='/gojo.jpeg'
             alt='user avatar'
-            className='text-2xl text-main-red duration-500 hover:text-[#da3354] w-9 h-9 rounded-full border border-[#801AE5]'
+            className='text-2xl text-main-red duration-500 hover:text-[#da3354] w-9 h-9 rounded-full'
           />
         </span>
         <motion.span
