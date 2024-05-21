@@ -1,5 +1,7 @@
 import React from "react";
+
 // code referenced from figma and edited by Emon//
+
 export default function RecentBudget() {
   return (
     <div className="max-md:max-w-full w-full">
