@@ -5,14 +5,10 @@ import Search from "../../components/Search/Search";
 import RecentBudget from "../../components/RecentBudget/RecentBudget";
 import BudgetImage from "../../components/BudgetImage/BudgetImage";
 
-//TODO: erase this once done testing
-import generateDate from "../../components/CreateBudget";
-console.log(generateDate());
-
-
 export default function Dashboard() {
   const user = useSelector((state) => state.auth.user);
-  console.log(user);
+  // console.log(user);
+
   return (
     <Layout>
       <div className='mt-[90px]'>

@@ -1,17 +1,15 @@
 // Reference: a) "builder IO" - https://www.builder.io/ b) figma
 // Create new budget component
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import dayjs from "dayjs";
+import { addDays, startOfDay } from "date-fns";
 
-const generateDate = (month = dayjs().month(), year = dayjs().year()) => {
-const firstDateOfMonth = dayjs().year(year).month(month).startOf("month");
-const lastDateOfMonth = dayjs().year(year).month(month).endOf("month");
+export function dateCalendar() {
+  const date = new Date();
+  const tommorow = addDays(date, 1);
+  return date, tommorow;
+}
 
-return [firstDateOfMonth, lastDateOfMonth]
-
-};
- console.log(generateDate());
-export function CreateBudget() {
+export default function CreateBudget() {
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="flex flex-col py-10 bg-white rounded-3xl border border-fuchsia-800 border-solid max-w-[726px]">
@@ -40,6 +38,7 @@ export function CreateBudget() {
               placeholder="Select budget period"
             />
           </div>
+          <div>your date is{() => dateCalendar()}</div>
         </div>
         <div className="p-2">
           <div className="justify-center items-center px-16 py-4 mt-6 text-xl font-semibold tracking-widest text-black bg-indigo-300 rounded-2xl border border-fuchsia-800 border-solid max-md:px-5 max-md:max-w-full">
@@ -50,5 +49,3 @@ export function CreateBudget() {
     </div>
   );
 }
-
-export default generateDate;
