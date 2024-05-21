@@ -9,7 +9,22 @@ import RecentTransaction from "../../components/RecentTransaction/RecentTransact
 
 export default function Dashboard() {
   const user = useSelector((state) => state.auth.user);
-  console.log(user);
+
+  const getGreeting = () => {
+    const currentHour = new Date().getHours();
+    if (currentHour >= 6 && currentHour < 12) {
+      return "Good morning";
+    } else if (currentHour >= 12 && currentHour < 18) {
+      return "Good afternoon";
+    } else if (currentHour >= 18 && currentHour < 24) {
+      return "Good evening";
+    } else {
+      return "Good night";
+    }
+  };
+
+  const greeting = getGreeting();
+
   return (
     <Layout>
       <div className='mt-[90px]'>
@@ -18,7 +33,7 @@ export default function Dashboard() {
         </div>
 
         <h1 className=' text-main-darkPink font-bold text-xl md:text-4xl lg:text-4xl mt-4 tracking-wider px-4 xl:px-20'>
-          Good morning,{" "}
+          {greeting},{" "}
           <span className='text-[#801AE5]'>{user.displayName}!</span>
         </h1>
 
