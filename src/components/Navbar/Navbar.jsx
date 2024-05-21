@@ -3,6 +3,11 @@ import Links from "./Links/Links";
 import { Link, useNavigate } from "react-router-dom";
 import { MotionConfig, motion } from "framer-motion";
 import { VARIANTS } from "../../utils/Variants";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/authSlice";
+import toast from "react-hot-toast";
+import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
+import DropDownMenu from "../DropDownMenu";
 
 export default function Navbar({ scroll }) {
   const [active, setActive] = useState(false);
