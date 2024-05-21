@@ -49,13 +49,12 @@ export default function Dashboard() {
           </div>
     
           <div className="mt-5">
-      
             <h2 className='text-[#E5E8EB] text-lg md:text-2xl font-bold tracking-wide'>
-              Recent Budgets
+              Recent Transactions
             </h2>
             <RecentTransaction />
           </div>
-          
+
           <div>
             <Scan />
           </div>
