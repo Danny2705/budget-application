@@ -4,14 +4,14 @@ import { FiBatteryCharging, FiWifi } from "react-icons/fi";
 
 const Scan = () => {
   return (
-    <section className='items-center w-full justify-evenly place-content-center bg-neutral-900 p-2 mt-6 flex flex-wrap'>
+    <section className='items-center w-full justify-evenly place-content-center bg-transparent p-2 mt-6 flex flex-wrap'>
       <AnimatedImage src='/scan-receipt.png' alt='Scan Receipt Phone' />
       <FloatingPhone />
     </section>
   );
 };
 
-const AnimatedImage = ({ src, alt, width }) => {
+const AnimatedImage = ({ src, alt }) => {
   return (
     <motion.img
       src={src}
