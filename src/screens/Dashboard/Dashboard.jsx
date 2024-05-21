@@ -53,7 +53,7 @@ export default function Dashboard() {
             <button className='text-white text-sm'>View more budgets</button>
           </div>
 
-          <div className="flex items-center w-full gap-10 flex-wrap">
+          <div className="flex items-center w-full gap-10">
             <RecentBudget />
             <RecentBudget />
             <RecentBudget />
