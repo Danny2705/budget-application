@@ -39,7 +39,6 @@ function DateCalendar() {
       </div>
     );
   };
-
   const renderDays = () => {
     const dateFormat = "EEE";
     const days = [];
