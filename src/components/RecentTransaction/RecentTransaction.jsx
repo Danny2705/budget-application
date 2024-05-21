@@ -45,7 +45,7 @@ export default function RecentTransaction() {
     },
     {
       id: "2465340",
-      vendor: "GG Cafe’",
+      vendor: "GG Cafe",
       date: "03/27/2023",
       location: "Calgary, AB",
       subtotal: "$27.60",
