@@ -14,9 +14,11 @@ import {
   addMonths,
 } from "date-fns";
 
-export function DateCalendar() {
+// MODED from ChatGPT: { can you write me a calender i can use in that component? }
+function DateCalendar() {
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedStartDate, setSelectedStartDate] = useState(null);
+  const [selectedEndDate, setSelectedEndDate] = useState(null);
 
   const renderHeader = () => {
     const dateFormat = "MMMM yyyy";
@@ -44,7 +46,7 @@ export function DateCalendar() {
     for (let i = 0; i < 7; i++) {
       days.push(
         <div className="flex-1 text-center p-2" key={i}>
-          {format(addDays(startDate, i), dateFormat)}
+          {format(addDays(startDate, i), dateFormat).toUpperCase()}
         </div>
       );
     }
@@ -74,9 +76,9 @@ export function DateCalendar() {
             className={`flex-1 p-2 text-center cursor-pointer ${
               !isSameMonth(day, monthStart)
                 ? "text-gray-400"
-                : isSameDay(day, selectedDate)
-                ? "bg-blue-500 text-white rounded-full"
-                : "hover:bg-gray-200"
+                : isSameDay(day, selectedStartDate) || isSameDay(day, selectedEndDate)
+                ? "bg-purple-700 text-white rounded-lg"
+                : "hover:bg-purple-300 "
             }`}
             key={day}
             onClick={() => onDateClick(cloneDay)}
@@ -97,7 +99,12 @@ export function DateCalendar() {
   };
 
   const onDateClick = (day) => {
-    setSelectedDate(day);
+    if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
+      setSelectedStartDate(day);
+      setSelectedEndDate(null);
+    } else if (selectedStartDate && !selectedEndDate && day > selectedStartDate) {
+      setSelectedEndDate(day);
+    }
   };
 
   const nextMonth = () => {
@@ -109,15 +116,18 @@ export function DateCalendar() {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto">
-      {renderHeader()}
-      {renderDays()}
-      {renderCells()}
+    <div className="flex rounded-lg my-2 py-2 shadow-lg gap-2 mt-6 bg-black">
+      <div className="w-full max-w-md mx-auto">
+        {renderHeader()}
+        {renderDays()}
+        {renderCells()}
+      </div>
     </div>
   );
 }
 // console.log(DateCalendar());
 
+// MODED from FIGMA
 export default function CreateBudget() {
   return (
     <div className="flex items-center justify-center h-screen">
