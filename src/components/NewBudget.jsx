@@ -145,7 +145,7 @@ function DateCalendar() {
 // console.log(DateCalendar());
 
 // MODED from FIGMA
-export default function CreateBudget() {
+export default function NewBudget() {
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="flex flex-col py-10 bg-white rounded-3xl border border-fuchsia-800 border-solid max-w-[726px]">
