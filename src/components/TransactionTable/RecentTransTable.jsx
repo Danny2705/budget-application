@@ -1,15 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
-const tableHead = [
-  { name: "Transaction No." },
-  { name: "Vender" },
-  { name: "Date" },
-  { name: "Category" },
-  { name: "Total(CAD$)" },
-  { name: "Action" },
-];
-
 const transactionData = [
   {
     TransactionNo: "2465343",
