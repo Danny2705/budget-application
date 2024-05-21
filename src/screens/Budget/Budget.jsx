@@ -3,7 +3,7 @@ import Layout from "../Layout/Layout";
 
 // TODO: see calendar component render on page
 // REMOVE component and insert where needed
-import NewBudget from "../../components/make-budget";
+import NewBudget from "../../components/NewBudget";
 
 export default function Budget() {
   return (
