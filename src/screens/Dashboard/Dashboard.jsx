@@ -5,6 +5,7 @@ import Search from "../../components/Search/Search";
 import RecentBudget from "../../components/RecentBudget/RecentBudget";
 import BudgetImage from "../../components/BudgetImage/BudgetImage";
 import Scan from "../../components/Scan/Scan";
+import RecentTransaction from "../../components/RecentTransaction/RecentTransaction";
 
 export default function Dashboard() {
   const user = useSelector((state) => state.auth.user);
@@ -37,14 +38,24 @@ export default function Dashboard() {
             <button className='text-white text-sm'>View more budgets</button>
           </div>
 
-          <div>
+          <div className="flex items-center w-full gap-10">
+            <RecentBudget />
+            <RecentBudget />
             <RecentBudget />
           </div>
 
           <div>
             <BudgetImage />
           </div>
-
+    
+          <div className="mt-5">
+      
+            <h2 className='text-[#E5E8EB] text-lg md:text-2xl font-bold tracking-wide'>
+              Recent Budgets
+            </h2>
+            <RecentTransaction />
+          </div>
+          
           <div>
             <Scan />
           </div>
