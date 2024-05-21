@@ -19,8 +19,9 @@ export default function RecentBudget() {
           <div className="self-end mt-8 text-sm leading-5 pr-1 text-black">
             $200 out of $500
           </div>
-          <div className="flex flex-col justify-center mt-1.5 rounded-2xl border border-fuchsia-800 border-solid bg-zinc-500 mr-1">
-            <div className="shrink-0 rounded-2xl border border-fuchsia-800 border-solid bg-zinc-600 h-[18px]" />
+          <div className="flex mt-1.5 h-[18px] rounded-2xl border border-fuchsia-800 border-solid bg-zinc-500 mr-1 overflow-hidden">
+        <div className="w-1/2 bg-zinc-600" />
+          <div className="w-1/2 bg-purple-500" />
           </div>
         </div>
       </div>
