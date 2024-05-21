@@ -13,7 +13,6 @@ import "../src/App.scss";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
-
   return (
     <BrowserRouter>
       <Toaster position='top-right' />
