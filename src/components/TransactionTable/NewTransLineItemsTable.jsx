@@ -88,16 +88,16 @@ export default function NewTransLineItemsTable() {
                 <td className="border-b px-4 py-2 text-center">
                   {val.Item}
                 </td>
-                <td className="border-b border-l px-4 py-2 text-center">
+                <td className="border-b border-l px-[32px] py-2">
                   {val.Price}
                 </td>
                 <td className="border-b border-l px-4 py-2 text-center">
                   {val.Quantity}
                 </td>
-                <td className="border-b border-l px-4 py-2 text-center">
+                <td className="border-b border-l px-[32px] py-2">
                   {val.Total}
                 </td>
-                <td className="border-b border-l px-[32px] py-2">
+                <td className="border-b border-l px-[32px] py-2 text-center">
                   {val.Category}
                 </td>
                 <td className="border-b border-l px-4 py-2">

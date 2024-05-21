@@ -1,52 +1,61 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
+const tableHead = [
+  { name: "Transaction No." },
+  { name: "Vender" },
+  { name: "Date" },
+  { name: "Category" },
+  { name: "Total(CAD$)" },
+  { name: "Action" },
+];
+
 const transactionData = [
   {
     TransactionNo: "2465343",
     Vender: "Walgreens",
     Date: "03/28/2023",
     Category: "Grocery",
-    Total: "50.00",
+    Total: "$50.00",
   },
   {
     TransactionNo: "2465344",
     Vender: "Walmart",
     Date: "03/29/2023",
     Category: "Food",
-    Total: "60.00",
+    Total: "$60.00",
   },
   {
     TransactionNo: "2465345",
     Vender: "AB Clean",
     Date: "03/30/2023",
     Category: "Housing",
-    Total: "70.00",
+    Total: "$70.00",
   },
   {
     TransactionNo: "2465346",
     Vender: "Walgreens",
     Date: "03/31/2023",
     Category: "Grocery",
-    Total: "50.00",
+    Total: "$50.00",
   },
   {
     TransactionNo: "2465347",
     Vender: "Walmart",
     Date: "04/01/2023",
     Category: "Food",
-    Total: "60.00",
+    Total: "$60.00",
   },
   {
     TransactionNo: "2465348",
     Vender: "CC Car Wash",
     Date: "04/02/2023",
     Category: "Car",
-    Total: "30.00",
+    Total: "$30.00",
   },
 ];
 
-export default function RecentTransTable() {
+export default function RecentTransactionTable() {
   return (
     <div className="py-[48px] flex justify-center">
       <table className="bg-[#26264F] text-white border-separate border rounded-lg">
