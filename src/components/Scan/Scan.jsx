@@ -1,72 +1,101 @@
 import React from "react";
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
+import { FiBatteryCharging, FiWifi } from "react-icons/fi";
 
-export default function Scan() {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+const Scan = () => {
+  return (
+    <section className='items-center w-full justify-evenly place-content-center bg-neutral-900 p-2 mt-6 flex flex-wrap'>
+      <AnimatedImage
+        src='/scan-receipt.png'
+        alt='Scan Receipt Phone'
+        width={230}
+      />
+      <FloatingPhone />
+    </section>
+  );
+};
 
-  const xRange = [-100, 100];
-  const yRange = [-100, 100];
-  const rotateX = useTransform(mouseY, yRange, [20, -20]);
-  const rotateY = useTransform(mouseX, xRange, [-20, 20]);
+const AnimatedImage = ({ src, alt, width }) => {
+  return (
+    <motion.img
+      src={src}
+      alt={alt}
+      width={width}
+      initial={{
+        transform: "translateZ(8px) translateY(-2px)",
+      }}
+      animate={{
+        transform: "translateZ(32px) translateY(-8px)",
+      }}
+      transition={{
+        repeat: Infinity,
+        repeatType: "mirror",
+        duration: 2,
+        ease: "easeInOut",
+      }}
+      className='rounded-lg shadow-lg'
+    />
+  );
+};
 
-  const handleMouseMove = (event) => {
-    mouseX.set(event.clientX - window.innerWidth / 2);
-    mouseY.set(event.clientY - window.innerHeight / 2);
-  };
-
+const FloatingPhone = () => {
   return (
     <div
-      className='flex flex-col items-center mt-6'
-      onMouseMove={handleMouseMove}
+      style={{
+        transformStyle: "preserve-3d",
+        transform: "rotateY(-30deg) rotateX(15deg)",
+      }}
+      className='rounded-[24px] bg-violet-500'
     >
-      <div className='bg-purple-200 p-6 mb-6 rounded-lg shadow-md'>
-        <h1 className='text-2xl font-bold text-center text-purple-800'>
-          Intelligent OCR Technology
-        </h1>
-      </div>
-
-      <div className='flex gap-10 items-center'>
-        <motion.div
-          style={{
-            perspective: "1000px",
-            transformStyle: "preserve-3d",
-          }}
-          className='w-[350px] h-[700px] flex justify-center items-center'
-        >
-          <motion.img
-            src='/scan-receipt.png'
-            alt='phone scanning receipt'
-            className='w-full h-full object-cover'
-            style={{
-              rotateX,
-              rotateY,
-              willChange: "transform",
-              transition: {
-                type: "spring",
-                damping: 10,
-                stiffness: 100,
-              },
-            }}
-          />
-        </motion.div>
-        <div className='relative w-[350px] h-[700px]'>
-          <img
-            src='/phone.png'
-            alt='Iphone frame'
-            className='w-full h-full object-cover'
-          />
-          <div className='absolute inset-0 flex items-start top-[7rem] left-5'>
-            <p className='px-8 text-[2.5rem] font-poppins h-full'>
-              Looking for a new way of uploading receipt and bill into budget
-              application?
-            </p>
-          </div>
-          <button className='px-8 bottom-[6.5rem] left-[5rem] w-[50%] bg-[#6859C9] font-poppins absolute p-1 rounded-full text-white text-lg'>
-            Visit
-          </button>
-        </div>
-      </div>
+      <motion.div
+        initial={{
+          transform: "translateZ(8px) translateY(-2px)",
+        }}
+        animate={{
+          transform: "translateZ(32px) translateY(-8px)",
+        }}
+        transition={{
+          repeat: Infinity,
+          repeatType: "mirror",
+          duration: 2,
+          ease: "easeInOut",
+        }}
+        className='relative h-96 w-56 rounded-[24px] border-2 border-b-4 border-r-4 border-white border-l-neutral-200 border-t-neutral-200 bg-neutral-900 p-1 pl-[3px] pt-[3px]'
+      >
+        <HeaderBar />
+        <Screen />
+      </motion.div>
     </div>
   );
-}
+};
+
+const HeaderBar = () => {
+  return (
+    <>
+      <div className='absolute left-[50%] top-2.5 z-10 h-2 w-16 -translate-x-[50%] rounded-md bg-neutral-900'></div>
+      <div className='absolute right-3 top-2 z-10 flex gap-2'>
+        <FiWifi className='text-neutral-600' />
+        <FiBatteryCharging className='text-neutral-600' />
+      </div>
+    </>
+  );
+};
+
+const Screen = () => {
+  return (
+    <div className='relative z-0 grid h-full w-full place-content-center overflow-hidden rounded-[20px] bg-white'>
+      <div className='absolute inset-0 flex items-center justify-center p-4'>
+        <p className='text-center text-xl font-poppins text-violet-500'>
+          Looking for a new way of uploading receipt and bill into budget
+          application?
+        </p>
+      </div>
+      <button className='absolute bottom-4 left-4 right-4 z-10 rounded-lg border-[1px] bg-violet-500 py-2 text-sm font-medium text-white backdrop-blur'>
+        Visit
+      </button>
+      <div className='absolute -bottom-72 left-[50%] h-96 w-96 -translate-x-[50%] rounded-full bg-violet-500' />
+    </div>
+  );
+};
+
+export default Scan;
