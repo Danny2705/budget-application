@@ -49,7 +49,7 @@ const DropDownMenu = () => {
           initial={{ scaleY: 0 }}
           animate={{ scaleY: 1 }}
           exit={{ scaleY: 0 }}
-          className='absolute top-full right-0 w-48 p-2 bg-[#5a2d85] rounded-lg shadow-[#AA2D4F] shadow-xl'
+          className='absolute top-full right-0 w-48 p-2 bg-[#7d3fb6] rounded-lg shadow-[#AA2D4F] shadow-xl'
         >
           <div className='flex items-center gap-3 cursor-pointer'>
             <img
@@ -58,10 +58,10 @@ const DropDownMenu = () => {
               className='text-2xl text-main-red duration-500 hover:text-[#da3354] w-9 h-9 rounded-full border border-[#801AE5]'
             />
             <div className='flex flex-col'>
-              <span className='text-white text-sm font-bold'>
+              <span className='text-black text-sm font-bold'>
                 {user.displayName}
               </span>
-              <span className='text-[grey] text-[11px]'>{user.email}</span>
+              <span className='text-[#b6b6b6] text-[11px]'>{user.email}</span>
             </div>
           </div>
           <Link to='/profile'>
