@@ -142,7 +142,6 @@ function DateCalendar() {
     </div>
   );
 }
-// console.log(DateCalendar());
 
 // MODED from FIGMA
 export default function NewBudget() {
@@ -177,7 +176,7 @@ export default function NewBudget() {
           <DateCalendar />
         </div>
         <div className="p-2">
-          <div className="justify-center items-center px-16 py-4 mt-6 text-xl font-semibold tracking-widest text-black bg-indigo-300 rounded-2xl border border-fuchsia-800 border-solid max-md:px-5 max-md:max-w-full">
+          <div className="flex justify-center items-center px-16 py-4 mt-6 text-xl font-semibold tracking-widest text-black bg-indigo-300 rounded-2xl border border-fuchsia-800 border-solid max-md:px-5 max-md:max-w-full">
             Save New Budget
           </div>
         </div>
