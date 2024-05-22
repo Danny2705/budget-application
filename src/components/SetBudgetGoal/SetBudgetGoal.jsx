@@ -2,13 +2,20 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import RecentBudget from "../RecentBudget/RecentBudget";
 import RecentTransTable from "../TransactionTable/RecentTransTable";
+import NewBudget from "../NewBudget.jsx";
 import { FaPlus } from "react-icons/fa";
+import { IoMdClose } from "react-icons/io";
 
 export default function SetBudgetGoal() {
   const [activeButton, setActiveButton] = useState("activeBudgets");
+  const [click, setClick] = useState(false);
+
+  const handleClick = () => {
+    setClick((prev) => !prev);
+  };
 
   return (
-    <div className='p-4'>
+    <div className='p-4 relative'>
       <div className='flex gap-2 mb-6 text-lg w-full'>
         <button
           className={`py-2 px-3 rounded ${
@@ -32,9 +39,23 @@ export default function SetBudgetGoal() {
         </button>
 
         <button className='ml-auto bg-gray-600 w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-pink-600 transition duration-300'>
-          <FaPlus />
+          <FaPlus onClick={handleClick} />
         </button>
       </div>
+
+      {click && (
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-opacity-50 bg-gray-900'>
+          <div className='relative w-full  backdrop-blur-sm rounded-lg p-8'>
+            <NewBudget />
+            <button
+              className='absolute right-4 top-10 bg-gray-600 w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-pink-600 transition duration-300'
+              onClick={handleClick}
+            >
+              <IoMdClose />
+            </button>
+          </div>
+        </div>
+      )}
 
       <div className='relative'>
         <AnimatePresence mode='wait'>
