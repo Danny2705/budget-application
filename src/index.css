@@ -82,3 +82,8 @@ body {
   --tw-text-opacity: 1;
   color: rgb(167 139 250 / var(--tw-text-opacity));
 }
+
+.hover\:bg-neon-pink:hover {
+  background-color: #f910f9;
+  box-shadow: 0 0 10px #f910f9, 0 0 20px #f910f9, 0 0 30px #f910f9;
+}
