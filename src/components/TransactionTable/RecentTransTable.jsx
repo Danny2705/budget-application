@@ -48,33 +48,33 @@ const transactionData = [
 
 export default function RecentTransTable() {
   return (
-    <div className="py-[48px] flex justify-center">
-      <table className="bg-[#26264F] text-white border-separate border rounded-lg">
+    <div className='py-[48px] flex justify-center'>
+      <table className='bg-[#26264F] text-white border-separate border rounded-lg'>
         <thead>
           <tr>
             {/* control boarder radius of the table head; refer from 
             https://stackoverflow.com/questions/4932181/rounded-table-corners-css-only */}
-            <th className="border-b px-[64px] py-2 bg-[#1D1E42] text-white">
+            <th className='border-b px-[64px] py-2 bg-[#1D1E42] text-white'>
               Transaction No.
             </th>
-            <th className="border-b border-l px-[64px] py-2 bg-[#1D1E42] text-white">
+            <th className='border-b border-l px-[64px] py-2 bg-[#1D1E42] text-white'>
               Vender
             </th>
-            <th className="border-b border-l px-[64px] py-2 bg-[#1D1E42] text-white">
+            <th className='border-b border-l px-[64px] py-2 bg-[#1D1E42] text-white'>
               Date
             </th>
-            <th className="border-b border-l px-[64px] py-2 bg-[#1D1E42] text-white">
+            <th className='border-b border-l px-[64px] py-2 bg-[#1D1E42] text-white'>
               Category
             </th>
-            <th className="border-b border-l px-[64px] py-2 bg-[#1D1E42] text-white">
+            <th className='border-b border-l px-[64px] py-2 bg-[#1D1E42] text-white'>
               Total(CAD$)
             </th>
-            <th className="border-b border-l px-[64px] py-2 bg-[#1D1E42] text-white">
+            <th className='border-b border-l px-[64px] py-2 bg-[#1D1E42] text-white'>
               Action
             </th>
           </tr>
         </thead>
-        <tbody className="text-white">
+        <tbody className='text-white'>
           {transactionData.map((val, key) => {
             return (
               /* switch color of the row refer from https://chatgpt.com/
@@ -84,24 +84,24 @@ export default function RecentTransTable() {
                 key={key}
                 className={key % 2 === 0 ? "bg-[#26264F]" : "bg-[#1D1E42]"}
               >
-                <td className="border-b px-4 py-2 text-center">
+                <td className='border-b px-4 py-2 text-center'>
                   {val.TransactionNo}
                 </td>
-                <td className="border-b border-l px-4 py-2 text-center">
+                <td className='border-b border-l px-4 py-2 text-center'>
                   {val.Vender}
                 </td>
-                <td className="border-b border-l px-4 py-2 text-center">
+                <td className='border-b border-l px-4 py-2 text-center'>
                   {val.Date}
                 </td>
-                <td className="border-b border-l px-4 py-2 text-center">
+                <td className='border-b border-l px-4 py-2 text-center'>
                   {val.Category}
                 </td>
-                <td className="border-b border-l px-[32px] py-2">
+                <td className='border-b border-l px-[32px] py-2'>
                   {val.Total}
                 </td>
-                <td className="border-b border-l px-4 py-2">
-                  <div className="flex flex-row justify-center">
-                    <button className="pr-[32px]">
+                <td className='border-b border-l px-4 py-2'>
+                  <div className='flex flex-row justify-center'>
+                    <button className='pr-[32px]'>
                       {/* #624DE3 is the color in the Figna Design */}
                       <FontAwesomeIcon
                         icon={faPenToSquare}
