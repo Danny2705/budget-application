@@ -5,7 +5,7 @@ import React from "react";
 export default function RecentBudget() {
   return (
     <div className="max-md:max-w-full w-full">
-    <div className="flex gap-5 max-md:flex-col max-md:gap-0">
+    <div className="flex flex-wrap gap-5 max-md:flex-col max-md:gap-0">
       <div className="flex flex-col w-full max-md:ml-0 max-md:w-full">
         <div className="flex flex-col grow py-3 pl-2.5 mx-auto w-full bg-purple-300 rounded-2xl border border-black border-solid shadow-[0px_4px_4px_rgba(0,0,0,0.25)] max-md:mt-7">
           <div className="flex gap-5 justify-between text-black">
