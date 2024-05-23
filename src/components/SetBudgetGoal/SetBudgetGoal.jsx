@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import RecentBudget from "../RecentBudget/RecentBudget";
 import RecentTransTable from "../TransactionTable/RecentTransTable";
-import NewBudget from "../NewBudget.jsx";
+import NewBudget from "../NewBudget/NewBudget.jsx";
 import { FaPlus } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 

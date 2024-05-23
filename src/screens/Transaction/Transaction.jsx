@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../Layout/Layout";
-import NewBudget from "../../components/NewBudget";
+import NewBudget from "../../components/NewBudget/NewBudget";
 
 export default function Transaction() {
   // TODO:see calendar component render on page
