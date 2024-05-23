@@ -22,6 +22,7 @@ export default function RecentBudget() {
             $200 out of $500
           </div>
            {/* chatgpt prompt: "how to add overflow-hidden to the div below?" */}
+           
            {/* chatgpt prompt: how to edit progress bar? */}
           <div className="flex mt-1.5 h-[18px] rounded-2xl border border-fuchsia-800 border-solid bg-zinc-500 mr-1 overflow-hidden">
         <div className="w-1/2 bg-zinc-600" />
