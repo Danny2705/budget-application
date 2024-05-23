@@ -5,7 +5,9 @@ import * as React from "react";
 export default function RecentTransaction() {
   const transactions = [
     {
-      id: "2465343",
+      transactionId: "2465343",
+      budgetId: "123456",
+      budgetName: "Grocery",
       vendor: "Walgreens",
       date: "03/28/2023",
       location: "Calgary, AB",
@@ -18,7 +20,9 @@ export default function RecentTransaction() {
       ],
     },
     {
-      id: "2465342",
+      transactionId: "2465343",
+      budgetId: "123456",
+      budgetName: "Grocery",
       vendor: "Walmart",
       date: "03/28/2023",
       location: "Calgary, AB",
@@ -31,7 +35,9 @@ export default function RecentTransaction() {
       ],
     },
     {
-      id: "2465341",
+      transactionId: "2465343",
+      budgetId: "123456",
+      budgetName: "Grocery",
       vendor: "AB Clean",
       date: "03/27/2023",
       location: "Calgary, AB",
@@ -44,7 +50,9 @@ export default function RecentTransaction() {
       ],
     },
     {
-      id: "2465340",
+      transactionId: "2465343",
+      budgetId: "123456",
+      budgetName: "Grocery",
       vendor: "GG Cafe",
       date: "03/27/2023",
       location: "Calgary, AB",
@@ -57,8 +65,10 @@ export default function RecentTransaction() {
       ],
     },
     {
-      id: "2465339",
-      vendor: "CC Car wash",
+      transactionId: "2465343",
+      budgetId: "123456",
+      budgetName: "Grocery",
+      vendor: "CC Car",
       date: "03/27/2023",
       location: "Calgary, AB",
       subtotal: "$27.60",
@@ -88,6 +98,7 @@ export default function RecentTransaction() {
         {transactions.map((transaction, index) => (
           <div
             key={transaction.id}
+
             className={`grid grid-cols-8 gap-2 p-4 ${
               index % 2 === 0 ? "bg-gray-800" : "bg-gray-700"
             } text-white`}
