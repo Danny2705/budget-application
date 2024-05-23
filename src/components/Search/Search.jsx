@@ -7,7 +7,7 @@ export default function Search() {
       <input
         type='text'
         placeholder='Search for expenses by item description, city, date'
-        className='w-[300px] md:w-[500px] text-white bg-transparent border-2 border-secondary-orangeRed p-[0.15rem] md:p-2 outline-none'
+        className='w-[300px] md:w-[500px] text-white bg-transparent border-2 border-secondary-orangeRed p-[0.15rem] md:p-2 outline-none rounded-md'
       />
       <IoSearch size={30} className='text-secondary-orangeRed cursor-pointer' />
     </div>

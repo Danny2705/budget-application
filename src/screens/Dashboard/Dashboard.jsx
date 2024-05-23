@@ -46,7 +46,7 @@ export default function Dashboard() {
           <Search />
         </div>
 
-        <h1 className=" text-main-darkPink font-bold text-xl md:text-4xl lg:text-4xl mt-4 tracking-wider px-4 xl:px-20">
+        <h1 className="text-main-neonPink font-bold text-xl md:text-4xl lg:text-4xl mt-4 tracking-wider px-4 xl:px-20">
           {greets}, <span className="text-[#801AE5]">{user.displayName}!</span>
         </h1>
 
@@ -64,7 +64,7 @@ export default function Dashboard() {
               Recent Budgets
             </h2>
             <Link to='/budget'>
-              <button className='text-[yellow] text-sm'>
+              <button className='text-white text-sm'>
                 View more budgets
               </button>
             </Link>
