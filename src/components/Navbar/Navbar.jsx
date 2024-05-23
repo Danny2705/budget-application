@@ -31,9 +31,11 @@ export default function Navbar({ scroll }) {
         scroll > 50 ? "scrolled" : undefined
       } flex items-center bg-transparent text-white h-[50px] px-4 justify-between fixed top-3 left-0 right-0 z-20 py-10`}
     >
-      <Link to={"/"} className='flex items-center gap-3'>
-        <img src='/logo.png' alt='Logo' width={40} />
-        <h1 className='text-lg'>VioVault</h1>
+      <Link to={"/"} className='flex items-center'>
+        <img src='/piggy.png' alt='Logo' width={70} />
+        <h1 className='text-lg large-h1-span tracking-wider font-bold'>
+          VioVault
+        </h1>
       </Link>
       <div className='h-full hidden md:flex'>
         <Links />

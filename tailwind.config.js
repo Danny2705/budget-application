@@ -14,6 +14,12 @@ module.exports = {
           darkPink: "#992189",
           neonPink: "#f910f9",
         },
+        secondary: {
+          blue: "#1f87df",
+          red: "#d91c5c",
+          orangeRed: "#f05a28",
+          pink: "#d63384",
+        },
       },
     },
   },
