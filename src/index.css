@@ -8,7 +8,7 @@
   --main-text-color-white: #ffffff;
   --main-text-color-black: #000000;
   --div-color: #d989e0;
-  /* --background-color: #1a1221; */
+  /* --background-color: #18001d; */
   --background-color: #000000;
 }
 
@@ -91,4 +91,26 @@ body {
 
 .neon-text-shadow {
   text-shadow: 0 0 10px #f910f9, 0 0 20px #f910f9, 0 0 30px #f910f9;
+}
+
+.large-h1-span {
+  background: linear-gradient(
+    to right top,
+    #801ae5,
+    #c500be,
+    #e90095,
+    #f9006e,
+    #fc094d,
+    #fd1c4d,
+    #fe274e,
+    #ff304e,
+    #ff0070,
+    #ff0098,
+    #ff00c7,
+    #f910f9
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
