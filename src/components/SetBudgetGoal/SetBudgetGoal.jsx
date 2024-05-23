@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import RecentBudget from "../RecentBudget/RecentBudget";
-import RecentTransTable from "../TransactionTable/RecentTransTable";
+import RecentBudgetTranstable from "../TransactionTable/RecentBudgetTransTable";
 import NewBudget from "../NewBudget/NewBudget.jsx";
 import { FaPlus } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
@@ -85,7 +85,7 @@ export default function SetBudgetGoal() {
               transition={{ duration: 0.3 }}
               className='w-full'
             >
-              <RecentTransTable />
+              <RecentBudgetTranstable />
             </motion.div>
           )}
         </AnimatePresence>
