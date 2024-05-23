@@ -14,7 +14,7 @@ export default function BudgetImage() {
             />
           </span>
         </span>
-        <button className='mt-6 px-6 py-3 bg-secondary-pink text-white font-semibold rounded-lg shadow-md hover:bg-neon-pink transition duration-300'>
+        <button className='px-6 py-3 bg-secondary-pink text-white font-semibold rounded-lg shadow-md hover:bg-neon-pink transition duration-300'>
           Set Budget Goal
         </button>
       </div>

@@ -73,9 +73,9 @@ export default function RecentTransaction() {
 
   return (
     // chatgpt used to add overflow. Prompt: "How to add overflow to the parent div to make the table scrollable horizontally."
-    <div className='wrapper mx-auto gap-1 p-4 max-w-4xl overflow-x-auto md:overflow-x-visible'>
-      <div className='min-w-[1000px]'>
-        <div className='grid grid-cols-8 gap-2 p-4 text-sm font-bold text-black bg-purple-500'>
+    <div className='wrapper mx-auto gap-1 p-4 w-full overflow-x-auto md:overflow-x-visible'>
+      <div className=''>
+        <div className='grid grid-cols-8 gap-2 p-4 text-sm font-bold text-white bg-gradient-to-r from-purple-500 via-pink-500 to-red-500'>
           <div className='text-center'>Transaction No.</div>
           <div className='text-center'>Vendor</div>
           <div className='text-center'>Date</div>
@@ -89,8 +89,8 @@ export default function RecentTransaction() {
           <div
             key={transaction.id}
             className={`grid grid-cols-8 gap-2 p-4 ${
-              index % 2 === 0 ? "bg-purple-300" : "bg-purple-500"
-            }`}
+              index % 2 === 0 ? "bg-gray-800" : "bg-gray-700"
+            } text-white`}
           >
             <div className='text-center'>{transaction.id}</div>
             <div className='text-center'>{transaction.vendor}</div>
