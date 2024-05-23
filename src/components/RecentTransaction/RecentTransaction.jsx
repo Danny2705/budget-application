@@ -5,7 +5,9 @@ import * as React from "react";
 export default function RecentTransaction() {
   const transactions = [
     {
-      id: "2465343",
+      transactionId: "2465343",
+      budgetId: "123456",
+      budgetName: "Grocery",
       vendor: "Walgreens",
       date: "03/28/2023",
       location: "Calgary, AB",
@@ -18,7 +20,9 @@ export default function RecentTransaction() {
       ],
     },
     {
-      id: "2465342",
+      transactionId: "2465343",
+      budgetId: "123456",
+      budgetName: "Grocery",
       vendor: "Walmart",
       date: "03/28/2023",
       location: "Calgary, AB",
@@ -31,7 +35,9 @@ export default function RecentTransaction() {
       ],
     },
     {
-      id: "2465341",
+      transactionId: "2465343",
+      budgetId: "123456",
+      budgetName: "Grocery",
       vendor: "AB Clean",
       date: "03/27/2023",
       location: "Calgary, AB",
@@ -44,7 +50,9 @@ export default function RecentTransaction() {
       ],
     },
     {
-      id: "2465340",
+      transactionId: "2465343",
+      budgetId: "123456",
+      budgetName: "Grocery",
       vendor: "GG Cafe",
       date: "03/27/2023",
       location: "Calgary, AB",
@@ -57,8 +65,10 @@ export default function RecentTransaction() {
       ],
     },
     {
-      id: "2465339",
-      vendor: "CC Car wash",
+      transactionId: "2465343",
+      budgetId: "123456",
+      budgetName: "Grocery",
+      vendor: "CC Car",
       date: "03/27/2023",
       location: "Calgary, AB",
       subtotal: "$27.60",
@@ -73,10 +83,12 @@ export default function RecentTransaction() {
 
   return (
     // chatgpt used to add overflow. Prompt: "How to add overflow to the parent div to make the table scrollable horizontally."
-    <div className="wrapper mx-auto p-4 max-w-4xl overflow-x-auto md:overflow-x-visible">
+    <div className="wrapper mx-auto gap-1 p-4 max-w-4xl overflow-x-auto md:overflow-x-visible">
       <div className="min-w-[1000px]">
-        <div className="grid grid-cols-8 gap-2 p-4 text-sm font-bold text-black bg-purple-500">
+        <div className="grid grid-cols-10 p-4 text-sm font-bold text-black bg-purple-500">
           <div className="text-center">Transaction No.</div>
+          <div className="text-center">Budget No.</div>
+          <div className="text-center">Budget Name</div>
           <div className="text-center">Vendor</div>
           <div className="text-center">Date</div>
           <div className="text-center">Location</div>
@@ -88,11 +100,17 @@ export default function RecentTransaction() {
         {transactions.map((transaction, index) => (
           <div
             key={transaction.id}
-            className={`grid grid-cols-8 gap-2 p-4 ${
+            className={`grid grid-cols-10 gap-2 p-4 ${
               index % 2 === 0 ? "bg-purple-300" : "bg-purple-500"
             }`}
           >
-            <div className="text-center">{transaction.id}</div>
+            <button>
+              <div className="text-center">{transaction.transactionId}</div>
+            </button>
+            <button>
+              <div className="text-center">{transaction.budgetId}</div>
+            </button>
+            <div className="text-center">{transaction.budgetName}</div>
             <div className="text-center">{transaction.vendor}</div>
             <div className="text-center">{transaction.date}</div>
             <div className="text-center">{transaction.location}</div>
@@ -101,12 +119,14 @@ export default function RecentTransaction() {
             <div className="text-center">{transaction.total}</div>
             <div className="flex justify-center gap-2">
               {transaction.icons.map((icon, iconIndex) => (
-                <img
-                  key={iconIndex}
-                  loading="lazy"
-                  src={icon}
-                  className="shrink-0 w-6 aspect-square"
-                />
+                <button>
+                  <img
+                    key={iconIndex}
+                    loading="lazy"
+                    src={icon}
+                    className="shrink-0 w-6 aspect-square"
+                  />
+                </button>
               ))}
             </div>
           </div>
