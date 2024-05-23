@@ -33,17 +33,18 @@ export default function Dashboard() {
           <Search />
         </div>
 
-        <h1 className=' text-main-darkPink font-bold text-xl md:text-4xl lg:text-4xl mt-4 tracking-wider px-4 xl:px-20'>
-          {greeting},{" "}
-          <span className='text-[#801AE5]'>{user.displayName}!</span>
-        </h1>
-
-        <div className='h-[300px] lg:h-[460px] w-full mt-[1rem]'>
-          <img
-            src='/banner.jpg'
-            alt='Recipe Machine'
-            className=' object-cover h-full w-full'
-          />
+        <div className="flex">
+          <h1 className=' text-main-darkPink font-bold text-xl md:text-4xl lg:text-7xl mt-4 tracking-wider px-4 xl:px-20'>
+            {greeting},{" "}
+            <span className='text-[#801AE5]'>{user.displayName}!</span>
+          </h1>
+          <div className='h-[300px] lg:h-[460px] w-full mt-[1rem]'>
+            <img
+              src='/receipt-background.png'
+              alt='Recipe Machine'
+              className=' object-cover h-full w-full'
+            />
+          </div>
         </div>
 
         <div className='mt-4 px-4 xl:px-20'>
