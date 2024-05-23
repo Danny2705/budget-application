@@ -4,32 +4,53 @@ import { FiBatteryCharging, FiWifi } from "react-icons/fi";
 
 const Scan = () => {
   return (
-    <section className='items-center w-full justify-evenly place-content-center bg-transparent p-2 mt-6 flex flex-wrap'>
-      <AnimatedImage src='/scan-receipt.png' alt='Scan Receipt Phone' />
+    <section className='items-center w-full justify-evenly place-content-center bg-transparent p-2 mt-6 flex flex-wrap gap-4'>
+      <ReversedFloatingPhone src='/scan-receipt.png' alt='Scan Receipt Phone' />
       <FloatingPhone />
     </section>
   );
 };
 
-const AnimatedImage = ({ src, alt }) => {
+const ReversedFloatingPhone = ({ src, alt }) => {
   return (
-    <motion.img
-      src={src}
-      alt={alt}
-      initial={{
-        transform: "translateZ(8px) translateY(-2px)",
+    <div
+      style={{
+        transformStyle: "preserve-3d",
+        transform: "rotateY(30deg) rotateX(-15deg)",
       }}
-      animate={{
-        transform: "translateZ(32px) translateY(-8px)",
-      }}
-      transition={{
-        repeat: Infinity,
-        repeatType: "mirror",
-        duration: 2,
-        ease: "easeInOut",
-      }}
-      className='rounded-lg shadow-lg w-[12rem] lg:w-[15rem]'
-    />
+      className='rounded-[24px] bg-violet-500'
+    >
+      <motion.div
+        initial={{
+          transform: "translateZ(32px) translateY(-8px)",
+        }}
+        animate={{
+          transform: "translateZ(8px) translateY(-2px)",
+        }}
+        transition={{
+          repeat: Infinity,
+          repeatType: "mirror",
+          duration: 2,
+          ease: "easeInOut",
+        }}
+        className='relative h-96 w-56 rounded-[24px] border-2 border-b-4 border-r-4 border-white border-l-neutral-200 border-t-neutral-200 bg-neutral-900 p-1 pl-[3px] pt-[3px]'
+      >
+        <HeaderBar />
+        <ImageScreen src={src} alt={alt} />
+      </motion.div>
+    </div>
+  );
+};
+
+const ImageScreen = ({ src, alt }) => {
+  return (
+    <div className='relative z-0 grid h-full w-full place-content-center overflow-hidden rounded-[20px] bg-white'>
+      <img
+        src={src}
+        alt={alt}
+        className='h-full w-full object-cover rounded-[20px]'
+      />
+    </div>
   );
 };
 

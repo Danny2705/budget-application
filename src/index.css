@@ -8,7 +8,8 @@
   --main-text-color-white: #ffffff;
   --main-text-color-black: #000000;
   --div-color: #d989e0;
-  --background-color: #1a1221;
+  /* --background-color: #1a1221; */
+  --background-color: #000000;
 }
 
 ::-webkit-scrollbar {
@@ -81,4 +82,13 @@ body {
 .text-link {
   --tw-text-opacity: 1;
   color: rgb(167 139 250 / var(--tw-text-opacity));
+}
+
+.hover\:bg-neon-pink:hover {
+  background-color: #f910f9;
+  box-shadow: 0 0 10px #f910f9, 0 0 20px #f910f9, 0 0 30px #f910f9;
+}
+
+.neon-text-shadow {
+  text-shadow: 0 0 10px #f910f9, 0 0 20px #f910f9, 0 0 30px #f910f9;
 }
