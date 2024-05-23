@@ -83,51 +83,41 @@ export default function RecentTransaction() {
 
   return (
     // chatgpt used to add overflow. Prompt: "How to add overflow to the parent div to make the table scrollable horizontally."
-    
-    <div className="wrapper mx-auto gap-1 p-4 max-w-4xl overflow-x-auto md:overflow-x-visible">
-      <div className="min-w-[1000px]">
-        <div className="grid grid-cols-10 p-4 text-sm font-bold text-black bg-purple-500">
-          <div className="text-center">Transaction No.</div>
-          <div className="text-center">Budget No.</div>
-          <div className="text-center">Budget Name</div>
-          <div className="text-center">Vendor</div>
-          <div className="text-center">Date</div>
-          <div className="text-center">Location</div>
-          <div className="text-center">Subtotal</div>
-          <div className="text-center">Tax</div>
-          <div className="text-center">Total</div>
-          <div className="text-center">Action</div>
+    <div className='wrapper mx-auto gap-1 p-4 w-full overflow-x-auto md:overflow-x-visible'>
+      <div className=''>
+        <div className='grid grid-cols-8 gap-2 p-4 text-sm font-bold text-white bg-gradient-to-r from-purple-500 via-pink-500 to-red-500'>
+          <div className='text-center'>Transaction No.</div>
+          <div className='text-center'>Vendor</div>
+          <div className='text-center'>Date</div>
+          <div className='text-center'>Location</div>
+          <div className='text-center'>Subtotal</div>
+          <div className='text-center'>Tax</div>
+          <div className='text-center'>Total</div>
+          <div className='text-center'>Action</div>
         </div>
         {transactions.map((transaction, index) => (
           <div
             key={transaction.id}
-            className={`grid grid-cols-10 gap-2 p-4 ${
-              index % 2 === 0 ? "bg-purple-300" : "bg-purple-500"
-            }`}
+
+            className={`grid grid-cols-8 gap-2 p-4 ${
+              index % 2 === 0 ? "bg-gray-800" : "bg-gray-700"
+            } text-white`}
           >
-            <button>
-              <div className="text-center">{transaction.transactionId}</div>
-            </button>
-            <button>
-              <div className="text-center">{transaction.budgetId}</div>
-            </button>
-            <div className="text-center">{transaction.budgetName}</div>
-            <div className="text-center">{transaction.vendor}</div>
-            <div className="text-center">{transaction.date}</div>
-            <div className="text-center">{transaction.location}</div>
-            <div className="text-center">{transaction.subtotal}</div>
-            <div className="text-center">{transaction.tax}</div>
-            <div className="text-center">{transaction.total}</div>
-            <div className="flex justify-center gap-2">
+            <div className='text-center'>{transaction.id}</div>
+            <div className='text-center'>{transaction.vendor}</div>
+            <div className='text-center'>{transaction.date}</div>
+            <div className='text-center'>{transaction.location}</div>
+            <div className='text-center'>{transaction.subtotal}</div>
+            <div className='text-center'>{transaction.tax}</div>
+            <div className='text-center'>{transaction.total}</div>
+            <div className='flex justify-center gap-2'>
               {transaction.icons.map((icon, iconIndex) => (
-                <button>
-                  <img
-                    key={iconIndex}
-                    loading="lazy"
-                    src={icon}
-                    className="shrink-0 w-6 aspect-square"
-                  />
-                </button>
+                <img
+                  key={iconIndex}
+                  loading='lazy'
+                  src={icon}
+                  className='shrink-0 w-6 aspect-square'
+                />
               ))}
             </div>
           </div>
