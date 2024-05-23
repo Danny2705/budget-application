@@ -12,8 +12,11 @@ import {
   isAfter,
   isBefore,
   isEqual,
+  isTomorrow,
+  isYesterday,
 } from "date-fns";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+
 // MODED from ChatGPT: { can you write me a calender i can use in that component? }
 
 export default function DateCalendar() {
@@ -93,6 +96,7 @@ export default function DateCalendar() {
     let days = [];
     let day = startDate;
     let formattedDate = "";
+
 
     while (day <= endDate) {
       for (let i = 0; i < 7; i++) {

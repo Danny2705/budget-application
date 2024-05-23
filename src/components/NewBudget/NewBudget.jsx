@@ -2,7 +2,7 @@
 // Create new budget component
 import React from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import DateCalendar from "./Calendar";
+import DateCalendar from "./DateCalendar";
 
 // MODED from ChatGPT: { can you write me a calender i can use in that component? }
 export default function NewBudget() {
