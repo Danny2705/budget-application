@@ -93,13 +93,55 @@ const transactionData = [
     Category: "Car",
     Total: "30.00",
   },
+  {
+    TransactionNo: "2465355",
+    Vender: "CC Car Wash",
+    Date: "04/02/2023",
+    Category: "Car",
+    Total: "30.00",
+  },
+  {
+    TransactionNo: "2465355",
+    Vender: "CC Car Wash",
+    Date: "04/02/2023",
+    Category: "Car",
+    Total: "30.00",
+  },
+  {
+    TransactionNo: "2465355",
+    Vender: "CC Car Wash",
+    Date: "04/02/2023",
+    Category: "Car",
+    Total: "30.00",
+  },
+  {
+    TransactionNo: "2465355",
+    Vender: "CC Car Wash",
+    Date: "04/02/2023",
+    Category: "Car",
+    Total: "30.00",
+  },
+  {
+    TransactionNo: "2465355",
+    Vender: "CC Car Wash",
+    Date: "04/02/2023",
+    Category: "Car",
+    Total: "30.00",
+  },
+  {
+    TransactionNo: "2465355",
+    Vender: "CC Car Wash",
+    Date: "04/02/2023",
+    Category: "Car",
+    Total: "30.00",
+  },
 ];
 
 export default function RecentBudgetTransTable() {
   return (
     <div className="flex justify-center">
-      <div className="py-[48px] overflow-x-scroll bg-[#362447] px-[48px]">
-        <div className="max-h-[400px] overflow-y-auto px-[16px]">
+      <div className={"p-[48px] bg-[#362447]"}>
+        <div className={"px-[16px]"}>
           <table className="bg-[#26264F] text-white border-separate border rounded-lg ">
             <thead>
               <tr>
@@ -136,7 +178,7 @@ export default function RecentBudgetTransTable() {
                     className={key % 2 === 0 ? "bg-[#26264F]" : "bg-[#1D1E42]"}
                   >
                     <td className="border-b px-4 py-2 text-center break-words">
-                      {val.TransactionNo}
+                      <button>{val.TransactionNo}</button>
                     </td>
                     <td className="border-b border-l px-4 py-2 text-center break-words">
                       {val.Vender}
