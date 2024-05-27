@@ -1,7 +1,7 @@
 import React from "react";
 
 // code referenced from figma and edited by Emon//
-
+// chatgpt prompt: "how to make the RecentBudget component responsive?" //
 export default function RecentBudget() {
   return (
     <div className='flex flex-col w-full sm:w-[calc(50%-20px)] lg:w-[calc(33.33%-20px)] mb-5'>
