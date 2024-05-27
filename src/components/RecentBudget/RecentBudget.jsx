@@ -7,7 +7,7 @@ export default function RecentBudget() {
     <div className='flex flex-col w-full sm:w-[calc(50%-20px)] lg:w-[calc(33.33%-20px)] mb-5'>
       <div className='flex flex-col grow py-3 px-2.5 mx-auto w-full bg-[#18001d] rounded-md border border-main-neonPink shadow shadow-main-neonPink'>
         <div className='flex gap-5 justify-between text-white'>
-          <div className='text-base font-bold leading-5 text-secondary-orangeRed'>
+          <div className='text-base font-bold leading-5 text-white'>
             Budget Name #1
             <br />
           </div>
@@ -16,10 +16,10 @@ export default function RecentBudget() {
             <div className='self-end font-medium mt-4 pr-1'>1 Week</div>
           </div>
         </div>
-        <div className='self-end mt-8 text-sm leading-5 pr-1 text-secondary-red'>
+        <div className='self-end mt-8 text-sm leading-5 pr-1 text-secondary-orangeRed'>
           $200 out of $500
         </div>
-        <div className='flex mt-1.5 h-[18px] rounded-2xl mr-1 overflow-hidden border border-secondary-orangeRed '>
+        <div className='flex mt-1.5 h-[18px] rounded-2xl mr-1 overflow-hidden'>
           <div className='w-1/2 bg-secondary-pink' />
           <div className='w-1/2 bg-white' />
         </div>
