@@ -114,3 +114,40 @@ body {
   background-clip: text;
   color: transparent;
 }
+
+.main-span {
+  background: -webkit-linear-gradient(
+    #801ae5,
+    #c500be,
+    #e90095,
+    #f9006e,
+    #fc094d,
+    #fd1c4d,
+    #fe274e,
+    #ff304e,
+    #ff0070,
+    #ff0098,
+    #ff00c7,
+    #f910f9
+  );
+  -webkit-background-clip: text;
+  -webkit-text-stroke: 5px transparent;
+  z-index: 1;
+  color: var(--crimson);
+  text-transform: uppercase;
+  padding-top: 10px;
+  padding-left: 0;
+  font-size: 100px;
+  font-weight: 700;
+  line-height: 100%;
+  position: absolute;
+  top: 16px;
+  right: 4px;
+  margin-top: -10px;
+}
+
+@media (min-width: 1024px) {
+  .main-span {
+    right: 0px;
+  }
+}

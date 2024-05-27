@@ -27,7 +27,6 @@ export default function Dashboard() {
       }
     };
 
-    // chatGPT asking for "update greeting every minute without refreshing the page "
     // Initial call to set greeting
     getGreeting();
 
@@ -36,25 +35,23 @@ export default function Dashboard() {
 
     // Cleanup function to clear interval
     return () => clearInterval(intervalId);
-
   }, [user]);
 
   return (
     <Layout>
-      <div className="mt-[90px]">
+      <div className='mt-[90px]'>
         <div>
           <Search />
         </div>
 
-        <h1 className="text-main-neonPink font-bold text-xl md:text-4xl lg:text-4xl mt-4 tracking-wider px-4 xl:px-20">
-          {greets}, <span className="text-[#801AE5]">{user.displayName}!</span>
-        </h1>
-
-        <div className="h-[300px] lg:h-[460px] w-full mt-[1rem]">
+        <div className='relative h-[300px] lg:h-[650px] w-full mt-[1rem] flex items-start justify-between px-4 xl:px-20'>
+          <h1 className='main-span font-bold mt-4 tracking-wider z-10 w-[55%] right-0 text-right'>
+            {greets}, {user.displayName}!
+          </h1>
           <img
-            src="/banner.jpg"
-            alt="Recipe Machine"
-            className=" object-cover h-full w-full"
+            src='/receipt-background.png'
+            alt='Receipt Background'
+            className='absolute left-0 object-cover h-full z-0 w-[60%] lg:w-[70%] xl:w-[80%]'
           />
         </div>
 
@@ -64,9 +61,7 @@ export default function Dashboard() {
               Recent Budgets
             </h2>
             <Link to='/budget'>
-              <button className='text-white text-sm'>
-                View more budgets
-              </button>
+              <button className='text-white text-sm'>View more budgets</button>
             </Link>
           </div>
 
