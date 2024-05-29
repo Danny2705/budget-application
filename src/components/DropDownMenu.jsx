@@ -28,13 +28,13 @@ const DropDownMenu = () => {
     <div className='relative'>
       <button
         onClick={() => setOpen((prev) => !prev)}
-        className='flex items-center gap-2 px-3 py-2 rounded-md text-indigo-50'
+        className='flex items-center gap-2 py-2 rounded-md text-indigo-50'
       >
         <span className='font-medium text-sm'>
           <img
             src='/gojo.jpeg'
             alt='user avatar'
-            className='text-2xl text-main-red duration-500 hover:text-[#da3354] w-9 h-9 rounded-full border border-[#801AE5]'
+            className='text-2xl text-main-red duration-500 hover:text-[#da3354] w-12 h-8 rounded-full border border-[#801AE5]'
           />
         </span>
         <motion.span
