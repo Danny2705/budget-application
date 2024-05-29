@@ -36,10 +36,13 @@ export default function Dashboard() {
             </Link>
           </div>
 
-          <div className='flex flex-wrap w-full justify-between'>
-            <RecentBudget />
-            <RecentBudget />
-            <RecentBudget />
+          <div className='flex flex-wrap justify-between items-center'>
+            <Link
+              to='/budget/transaction/1'
+              className='flex items-center gap-4'
+            >
+              <RecentBudget />
+            </Link>
           </div>
 
           <div>

@@ -42,6 +42,7 @@ function App() {
           element={user ? <Profile /> : <Navigate to='/login' />}
         />
         <Route path='/nomatch' element={<NoMatch />} />
+        <Route path='/budget/transaction/:id' element={<Transaction />} />
         {/* <Route
           path='*'
           element={
