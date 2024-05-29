@@ -117,6 +117,7 @@ body {
 
 .main-span {
   background: -webkit-linear-gradient(
+    -86deg,
     #801ae5,
     #c500be,
     #e90095,
@@ -133,7 +134,6 @@ body {
   -webkit-background-clip: text;
   -webkit-text-stroke: 5px transparent;
   z-index: 1;
-  color: var(--crimson);
   text-transform: uppercase;
   padding-top: 10px;
   padding-left: 0;
@@ -144,10 +144,4 @@ body {
   top: 16px;
   right: 4px;
   margin-top: -10px;
-}
-
-@media (min-width: 1024px) {
-  .main-span {
-    right: 0px;
-  }
 }

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Links from "./Links/Links";
 import { Link, useNavigate } from "react-router-dom";
 import { MotionConfig, motion } from "framer-motion";
 import { VARIANTS } from "../../utils/Variants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/authSlice";
 import toast from "react-hot-toast";
 import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
@@ -11,9 +11,37 @@ import DropDownMenu from "../DropDownMenu";
 
 export default function Navbar({ scroll }) {
   const [active, setActive] = useState(false);
+  const user = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [greets, setGreets] = useState("");
+
+  useEffect(() => {
+    const getGreeting = () => {
+      const date = new Date();
+      const currentHour = date.getHours();
+      if (currentHour >= 6 && currentHour < 12) {
+        setGreets("Good morning");
+      } else if (currentHour >= 12 && currentHour < 18) {
+        setGreets("Good afternoon");
+      } else if (currentHour >= 18 && currentHour < 24) {
+        setGreets("Good evening");
+      } else {
+        setGreets("Welcome back");
+      }
+    };
+
+    // Initial call to set greeting
+    getGreeting();
+
+    // Update greeting every minute
+    const intervalId = setInterval(getGreeting, 60000);
+
+    // Cleanup function to clear interval
+    return () => clearInterval(intervalId);
+  }, [user]);
 
   const handleLogOut = () => {
     dispatch(logout());
@@ -32,8 +60,8 @@ export default function Navbar({ scroll }) {
       } flex items-center justify-between bg-transparent text-white h-[50px] px-4 fixed top-3 left-0 right-0 z-20 py-10`}
     >
       <Link to={"/"} className='flex items-center pt-[4px]'>
-        <img src='/piggy1.png' alt='Logo' width={60} />
-        <h1 className='text-[32px] large-h1-span tracking-wider font-bold px-[8px] pt-[8px]'>
+        <img src='/piggy1.png' alt='Logo' className='w-[40px] lg:w-[60px]' />
+        <h1 className='text-[1.3rem] lg:text-[32px] large-h1-span tracking-wider font-bold px-[8px] pt-[8px]'>
           VioVault
         </h1>
       </Link>
@@ -41,6 +69,9 @@ export default function Navbar({ scroll }) {
         <Links />
       </div>
       <div className='flex items-center gap-4 h-full'>
+        <h1 className='text-base lg:text-lg font-bold tracking-wider w-full'>
+          {greets}, {user.displayName}!
+        </h1>
         <DropDownMenu />
         <MotionConfig
           transition={{
