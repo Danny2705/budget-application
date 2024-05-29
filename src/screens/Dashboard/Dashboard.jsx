@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Layout from "../Layout/Layout";
-import { useSelector } from "react-redux";
 import Search from "../../components/Search/Search";
 import RecentBudget from "../../components/RecentBudget/RecentBudget";
 import BudgetImage from "../../components/BudgetImage/BudgetImage";
@@ -9,34 +8,6 @@ import RecentTransaction from "../../components/RecentTransaction/RecentTransact
 import { Link } from "react-router-dom";
 
 export default function Dashboard() {
-  const user = useSelector((state) => state.auth.user);
-  const [greets, setGreets] = useState("");
-
-  useEffect(() => {
-    const getGreeting = () => {
-      const date = new Date();
-      const currentHour = date.getHours();
-      if (currentHour >= 6 && currentHour < 12) {
-        setGreets("Good morning");
-      } else if (currentHour >= 12 && currentHour < 18) {
-        setGreets("Good afternoon");
-      } else if (currentHour >= 18 && currentHour < 24) {
-        setGreets("Good evening");
-      } else {
-        setGreets("Welcome back");
-      }
-    };
-
-    // Initial call to set greeting
-    getGreeting();
-
-    // Update greeting every minute
-    const intervalId = setInterval(getGreeting, 60000);
-
-    // Cleanup function to clear interval
-    return () => clearInterval(intervalId);
-  }, [user]);
-
   return (
     <Layout>
       <div className='mt-[90px]'>
@@ -44,9 +15,9 @@ export default function Dashboard() {
           <Search />
         </div>
 
-        <div className='relative h-[300px] lg:h-[650px] w-full mt-[1rem] flex items-start justify-between px-4 xl:px-20'>
-          <h1 className='main-span font-bold mt-4 tracking-wider z-10 w-[55%] right-0 text-right'>
-            {greets}, {user.displayName}!
+        <div className='relative h-[300px] lg:h-[700px] w-full mt-[1rem] flex items-start justify-between px-4 xl:px-20'>
+          <h1 className='main-span font-bold mt-4 tracking-wider z-10 w-[55%] lg:w-[70%] right-0 text-right px-4 xl:px-20'>
+            Innovative Scanning
           </h1>
           <img
             src='/receipt-background.png'
@@ -65,10 +36,13 @@ export default function Dashboard() {
             </Link>
           </div>
 
-          <div className='flex flex-wrap w-full justify-between'>
-            <RecentBudget />
-            <RecentBudget />
-            <RecentBudget />
+          <div className='flex flex-wrap justify-between items-center'>
+            <Link
+              to='/budget/transaction/1'
+              className='flex items-center gap-4'
+            >
+              <RecentBudget />
+            </Link>
           </div>
 
           <div>

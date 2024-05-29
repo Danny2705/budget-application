@@ -5,6 +5,7 @@ import RecentBudgetTranstable from "../TransactionTable/RecentBudgetTransTable";
 import NewBudget from "../NewBudget/NewBudget.jsx";
 import { FaPlus } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 export default function SetBudgetGoal() {
   const [activeButton, setActiveButton] = useState("activeBudgets");
@@ -57,7 +58,7 @@ export default function SetBudgetGoal() {
         </div>
       )}
 
-      <div className='relative'>
+      <div className='relative w-full'>
         <AnimatePresence mode='wait'>
           {activeButton === "activeBudgets" && (
             <motion.div
@@ -66,13 +67,15 @@ export default function SetBudgetGoal() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 50 }}
               transition={{ duration: 0.3 }}
-              className='flex items-center flex-wrap gap-4'
+              className='flex items-center flex-wrap gap-4 w-full'
             >
-              <RecentBudget />
-              <RecentBudget />
-              <RecentBudget />
-              <RecentBudget />
-              <RecentBudget />
+              <Link
+                to='/budget/transaction/1'
+                className='flex items-center gap-4'
+              >
+                <RecentBudget />
+                <RecentBudget />
+              </Link>
             </motion.div>
           )}
 
