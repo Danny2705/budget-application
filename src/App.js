@@ -10,6 +10,7 @@ import Transaction from "./screens/Transaction/Transaction";
 import Budget from "./screens/Budget/Budget";
 import Profile from "./screens/Profile/Profile";
 import "../src/App.scss";
+import CreateTransaction from "./components/CreateTransaction/CreateTransaction";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -42,6 +43,8 @@ function App() {
           element={user ? <Profile /> : <Navigate to='/login' />}
         />
         <Route path='/nomatch' element={<NoMatch />} />
+        <Route path='/budget/transaction/:id' element={<Transaction />} />
+        <Route path='/create' element={<CreateTransaction />} />
         {/* <Route
           path='*'
           element={
