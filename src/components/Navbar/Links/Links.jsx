@@ -34,6 +34,18 @@ const Links = () => {
       >
         Budget Management
       </Link>
+
+      <Link
+        to='/budget'
+        onClick={() => handleSelect("/about")}
+        className={`${
+          selected === "/about"
+            ? "border-b-2 border-main-neonPink shadow-top-md text-main-neonPink"
+            : "text-white hover:text-main-neonPink"
+        } text-lg transition-colors px-2.5 py-0.5 font-medium rounded-md relative`}
+      >
+        About
+      </Link>
     </div>
   );
 };
