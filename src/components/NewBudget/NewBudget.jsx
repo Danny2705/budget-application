@@ -18,8 +18,6 @@ export default function NewBudget() {
             <input
               className="flex-auto bg-transparent"
               placeholder="Budget Title"
-              type="text"
-              required
             />
           </div>
           <div className="flex gap-2 p-2 mt-4 bg-purple-300 rounded-lg border border-solid border-fuchsia-800 border-opacity-0">
@@ -27,10 +25,6 @@ export default function NewBudget() {
             <input
               className="flex-auto bg-transparent"
               placeholder="Set Amount"
-              type="number"
-              min={1}
-              max={99}
-              required
             />
           </div>
           <div className="flex gap-2 p-2 mt-4 bg-purple-300 rounded-lg border border-solid border-fuchsia-800 border-opacity-0">
@@ -38,8 +32,6 @@ export default function NewBudget() {
             <input
               className="flex-auto bg-transparent"
               placeholder="Select budget period"
-              type="date"
-              required
             />
           </div>
           <div>
