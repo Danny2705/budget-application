@@ -39,11 +39,10 @@ export default function Transaction() {
         <div>
           <div className="w-full lg:w-1/2 flex flex-col gap-4 m-24">
             <div className="rounded-lg p-6 bg-white">
-              <h2 className="text-xl font-bold mb-4 text-neon-pink">
+              <h2 className="text-xl font-bold mb-4">
                 Budget Performance
               </h2>
-              {/* Removed old line chart: resolve merge conflict if needed */}
-              <div className="flex">
+              <div className="">
                 <PieChart />
                 <BarChart />
               </div>
