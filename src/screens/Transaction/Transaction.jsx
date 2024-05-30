@@ -1,18 +1,8 @@
 import React from "react";
 import Layout from "../Layout/Layout";
-import LineChart from "../../components/LineChart";
 import RecentBudgetTransTable from "../../components/TransactionTable/RecentBudgetTransTable";
+import PieChart from "../../components/Chart/PieChart";
 
-// Sample data
-const sampleData = [
-  { date: new Date(2023, 0, 1), value: 30 },
-  { date: new Date(2023, 0, 2), value: 20 },
-  { date: new Date(2023, 0, 3), value: 50 },
-  { date: new Date(2023, 0, 4), value: 40 },
-  { date: new Date(2023, 0, 5), value: 60 },
-  { date: new Date(2023, 0, 6), value: 30 },
-  { date: new Date(2023, 0, 7), value: 70 },
-];
 
 export default function Transaction() {
   return (
@@ -31,11 +21,12 @@ export default function Transaction() {
             />
           </div>
           <div className='w-full lg:w-1/2 flex flex-col gap-4'>
-            <div className='bg-white bg-opacity-75 backdrop-blur-md rounded-lg p-6 shadow-lg'>
+            <div className='text-white rounded-lg p-6'>
               <h2 className='text-xl font-bold mb-4 text-neon-pink'>
                 Budget Performance
               </h2>
-              <LineChart data={sampleData} width={600} height={450} />
+              {/* Removed old line chart: resolve merge conflict if needed */}
+              <PieChart/>
             </div>
           </div>
         </div>
