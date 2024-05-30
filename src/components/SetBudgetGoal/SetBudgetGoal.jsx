@@ -39,8 +39,11 @@ export default function SetBudgetGoal() {
           Budget History
         </button>
 
-        <button className='ml-auto bg-gray-600 w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-pink-600 transition duration-300'>
-          <FaPlus onClick={handleClick} />
+        <button
+          className='ml-auto bg-gray-600 w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-pink-600 transition duration-300'
+          onClick={handleClick}
+        >
+          <FaPlus />
         </button>
       </div>
 
@@ -73,7 +76,6 @@ export default function SetBudgetGoal() {
                 to='/budget/transaction/1'
                 className='flex items-center gap-4'
               >
-                <RecentBudget />
                 <RecentBudget />
               </Link>
             </motion.div>
