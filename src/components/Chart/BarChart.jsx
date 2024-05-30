@@ -1,15 +1,12 @@
 // Reference: a) "Chart.js documentation for charts" - https://www.chartjs.org/docs/latest/charts/doughnut.html#pie b) ChatGPT refence chartjs-2
 //
-// import { Pie } from "react-chartjs-2";
-import { Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
+  BarElement,
   Title,
-  ArcElement,
   Tooltip,
   Legend,
 } from "chart.js";
@@ -17,15 +14,35 @@ import {
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
+  BarElement,
   Title,
-  ArcElement,
   Tooltip,
   Legend
 );
 
-export default function PieChart() {
+export default function BarChart() {
+  const options = {};
+
+  const BarChartData = {
+    labels: [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ],
+    datasets: [
+      {
+        label: "Steps",
+        data: [3000, 5000, 4500, 6000, 8000, 7000, 9000],
+        bordercolor: "red",
+        backgroundcolor: "red",
+      },
+    ],
+  };
+
   const data = {
     labels: ["Red", "Blue", "Yellow"],
     datasets: [
@@ -42,15 +59,13 @@ export default function PieChart() {
     ],
   };
 
-
   return (
     <div>
-      <div className="w-[50px] h-[50px]">
-        {/* <Pie data={data} />
-         */}
-         
+      <div className="w-[600px] h-[400px]">
+        <div>
+          <Bar options={options} data={BarChartData} />
+        </div>
       </div>
     </div>
   );
 }
-
