@@ -21,7 +21,14 @@ ChartJS.register(
 );
 
 export default function BarChart() {
-  const options = {};
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+    },
+  };
 
   const BarChartData = {
     labels: [
@@ -37,8 +44,9 @@ export default function BarChart() {
       {
         label: "Steps",
         data: [3000, 5000, 4500, 6000, 8000, 7000, 9000],
-        bordercolor: "red",
-        backgroundcolor: "red",
+        borderColor: "blue",
+        backgroundColor: "red",
+        borderWidth: 1,
       },
     ],
   };

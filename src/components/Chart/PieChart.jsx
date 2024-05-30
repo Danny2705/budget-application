@@ -1,32 +1,12 @@
 // Reference: a) "Chart.js documentation for charts" - https://www.chartjs.org/docs/latest/charts/doughnut.html#pie b) ChatGPT refence chartjs-2
 //
-// import { Pie } from "react-chartjs-2";
-import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  ArcElement,
-  Tooltip,
-  Legend,
-} from "chart.js";
+import { Pie } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  ArcElement,
-  Tooltip,
-  Legend
-);
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function PieChart() {
-  const data = {
+  const pieChartData = {
     labels: ["Red", "Blue", "Yellow"],
     datasets: [
       {
@@ -42,15 +22,11 @@ export default function PieChart() {
     ],
   };
 
-
   return (
     <div>
-      <div className="w-[50px] h-[50px]">
-        {/* <Pie data={data} />
-         */}
-         
+      <div className="w-[500px] h-[400px]">
+        <Pie data={pieChartData} />
       </div>
     </div>
   );
 }
-
