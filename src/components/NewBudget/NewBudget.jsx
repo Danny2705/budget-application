@@ -3,14 +3,13 @@
 import React, { useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import DateCalendar from "./DateCalendar";
-import { addDoc, collection, doc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { db } from "../../firebase";
 import toast from "react-hot-toast";
 
 // MODED from ChatGPT: { can you write me a calender i can use in that component? }
-export default function NewBudget() {
-  const [show, setShow] = useState(false);
+export default function NewBudget({ getData, handleClick }) {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [selectedStartDate, setSelectedStartDate] = useState("");
@@ -34,15 +33,14 @@ export default function NewBudget() {
         docData.startDate !== "" &&
         docData.endDate !== ""
       ) {
-        const docRef = await addDoc(
-          collection(db, `users/${user.uid}/budget`),
-          docData
-        );
+        await addDoc(collection(db, `users/${user.uid}/budget`), docData);
 
         setTitle("");
         setAmount("");
         setSelectedStartDate("");
         setSelectedEndDate("");
+        getData();
+        handleClick();
       } else {
         toast.error("Please enter all of the fields");
       }
@@ -78,25 +76,21 @@ export default function NewBudget() {
               onChange={(e) => setAmount(e.target.value)}
             />
           </div>
-          <div
-            className='flex gap-2 p-2 mt-4 bg-purple-300 rounded-lg border border-solid border-fuchsia-800 border-opacity-0'
-            onClick={() => setShow(!show)}
-          >
+          <div className='flex gap-2 p-2 mt-4 bg-purple-300 rounded-lg border border-solid border-fuchsia-800 border-opacity-0'>
             <div className='fa-regular fa-calendar-days p-1 cursor-pointer'></div>
             <span className='flex-auto bg-transparent text-[gray] cursor-pointer'>
               Select budget period
             </span>
           </div>
-          {show && (
-            <div>
-              <DateCalendar
-                selectedStartDate={selectedStartDate}
-                selectedEndDate={selectedEndDate}
-                setSelectedStartDate={setSelectedStartDate}
-                setSelectedEndDate={setSelectedEndDate}
-              />
-            </div>
-          )}
+
+          <div>
+            <DateCalendar
+              selectedStartDate={selectedStartDate}
+              selectedEndDate={selectedEndDate}
+              setSelectedStartDate={setSelectedStartDate}
+              setSelectedEndDate={setSelectedEndDate}
+            />
+          </div>
         </div>
         <button
           type='submit'

@@ -1,28 +1,35 @@
 import React from "react";
 
+//chatgpt prompt: Function to format Firestore timestamp to a readable date string
+const formatDate = (timestamp) => {
+  if (!timestamp || !timestamp.seconds) return "";
+  const date = new Date(timestamp.seconds * 1000);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+};
+
 // code referenced from figma and edited by Emon//
 // chatgpt prompt: "how to make the RecentBudget component responsive?" //
-export default function RecentBudget() {
+export default function RecentBudget({ budget }) {
   return (
-    <div className='flex flex-col w-full mb-5'>
-      <div className='flex flex-col grow py-3 px-2.5 mx-auto w-full bg-[#18001d] rounded-md border border-main-neonPink shadow shadow-main-neonPink'>
-        <div className='flex gap-5 justify-between text-white'>
-          <div className='text-base font-bold leading-5 text-white'>
-            Budget Name #1
-            <br />
+    <div className='w-80 mb-5 p-4 bg-[#18001d] rounded-lg border border-main-neonPink shadow-lg hover:shadow-2xl transition-shadow duration-300'>
+      <div className='flex justify-between text-white mb-4'>
+        <div className='text-lg font-bold leading-5'>{budget?.title}</div>
+        <div className='text-sm text-right'>
+          <div>
+            {formatDate(budget?.startDate)} - {formatDate(budget?.endDate)}
           </div>
-          <div className='flex flex-col self-start text-sm'>
-            <div className='leading-[130%] pr-1'>03/04/2024 - 10/04/2024</div>
-            <div className='self-end font-medium mt-4 pr-1'>1 Week</div>
-          </div>
+          <div className='font-medium mt-2'>1 Week</div>
         </div>
-        <div className='self-end mt-8 text-sm leading-5 pr-1 text-secondary-orangeRed'>
-          $200 out of $500
-        </div>
-        <div className='flex mt-1.5 h-[18px] rounded-2xl mr-1 overflow-hidden'>
-          <div className='w-1/2 bg-secondary-pink' />
-          <div className='w-1/2 bg-white' />
-        </div>
+      </div>
+      <div className='text-right text-secondary-orangeRed text-sm font-semibold mb-4'>
+        $200 out of {budget?.amount}
+      </div>
+      <div className='flex h-3 rounded-full overflow-hidden'>
+        <div className='w-1/2 bg-secondary-pink'></div>
+        <div className='w-1/2 bg-white'></div>
       </div>
     </div>
   );
