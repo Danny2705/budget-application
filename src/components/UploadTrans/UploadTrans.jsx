@@ -4,7 +4,8 @@ import DragDrop from "./DragDrop";
 import FileDisplay from "./FileDisplay";
 import JsonDisplay from "./JsonDisplay";
 import SaveButton from "./SaveButton";
-// import { uploadImageToFirestore, performOcr } from "../../services/ocr";
+// import { uploadImageToFirestore } from "";
+// import { performOcr } from "../../utils/ocrVeryfi";
 
 const UploadTrans = () => {
   const [receipt, setReceipt] = useState({});
@@ -26,10 +27,10 @@ const UploadTrans = () => {
 
   return (
     <div class="mt-100 bg-white md:flex flex-col rounded-[24px]">
-      <DragDrop onFileSelect={setLocalImage}/>
+      <DragDrop onFileSelect={setLocalImage} />
       <div class="flex flex-row py-[16px] px-[32px]">
         <FileDisplay />
-        <div class="w-[56px]"/>
+        <div class="w-[56px]" />
         <JsonDisplay />
       </div>
       <SaveButton />

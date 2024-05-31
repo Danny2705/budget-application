@@ -5,7 +5,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import DateCalendar from "./DateCalendar";
 import { addDoc, collection } from "firebase/firestore";
 import { useSelector } from "react-redux";
-import { db } from "../../firebase";
+import { db } from "../../utils/firebase";
 import toast from "react-hot-toast";
 
 // MODED from ChatGPT: { can you write me a calender i can use in that component? }

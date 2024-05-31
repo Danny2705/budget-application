@@ -7,7 +7,7 @@ import { FaPlus } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../firebase.js";
+import { db } from "../../utils/firebase.js";
 import { useSelector } from "react-redux";
 
 export default function SetBudgetGoal() {
