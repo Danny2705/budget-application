@@ -53,6 +53,7 @@ export default function Login() {
       toast.error("Failed to send password reset email. Please try again.");
     }
   };
+  
   return (
     <div>
       <div className='blur-circle'></div>
