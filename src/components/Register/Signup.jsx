@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
 import { auth } from "../../firebase";
 import toast from "react-hot-toast";
+
+//reference: firebase for the email verification and youtube: https://www.youtube.com/watch?v=0HJ9wPq0B54 
 
 export default function SignUp() {
   const [username, setUsername] = useState("");
@@ -30,6 +32,17 @@ export default function SignUp() {
       setUsername("");
       setEmail("");
       setPassword("");
+
+      if (user) {
+        toast.success("Sign up successful! Please check your email for verification.");
+  
+        const actionCodeSettings = {
+          url: 'http://localhost:3000/login', 
+          handleCodeInApp: true,
+        };
+        await sendEmailVerification(auth.currentUser, actionCodeSettings);
+      }
+      
       if (user) {
         toast.success("Register successfully");
         navigate("/login");

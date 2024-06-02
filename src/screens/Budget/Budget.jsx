@@ -31,7 +31,7 @@ export default function Budget() {
                 trying to manage your monthly expenses, we've got you covered.
               </p>
               <button className='mt-6 px-6 py-3 bg-secondary-pink text-white font-semibold rounded-lg shadow-md hover:bg-neon-pink transition duration-300'>
-                Get Started
+                Create New Budget
               </button>
             </div>
           </div>
