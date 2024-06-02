@@ -9,7 +9,7 @@ import GoogleAuth from "../Login/GoogleAuth";
 import GitHubAuth from "./GitHubAuth";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
-
+//refernce: firebase for the password reset 
 
 export default function Login() {
   const [email, setEmail] = useState("");
