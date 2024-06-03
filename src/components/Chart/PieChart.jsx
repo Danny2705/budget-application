@@ -2,16 +2,23 @@
 //
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-// import {JSON as data} from "ChartData.json";
+import jsonData from "./ChartData.json"; 
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function PieChart() {
+  const itemLabels = [];
+  const chartData = () => {
+      jsonData.map((item, index) => {
+        itemLabels.push(item.budgetName);
+      })
+  }
+
   const pieChartData = {
-    labels: ["Red", "Blue", "Yellow"],
+    labels: itemLabels,
     datasets: [
       {
-        label: "My First Dataset",
+        label: "Pie Chart Describing transaction category versus money spent",
         data: [300, 50, 100],
         backgroundColor: [
           "rgb(255, 99, 132)",
