@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
-import { auth } from "../../firebase";
+
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../../utils/firebase";
+
 import toast from "react-hot-toast";
 
 //reference: firebase for the email verification and youtube: https://www.youtube.com/watch?v=0HJ9wPq0B54 
