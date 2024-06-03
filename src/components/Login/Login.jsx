@@ -7,6 +7,9 @@ import { useDispatch } from "react-redux";
 import { logIn } from "../../redux/authSlice";
 import GoogleAuth from "../Login/GoogleAuth";
 import GitHubAuth from "./GitHubAuth";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+
+//refernce: firebase for the password reset 
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -39,6 +42,18 @@ export default function Login() {
       }
     }
   };
+  const handleForgotPassword = async () => {
+    try {
+      await sendPasswordResetEmail(auth, email);
+      toast.success("Password reset email sent! Please check your inbox.");
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error(errorCode, errorMessage);
+      toast.error("Failed to send password reset email. Please try again.");
+    }
+  };
+  
   return (
     <div>
       <div className="blur-circle"></div>
@@ -72,6 +87,11 @@ export default function Login() {
                         className="bg-transparent border-2 rounded-sm px-2 border-main-lightPink outline-none text-white text-sm py-1"
                       />
                     </div>
+                    <span className='text-[10px] text-white cursor-pointer'
+                     onClick={handleForgotPassword}>
+                    Forgot Password
+                  </span>
+
                     <button
                       type="submit"
                       className="bg-white py-1 hover:bg-slate-300 duration-300 rounded-full mt-[20px]"
