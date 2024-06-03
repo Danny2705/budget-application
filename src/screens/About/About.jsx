@@ -18,8 +18,8 @@ export default function About() {
             />
           </div>
 
-          <div className='mt-4'>
-            <section className='mt-4 px-4 xl:px-20'>
+          <div className='mt-0.5 text-white'>
+            <section className='mt-0.5 px-4 xl:px-20'>
               <h2 className='large-h1-span my-2 text-lg md:text-2xl font-bold tracking-wide'>
                 Who We Are
               </h2>
@@ -51,9 +51,20 @@ export default function About() {
                 Contact Us
               </h2>
               <p className='text-base md:text-lg leading-relaxed'>
-                Have questions or feedback? We'd love to hear from you! Reach out to us at <a href='mailto:support@ourcompany.com' className='text-blue-500 underline'>support@ourcompany.com</a>.
+                Have questions or feedback? We'd love to hear from you! Reach out to us at <a href='mailto:leaveusalone@teamtitan.com' className='text-blue-500 underline'>leaveusalonet@teamtitan.com</a>.
               </p>
             </section>
+
+            
+            <section className='mt-8 px-4 xl:px-20'>
+              <h2 className='large-h1-span my-2 text-lg md:text-2xl font-bold tracking-wide'>
+                Wanna Support Us?
+              </h2>
+              <p className='text-base md:text-lg leading-relaxed'>
+                Click here to <Link to='/donate' className='text-blue-500 underline'>donate</Link> to our cause!
+              </p>
+            </section>
+            
           </div>
         </div>
       </div>
