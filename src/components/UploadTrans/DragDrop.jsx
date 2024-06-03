@@ -6,18 +6,19 @@ import {
   saveReceiptToFirestore,
 } from "../../utils/firebase";
 import { useDropzone } from "react-dropzone";
-import { performOcr } from "../../utils/ocrVeryfi";
+// import { performOcr } from "../../utils/ocrVeryfi";
 
 const fileTypes = ["png", "jpeg", "jpg", "pdf"];
 
-const DragDrop = ({ userEmail }) => {
+//Refer DragDrop from https://sandydev.medium.com/how-to-create-drag-and-drop-upload-in-reactjs-d2f2c2b2048d
+const DragDrop = ({ onSetImageURL }) => {
   const [file, setFile] = useState("");
   const [receipt, setReceipt] = useState({});
   const [fireImageURL, setFireImageURL] = useState(null);
   const [transactionNo, setTransactionNo] = useState("");
-  // todo: rename to singular
   const [uploadedFile, setUploadedFile] = useState([]);
 
+  // Refer from Demo
   const storeAndConvertReceiptImage = async () => {
     // uploadImageToFirestore(localImage) return { transactionNumber, imageURL }
     const { transactionNumber, imageURL } = await uploadImageToFirestore(
@@ -25,17 +26,18 @@ const DragDrop = ({ userEmail }) => {
     );
     setTransactionNo(transactionNumber);
     setFireImageURL(imageURL);
+    onSetImageURL(imageURL);
     console.log("Image uploaded to storage", imageURL);
-    if (imageURL) {
-      setReceipt(await performOcr(imageURL));
-    }
+    // Calling OCR Perform Function
+    // if (imageURL) {
+    //   setReceipt(await performOcr(imageURL));
+    // }
   };
 
-  const { getRootProps, getInputProps } = useDropzone(
-    {
+  const { getRootProps, getInputProps } = useDropzone({
     accept: {
-      'image/jpeg': [],
-      'image/png': []
+      "image/jpeg": [],
+      "image/png": [],
     },
     maxFiles: 1,
     onDrop: (acceptedFiles) => {
@@ -50,11 +52,6 @@ const DragDrop = ({ userEmail }) => {
         <input {...getInputProps()} />
         <p>Drag and drop files here or click to browse.</p>
         <span>{uploadedFile.name}</span>
-        {/* <ul>
-          {uploadedFiles.map((file) => (
-            <li key={file.name}>{file.name}</li>
-          ))}
-        </ul> */}
       </div>
     </div>
   );

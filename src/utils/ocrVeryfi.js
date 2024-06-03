@@ -1,5 +1,6 @@
 import axios from "axios";
 
+//Refers from Demo
 export const performOcr = async (imageUrl) => {
   try {
     const requestBody = {
