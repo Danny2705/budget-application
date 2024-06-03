@@ -1,24 +1,21 @@
 import React, { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import "../../App.scss";
-import {
-  uploadImageToFirestore,
-  saveReceiptToFirestore,
-} from "../../utils/firebase";
+import { uploadImageToFirestore } from "../../utils/firebase";
 import { useDropzone } from "react-dropzone";
 // import { performOcr } from "../../utils/ocrVeryfi";
 
 const fileTypes = ["png", "jpeg", "jpg", "pdf"];
 
-//Refer DragDrop from https://sandydev.medium.com/how-to-create-drag-and-drop-upload-in-reactjs-d2f2c2b2048d
-const DragDrop = ({ onSetImageURL }) => {
+//Refers DragDrop from https://sandydev.medium.com/how-to-create-drag-and-drop-upload-in-reactjs-d2f2c2b2048d
+const DragDrop = ({ onSetImageURL, onSetJsonData }) => {
   const [file, setFile] = useState("");
-  const [receipt, setReceipt] = useState({});
+  const [receiptJsonData, setReceiptJsonData] = useState({});
   const [fireImageURL, setFireImageURL] = useState(null);
   const [transactionNo, setTransactionNo] = useState("");
   const [uploadedFile, setUploadedFile] = useState([]);
 
-  // Refer from Demo
+  // Refers from Demo
   const storeAndConvertReceiptImage = async () => {
     // uploadImageToFirestore(localImage) return { transactionNumber, imageURL }
     const { transactionNumber, imageURL } = await uploadImageToFirestore(
@@ -28,10 +25,12 @@ const DragDrop = ({ onSetImageURL }) => {
     setFireImageURL(imageURL);
     onSetImageURL(imageURL);
     console.log("Image uploaded to storage", imageURL);
+
     // Calling OCR Perform Function
-    // if (imageURL) {
-    //   setReceipt(await performOcr(imageURL));
-    // }
+    //   if (imageURL) {
+    //     setReceiptJsonData(await performOcr(imageURL));
+    //   }
+    // onSetJsonData(receiptJsonData);
   };
 
   const { getRootProps, getInputProps } = useDropzone({

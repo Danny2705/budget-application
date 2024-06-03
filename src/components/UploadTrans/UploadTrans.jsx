@@ -4,27 +4,29 @@ import DragDrop from "./DragDrop";
 import FileDisplay from "./FileDisplay";
 import JsonDisplay from "./JsonDisplay";
 import SaveButton from "./SaveButton";
-// import { uploadImageToFirestore } from "../../utils/firebase";
 // import { performOcr } from "../../utils/ocrVeryfi";
 
 const UploadTrans = () => {
-  const [receipt, setReceipt] = useState({});
-  const [localImage, setLocalImage] = useState("");
+  const [receiptData, setReceiptData] = useState({});
   const [imageURL, setImageURL] = useState(null);
-  const [receiptNo, setReceiptNo] = useState([]);
 
   const handleImageURLChange = (url) => {
     setImageURL(url);
     console.log("Parent: Image URL", url);
   };
 
+  const handleJsonDataChange = (data) => {
+    setReceiptData(data);
+    console.log("Parent: Receipt Data", data);
+  }
+
   return (
     <div class="mt-100 bg-white md:flex flex-col rounded-[24px]">
-      <DragDrop onSetImageURL={handleImageURLChange}/>
+      <DragDrop onSetImageURL={handleImageURLChange} onSetJsonData={handleJsonDataChange}/>
       <div class="flex flex-row py-[16px] px-[32px]">
         <FileDisplay imageSrc={imageURL}/>
         <div class="w-[56px]" />
-        <JsonDisplay />
+        <JsonDisplay json={receiptData}/>
       </div>
       <SaveButton />
     </div>
