@@ -36,7 +36,7 @@ const Links = () => {
       </Link>
 
       <Link
-        to='/budget'
+        to='/about'
         onClick={() => handleSelect("/about")}
         className={`${
           selected === "/about"

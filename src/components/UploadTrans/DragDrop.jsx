@@ -4,10 +4,11 @@ import "../../App.scss";
 
 const fileTypes = ["png", "jpeg", "jpg", "pdf"];
 
-const DragDrop = () => {
-  const [files, setFile] = useState([]);
+const DragDrop = ({onFileSelect}) => {
+  const [file, setFile] = useState([]);
   const handleChange = (file) => {
     setFile(file);
+    onFileSelect(file);
   };
   return (
     <div className='w-1040 bg-[#D4B4F3] my-[16px] mx-[32px] rounded-[16px] h-[80px] flex justify-center'>
