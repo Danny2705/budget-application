@@ -25,7 +25,7 @@ export default function RecentBudget({ budget }) {
         </div>
       </div>
       <div className='text-right text-secondary-orangeRed text-sm font-semibold mb-4'>
-        $200 out of {budget?.amount}
+        $200 out of ${budget?.amount}
       </div>
       <div className='flex h-3 rounded-full overflow-hidden'>
         <div className='w-1/2 bg-secondary-pink'></div>
