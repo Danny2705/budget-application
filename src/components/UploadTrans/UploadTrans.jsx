@@ -4,8 +4,8 @@ import DragDrop from "./DragDrop";
 import FileDisplay from "./FileDisplay";
 import JsonDisplay from "./JsonDisplay";
 import SaveButton from "./SaveButton";
-// import { uploadImageToFirestore } from "";
-// import { performOcr } from "../../utils/ocrVeryfi";
+import { uploadImageToFirestore } from "../../utils/firebase";
+import { performOcr } from "../../utils/ocrVeryfi";
 
 const UploadTrans = () => {
   const [receipt, setReceipt] = useState({});
@@ -13,17 +13,17 @@ const UploadTrans = () => {
   const [fireImageURL, setFireImageURL] = useState(null);
   const [receiptNo, setReceiptNo] = useState([]);
 
-  // const storeAndConvertReceiptImage = async () => {
-  //   const { receiptNumber, imageURL } = await uploadImageToFirestore(
-  //     localImage
-  //   );
-  //   setReceiptNo(receiptNumber);
-  //   setFireImageURL(imageURL);
-  //   console.log("Image uploaded to storage", imageURL);
-  //   if (imageURL) {
-  //     setReceipt(await performOcr(imageURL));
-  //   }
-  // };
+  const storeAndConvertReceiptImage = async () => {
+    const { receiptNumber, imageURL } = await uploadImageToFirestore(
+      localImage
+    );
+    setReceiptNo(receiptNumber);
+    setFireImageURL(imageURL);
+    console.log("Image uploaded to storage", imageURL);
+    if (imageURL) {
+      setReceipt(await performOcr(imageURL));
+    }
+  };
 
   return (
     <div class="mt-100 bg-white md:flex flex-col rounded-[24px]">
