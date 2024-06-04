@@ -21,7 +21,7 @@ const UploadTrans = () => {
   }
 
   return (
-    <div class="mt-100 bg-white md:flex flex-col rounded-[24px]">
+    <div className="mt-100 bg-white md:flex flex-col rounded-[24px]">
       <DragDrop onSetImageURL={handleImageURLChange} onSetJsonData={handleJsonDataChange}/>
       <div class="flex flex-row py-[16px] px-[32px]">
         <FileDisplay imageSrc={imageURL}/>
