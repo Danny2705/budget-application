@@ -1,0 +1,8 @@
+14:47:05.997 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+14:47:06.233 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+14:47:09.763 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO com.firebase.core.namespace.NamespaceActor - budget-app-bf80c-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 149ms, init: 0ms
+14:47:09.835 [NamespaceSystem-blocking-namespace-operation-dispatcher-7] INFO com.firebase.core.namespace.StateManager - Namespace budget-app-bf80c-default-rtdb status Active to Active
+16:00:26.378 [Thread-0] INFO com.firebase.server.forge.App$ - Attempting graceful shutdown.
+16:00:26.390 [NamespaceSystem-akka.actor.default-dispatcher-6] INFO com.firebase.core.namespace.Terminator$Terminator - 1 actors left to terminate: budget-app-bf80c-default-rtdb
+16:00:26.401 [NamespaceSystem-akka.actor.default-dispatcher-10] INFO com.firebase.core.namespace.NamespaceActor - stopped namespace actor for budget-app-bf80c-default-rtdb
+16:00:26.411 [Thread-0] INFO com.firebase.server.forge.App$ - Graceful shutdown complete.

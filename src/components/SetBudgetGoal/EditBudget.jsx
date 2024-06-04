@@ -48,7 +48,7 @@ export default function EditBudget({ data, onClose, getData }) {
       await updateDoc(budgetDoc, docData);
 
       getData();
-      toast.success("Budget updated successfully");
+      toast.success(`${title} budget updated successfully`);
       onClose();
     } catch (error) {
       console.error("Error updating document: ", error);
