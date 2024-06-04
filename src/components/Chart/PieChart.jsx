@@ -1,14 +1,15 @@
 // Reference: a) "Chart.js documentation for charts" - https://www.chartjs.org/docs/latest/charts/doughnut.html#pie b) ChatGPT refence chartjs-2
 //
 import { Pie } from "react-chartjs-2";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import jsonData from "./ChartData.json";
+import { transactionData } from "../TransactionTable/Data";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function PieChart({ transactionDetails }) {
-  const [transactionLables, setTransactionLabels] = useState(["jesse"]);
+  const [transactionLables, setTransactionLabels] = useState({transVenders: [],
+    transCategory: []});
 
   const pieChartData = {
     labels: transactionLables,
@@ -26,10 +27,17 @@ export default function PieChart({ transactionDetails }) {
     ],
   };
 
+  useEffect(() => {
+    const transVenders = transactionData.map((transaction) => transaction.Vender);
+    const transCategory = transactionData.map((transaction) => transaction.Category);
+    const translabel = transVenders
+    setTransactionLabels({transVenders, transCategory} 
+    );
+  }, [transactionData]);
+
   return (
     <div>
       <div className="w-[500px] h-[400px]">
-        <div>{}</div>
         <Pie data={pieChartData} />
       </div>
     </div>
