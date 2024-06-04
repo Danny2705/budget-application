@@ -51,7 +51,7 @@ export default function About() {
                 Contact Us
               </h2>
               <p className='text-base md:text-lg leading-relaxed'>
-                Have questions or feedback? We'd love to hear from you! Reach out to us at <a href='mailto:leaveusalone@teamtitan.com' className='text-blue-500 underline'>leaveusalonet@teamtitan.com</a>.
+                Have questions or feedback? We'd love to hear from you! Reach out to us at <a href='mailto:leaveusalone@teamtitan.com' className='text-blue-500 underline'>leaveusalone@teamtitan.com</a>.
               </p>
             </section>
 

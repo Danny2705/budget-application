@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../utils/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword} from "firebase/auth";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { logIn } from "../../redux/authSlice";
@@ -9,7 +9,8 @@ import GoogleAuth from "../Login/GoogleAuth";
 import GitHubAuth from "./GitHubAuth";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
-//refernce: firebase for the password reset 
+
+//refernce: firebase for the password reset and youtube: https://www.youtube.com/watch?v=uA9ejPZiEOw
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -42,14 +43,18 @@ export default function Login() {
       }
     }
   };
+
   const handleForgotPassword = async () => {
     try {
-      await sendPasswordResetEmail(auth, email);
+      const actionCodeSettings = {
+        url: 'http://localhost:3000',
+        handleCodeInApp: true,
+      };
+  
+      await sendPasswordResetEmail(auth, email, actionCodeSettings);
       toast.success("Password reset email sent! Please check your inbox.");
     } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error(errorCode, errorMessage);
+      console.error(error.code, error.message);
       toast.error("Failed to send password reset email. Please try again.");
     }
   };
@@ -87,7 +92,8 @@ export default function Login() {
                         className="bg-transparent border-2 rounded-sm px-2 border-main-lightPink outline-none text-white text-sm py-1"
                       />
                     </div>
-                    <span className='text-[10px] text-white cursor-pointer'
+
+                    <span className='text-[10px] text-white cursor-pointer ml-auto'
                      onClick={handleForgotPassword}>
                     Forgot Password
                   </span>
