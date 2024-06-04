@@ -90,15 +90,24 @@ export default function SetBudgetGoal() {
               transition={{ duration: 0.3 }}
               className='flex flex-wrap gap-4 justify-between'
             >
-              {budgets.map((budget, i) => (
-                <Link
-                  key={i}
-                  to={`/budget/transaction/${budget.id}`}
-                  className='flex-grow-0'
+              {budgets.length > 0 ? (
+                budgets.map((budget, i) => (
+                  <Link
+                    key={i}
+                    to={`/budget/transaction/${budget.id}`}
+                    className='flex-grow-0'
+                  >
+                    <RecentBudget budget={budget} />
+                  </Link>
+                ))
+              ) : (
+                <button
+                  className='w-80 mb-5 p-4 bg-[#18001d] rounded-lg border border-main-neonPink shadow-lg hover:shadow-2xl transition-shadow duration-300 h-[145.6px] text-lg'
+                  onClick={handleClick}
                 >
-                  <RecentBudget budget={budget} />
-                </Link>
-              ))}
+                  Start creating the budget
+                </button>
+              )}
             </motion.div>
           )}
 
