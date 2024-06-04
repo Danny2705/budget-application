@@ -14,10 +14,10 @@ export default function Dashboard() {
 
   const compareCreatedAt = (a, b) => {
     const timeA = new Date(
-      a.createdAt.seconds * 1000 + a.createdAt.nanoseconds / 1000000
+      a?.createdAt?.seconds * 1000 + a?.createdAt?.nanoseconds / 1000000
     );
     const timeB = new Date(
-      b.createdAt.seconds * 1000 + b.createdAt.nanoseconds / 1000000
+      b?.createdAt?.seconds * 1000 + b?.createdAt?.nanoseconds / 1000000
     );
     return timeB - timeA;
   };
@@ -59,9 +59,12 @@ export default function Dashboard() {
                 .map((budget, i) => (
                   <div key={i} className='flex-grow-0 relative'>
                     <RecentBudget budget={budget} />
-                    <div className='text-lg absolute top-0 right-0 bg-main-darkPurple p-2 rounded-lg z-10 cursor-pointer'>
+                    <button
+                      className='text-lg absolute top-0 right-0 bg-main-darkPurple p-2 rounded-lg z-10 cursor-pointer'
+                      // onClick={() => handleEdit(budget)}
+                    >
                       <FaEdit />
-                    </div>
+                    </button>
                   </div>
                 ))
             ) : (
