@@ -60,7 +60,7 @@ export default function Dashboard() {
                   <div key={i} className='flex-grow-0 relative'>
                     <RecentBudget budget={budget} />
                     <button
-                      className='text-lg absolute top-0 right-0 bg-main-darkPurple p-2 rounded-lg z-10 cursor-pointer'
+                      className='text-lg absolute top-0 right-0 bg-main-darkPurple p-2 rounded-lg z-10 cursor-pointer text-white'
                       // onClick={() => handleEdit(budget)}
                     >
                       <FaEdit />

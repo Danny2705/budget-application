@@ -3,19 +3,24 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+import DateCalendar from "../NewBudget/DateCalendar";
 
 export default function EditBudget({ data, onClose, getData }) {
   const [title, setTitle] = useState(data.title);
   const [amount, setAmount] = useState(data.amount);
-  const [selectedStartDate, setSelectedStartDate] = useState(data.startDate);
-  const [selectedEndDate, setSelectedEndDate] = useState(data.endDate);
+  const [selectedStartDate, setSelectedStartDate] = useState(null);
+  const [selectedEndDate, setSelectedEndDate] = useState(null);
   const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
     setTitle(data.title);
     setAmount(data.amount);
-    setSelectedStartDate(data.startDate);
-    setSelectedEndDate(data.endDate);
+    if (data.startDate && data.startDate.seconds) {
+      setSelectedStartDate(new Date(data.startDate.seconds * 1000));
+    }
+    if (data.endDate && data.endDate.seconds) {
+      setSelectedEndDate(new Date(data.endDate.seconds * 1000));
+    }
   }, [data]);
 
   const handleSubmit = async (e) => {
@@ -24,8 +29,8 @@ export default function EditBudget({ data, onClose, getData }) {
       title === "" ||
       amount === "" ||
       isNaN(Number(amount)) ||
-      selectedStartDate === "" ||
-      selectedEndDate === ""
+      !selectedStartDate ||
+      !selectedEndDate
     ) {
       toast.error("Please fill out all fields correctly.");
       return;
@@ -87,12 +92,12 @@ export default function EditBudget({ data, onClose, getData }) {
           </div>
 
           <div>
-            {/* <DateCalendar
+            <DateCalendar
               selectedStartDate={selectedStartDate}
               selectedEndDate={selectedEndDate}
               setSelectedStartDate={setSelectedStartDate}
               setSelectedEndDate={setSelectedEndDate}
-            /> */}
+            />
           </div>
         </div>
         <button
