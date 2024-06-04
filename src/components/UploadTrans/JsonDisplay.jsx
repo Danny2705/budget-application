@@ -1,7 +1,9 @@
 const JsonDisplay = ({ json }) => {
   return (
     <div className="relative w-[560px] h-[560px] bg-white shadow-2xl rounded-[8px] flex justify-center">
-      <p className="text-sm py-[8px]">*Json Data*</p>
+      {!!json && (
+        <pre className="text-sm py-[8px]">{JSON.stringify(json, null, 2)}</pre>
+      )}
     </div>
   );
 };
