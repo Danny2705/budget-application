@@ -8,13 +8,26 @@ import { IoMdClose } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../utils/firebase.js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setBudgets } from "../../redux/budgetSlice.js";
 
 export default function SetBudgetGoal() {
   const [activeButton, setActiveButton] = useState("activeBudgets");
   const [click, setClick] = useState(false);
   const user = useSelector((state) => state.auth.user);
-  const [budgets, setBudgets] = useState([]);
+  const budgets = useSelector((state) => state.budgets.budgets);
+  const dispatch = useDispatch();
+
+  // Ask ChatGPT: can you help me convert the data object that I get from redux to JS Date for sorting the time of the latest budget
+  const compareCreatedAt = (a, b) => {
+    const timeA = new Date(
+      a.createdAt.seconds * 1000 + a.createdAt.nanoseconds / 1000000
+    );
+    const timeB = new Date(
+      b.createdAt.seconds * 1000 + b.createdAt.nanoseconds / 1000000
+    );
+    return timeB - timeA;
+  };
 
   const handleClick = () => {
     setClick((prev) => !prev);
@@ -26,7 +39,7 @@ export default function SetBudgetGoal() {
       id: doc.id,
       ...doc.data(),
     }));
-    setBudgets(budgetData);
+    dispatch(setBudgets(budgetData));
   };
 
   useEffect(() => {
@@ -91,7 +104,7 @@ export default function SetBudgetGoal() {
               className='flex flex-wrap gap-4 justify-between'
             >
               {budgets.length > 0 ? (
-                budgets.map((budget, i) => (
+                [...budgets].sort(compareCreatedAt).map((budget, i) => (
                   <Link
                     key={i}
                     to={`/budget/transaction/${budget.id}`}
