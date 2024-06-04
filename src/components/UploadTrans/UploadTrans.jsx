@@ -18,15 +18,18 @@ const UploadTrans = () => {
   const handleJsonDataChange = (data) => {
     setReceiptData(data);
     console.log("Parent: Receipt Data", data);
-  }
+  };
 
   return (
-    <div className="mt-100 bg-white md:flex flex-col rounded-[24px]">
-      <DragDrop onSetImageURL={handleImageURLChange} onSetJsonData={handleJsonDataChange}/>
-      <div class="flex flex-row py-[16px] px-[32px]">
-        <FileDisplay imageSrc={imageURL}/>
-        <div class="w-[56px]" />
-        <JsonDisplay json={receiptData}/>
+    <div className='mt-100 bg-white md:flex flex-col rounded-[24px]'>
+      <DragDrop
+        onSetImageURL={handleImageURLChange}
+        onSetJsonData={handleJsonDataChange}
+      />
+      <div className='flex flex-row py-[16px] px-[32px]'>
+        <FileDisplay imageSrc={imageURL} />
+        <div className='w-[56px]' />
+        <JsonDisplay json={receiptData} />
       </div>
       <SaveButton />
     </div>
