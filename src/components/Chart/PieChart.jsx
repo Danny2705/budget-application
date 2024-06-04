@@ -40,11 +40,15 @@ export default function PieChart() {
       },
     ],
   };
-  // can possibly add dates to differentiate categories in piechart
+
   useEffect(() => {
     const transVenders = transactionData.map(
-      (transaction) => transaction.Vender + " " + transaction.Category // + transaction.Date
+      (transaction) => transaction.Vender + " " + transaction.Category 
     );
+    // TODO: work on transLabels
+    // const transLabels = transactionData.map((transaction) => {})
+
+
     const transAmount = transactionData.map((transaction) => transaction.Total);
     // Generate random color feature 
     // const generateRandomColor = () => {

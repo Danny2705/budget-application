@@ -13,10 +13,10 @@ export default function Dashboard() {
 
   const compareCreatedAt = (a, b) => {
     const timeA = new Date(
-      a.createdAt.seconds * 1000 + a.createdAt.nanoseconds / 1000000
+      a?.createdAt?.seconds * 1000 + a?.createdAt?.nanoseconds / 1000000
     );
     const timeB = new Date(
-      b.createdAt.seconds * 1000 + b.createdAt.nanoseconds / 1000000
+      b?.createdAt?.seconds * 1000 + b?.createdAt?.nanoseconds / 1000000
     );
     return timeB - timeA;
   };
