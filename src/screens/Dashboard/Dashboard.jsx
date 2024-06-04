@@ -7,6 +7,7 @@ import Scan from "../../components/Scan/Scan";
 import RecentTransaction from "../../components/RecentTransaction/RecentTransaction";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { FaEdit } from "react-icons/fa";
 
 export default function Dashboard() {
   const budgets = useSelector((state) => state.budgets.budgets);
@@ -56,13 +57,12 @@ export default function Dashboard() {
                 .sort(compareCreatedAt)
                 .slice(0, 4)
                 .map((budget, i) => (
-                  <Link
-                    key={i}
-                    to={`/budget/transaction/${budget.id}`}
-                    className='flex-grow-0'
-                  >
+                  <div key={i} className='flex-grow-0 relative'>
                     <RecentBudget budget={budget} />
-                  </Link>
+                    <div className='text-lg absolute top-0 right-0 bg-main-darkPurple p-2 rounded-lg z-10 cursor-pointer'>
+                      <FaEdit />
+                    </div>
+                  </div>
                 ))
             ) : (
               <Link to='/budget'>
