@@ -8,7 +8,7 @@ import { transactionData } from "../TransactionTable/Data";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export default function PieChart({ transactionDetails }) {
+export default function PieChart() {
   const [transactionLables, setTransactionLabels] = useState([]);
   const [transactionAmount, setTransactionAmount] = useState([]);
   // const [randomColor, setRandomColor] = useState("");
@@ -32,7 +32,9 @@ export default function PieChart({ transactionDetails }) {
         backgroundColor: [
           "rgb(255, 99, 132)",
           "rgb(54, 162, 235)",
-          "rgb(255, 205, 86)",
+          "rgb(210, 205, 86)",
+          "rgb(255, 020, 214)",
+          "rgb(230, 100, 100)",
         ],
         hoverOffset: 4,
       },
