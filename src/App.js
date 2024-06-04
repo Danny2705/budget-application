@@ -10,7 +10,7 @@ import Dashboard from "./screens/Dashboard/Dashboard";
 import Transaction from "./screens/Transaction/Transaction";
 import Budget from "./screens/Budget/Budget";
 import Profile from "./screens/Profile/Profile";
-import About from "./screens/About/About"; 
+import About from "./screens/About/About";
 import "../src/App.scss";
 import CreateTransaction from "./components/CreateTransaction/CreateTransaction";
 
@@ -28,8 +28,7 @@ function App() {
           path='/signup'
           element={!user ? <Signup /> : <Navigate to='/' />}
         />
-         <Route 
-         path="/reset-password" element={<ResetPassword />} />
+        <Route path='/reset-password' element={<ResetPassword />} />
 
         <Route
           path='/'
