@@ -23,7 +23,7 @@ export const db = getFirestore(app);
 export const provider = new GithubAuthProvider();
 export const storage = getStorage();
 
-
+//Refers from Demo
 export const uploadImageToFirestore = async (localImage) => {
   const transactionNumber = "U123456B123456T123456";
   try {
@@ -42,6 +42,7 @@ export const uploadImageToFirestore = async (localImage) => {
     console.error("Error adding images to Firestore:", error);
   }
 };
+
 
 export const saveReceiptToFirestore = async (
   receiptNum,
