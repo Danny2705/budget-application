@@ -2,7 +2,6 @@ import React from "react";
 import Layout from "../Layout/Layout";
 import RecentBudgetTransTable from "../../components/TransactionTable/RecentBudgetTransTable";
 import PieChart from "../../components/Chart/PieChart";
-import BarChart from "../../components/Chart/BarChart";
 
 export default function Transaction() {
   return (
@@ -44,7 +43,6 @@ export default function Transaction() {
               </h2>
               <div className="">
                 <PieChart />
-                <BarChart />
               </div>
             </div>
           </div>

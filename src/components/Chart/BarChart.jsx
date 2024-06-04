@@ -1,5 +1,5 @@
 // Reference: a) "Chart.js documentation for charts" - https://www.chartjs.org/docs/latest/charts/doughnut.html#pie b) ChatGPT refence chartjs-2
-//
+// NOT USED YET: TODO? change to a line chart
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,

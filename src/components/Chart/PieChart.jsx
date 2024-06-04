@@ -1,21 +1,17 @@
 // Reference: a) "Chart.js documentation for charts" - https://www.chartjs.org/docs/latest/charts/doughnut.html#pie b) ChatGPT refence chartjs-2
 //
 import { Pie } from "react-chartjs-2";
+import { useState } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import jsonData from "./ChartData.json"; 
+import jsonData from "./ChartData.json";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export default function PieChart() {
-  const itemLabels = [];
-  const chartData = () => {
-      jsonData.map((item, index) => {
-        itemLabels.push(item.budgetName);
-      })
-  }
+export default function PieChart({ transactionDetails }) {
+  const [transactionLables, setTransactionLabels] = useState(["jesse"]);
 
   const pieChartData = {
-    labels: itemLabels,
+    labels: transactionLables,
     datasets: [
       {
         label: "Pie Chart Describing transaction category versus money spent",
@@ -33,6 +29,7 @@ export default function PieChart() {
   return (
     <div>
       <div className="w-[500px] h-[400px]">
+        <div>{}</div>
         <Pie data={pieChartData} />
       </div>
     </div>

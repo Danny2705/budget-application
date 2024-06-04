@@ -1,50 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { NewTransactionData } from "./Data";
 
-const transactionData = [
-  {
-    Item: "RED BULL ENERGY DRINK CNS 8.4OZ 6PK",
-    Price: "9.99",
-    Quantity: "1",
-    Total: "9.99",
-    Category: "Drink",
-  },
-  {
-    Item: "CA REDMP VAL",
-    Price: "0.03",
-    Quantity: "1",
-    Total: "0.03",
-    Category: "Fee",
-  },
-  {
-    Item: "COCA COLA MINICAN 7.5Z 6PK",
-    Price: "4.00",
-    Quantity: "2",
-    Total: "8.00",
-    Category: "Drink",
-  },
-  {
-    Item: "NAB OREO CKIES C/PK 5.25OZ WHSE",
-    Price: "2.69",
-    Quantity: "1",
-    Total: "2.69",
-    Category: "Food",
-  },
-  {
-    Item: "DORITOS NACHO",
-    Price: "2.00",
-    Quantity: "2",
-    Total: "4.00",
-    Category: "Food",
-  },
-  {
-    Item: "F/LAYS REGULAR 2.63OZ",
-    Price: "2.00",
-    Quantity: "1",
-    Total: "2.00",
-    Category: "Food",
-  },
-];
 
 export default function NewTransLineItemsTable() {
   return (
@@ -77,7 +34,7 @@ export default function NewTransLineItemsTable() {
               </tr>
             </thead>
             <tbody className="text-white">
-              {transactionData.map((val, key) => {
+              {NewTransactionData.map((val, key) => {
                 return (
                   /* switch color of the row refer from https://chatgpt.com/
             bg-[#26264F] and bg-[#1D1E42] are the colors used in the Figma Design
