@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import DateCalendar from "./DateCalendar";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { db } from "../../utils/firebase";
 import toast from "react-hot-toast";
@@ -24,10 +24,13 @@ export default function NewBudget({ getData, handleClick }) {
       amount,
       startDate: selectedStartDate,
       endDate: selectedEndDate,
+      createdAt: serverTimestamp(),
     };
 
     try {
-      if (
+      if (amount.trim() === "" || isNaN(Number(amount))) {
+        toast.error("Amount must be a valid number");
+      } else if (
         docData.title !== "" &&
         docData.amount !== "" &&
         docData.startDate !== "" &&
@@ -41,6 +44,7 @@ export default function NewBudget({ getData, handleClick }) {
         setSelectedEndDate("");
         getData();
         handleClick();
+        toast.success("Budget created successfully");
       } else {
         toast.error("Please enter all of the fields");
       }
