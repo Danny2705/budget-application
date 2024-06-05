@@ -8,7 +8,12 @@ export default function Footer() {
       <div className='mx-auto sm:px-6 max-w-7xl'>
         <div className='grid grid-cols-2 md:col-span-3 lg:grid-cols-6 gap-y-16 gap-x-12'>
           <div className='col-span-2 md:col-span-3 lg:col-span-2 lg:pr-8'>
-            <img className='w-[40px]' src='./piggy1.png' alt='Logo' />
+            <div className='flex items-center gap-3'>
+              <img className='w-[40px]' src='./piggy1.png' alt='Logo' />
+              <span className='large-h1-span font-semibold tracking-wider text-xl'>
+                VioVault
+              </span>
+            </div>
 
             <p className='text-base leading-relaxed text-white mt-7'>
               Stay on top of your finances with our easy-to-use budgeting tools.
@@ -21,10 +26,10 @@ export default function Footer() {
                 <Link
                   to='/'
                   title=''
-                  className='flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-main-neonPink focus:bg-main-neonPink'
+                  className='flex items-center justify-center text-main-neonPink hover:text-white transition-all duration-200 bg-gray-800 rounded-full w-10 h-10 hover:bg-main-neonPink focus:bg-main-neonPink'
                 >
                   <svg
-                    className='w-4 h-4'
+                    className='w-7 h-7'
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 24 24'
                     fill='currentColor'
@@ -38,10 +43,10 @@ export default function Footer() {
                 <Link
                   to='/'
                   title=''
-                  className='flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-main-neonPink focus:bg-main-neonPink'
+                  className='flex items-center justify-center text-main-neonPink hover:text-white transition-all duration-200 bg-gray-800 rounded-full w-10 h-10 hover:bg-main-neonPink focus:bg-main-neonPink'
                 >
                   <svg
-                    className='w-4 h-4'
+                    className='w-7 h-7'
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 24 24'
                     fill='currentColor'
@@ -55,10 +60,10 @@ export default function Footer() {
                 <Link
                   to='/'
                   title=''
-                  className='flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-main-neonPink focus:bg-main-neonPink'
+                  className='flex items-center justify-center text-main-neonPink hover:text-white transition-all duration-200 bg-gray-800 rounded-full w-10 h-10 hover:bg-main-neonPink focus:bg-main-neonPink'
                 >
                   <svg
-                    className='w-4 h-4'
+                    className='w-7 h-7'
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 24 24'
                     fill='currentColor'
@@ -74,10 +79,10 @@ export default function Footer() {
                 <Link
                   to='/'
                   title=''
-                  className='flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-main-neonPink focus:bg-main-neonPink'
+                  className='flex items-center justify-center text-main-neonPink hover:text-white transition-all duration-200 bg-gray-800 rounded-full w-10 h-10 hover:bg-main-neonPink focus:bg-main-neonPink'
                 >
                   <svg
-                    className='w-4 h-4'
+                    className='w-7 h-7'
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 24 24'
                     fill='currentColor'
