@@ -1,17 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
-
-const transactionData = [
-  {
-    Vender: "Walmart",
-    Date: "03/28/2023",
-    Location: "Calgary, CA",
-    Category: "Food & Drink",
-    Subtotal: "27.60",
-    Tax: "1.93",
-    Total: "29.53",
-  },
-];
+import { NewVenderData } from "./Data";
 
 export default function NewTransVenderTable() {
   return (
@@ -49,7 +38,7 @@ export default function NewTransVenderTable() {
             </tr>
           </thead>
           <tbody className="text-white">
-            {transactionData.map((val, key) => {
+            {NewVenderData.map((val, key) => {
               return (
                 /* switch color of the row refer from https://chatgpt.com/
             bg-[#26264F] and bg-[#1D1E42] are the colors used in the Figma Design
