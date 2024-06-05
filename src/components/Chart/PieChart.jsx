@@ -11,7 +11,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 export default function PieChart() {
   const [transactionLables, setTransactionLabels] = useState([]);
   const [transactionAmount, setTransactionAmount] = useState([]);
-  // const [randomColor, setRandomColor] = useState("");
+  const [randomColor, setRandomColor] = useState("");
 
   const options = {
     responsive: true,
@@ -29,13 +29,7 @@ export default function PieChart() {
         label: "Pie Chart Describing transaction category versus money spent",
         data: transactionAmount,
         borderColor: "none",
-        backgroundColor: [
-          "rgb(255, 99, 132)",
-          "rgb(54, 162, 235)",
-          "rgb(210, 205, 86)",
-          "rgb(255, 020, 214)",
-          "rgb(230, 100, 100)",
-        ],
+        backgroundColor: randomColor,
         hoverOffset: 4,
       },
     ],
@@ -45,17 +39,22 @@ export default function PieChart() {
     const transVenders = transactionData.map(
       (transaction) => transaction.Vender + " " + transaction.Category 
     );
-    // TODO: work on transLabels
-    // const transLabels = transactionData.map((transaction) => {})
-
-
+    const transLabels = transactionData.map((transaction) => {})
     const transAmount = transactionData.map((transaction) => transaction.Total);
-    // Generate random color feature 
-    // const generateRandomColor = () => {
-    //   setRandomColor(Math.random().toString(16).substr(-6));
-    // }
+    const generateRandomColor = () => {
+      const letters = '0123456789ABCDEF';
+      let color = '#';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    };
+
+    const colors = transVenders.map(() => generateRandomColor());
+
     setTransactionAmount(transAmount);
     setTransactionLabels(transVenders);
+    setRandomColor(colors);
   }, [transactionData]);
 
   return (
