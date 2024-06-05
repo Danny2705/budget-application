@@ -1,0 +1,24 @@
+[
+    {
+        "transactionId": "2465343",
+        "budgetId": "123456",
+        "budgetName": "Grocery",
+        "vendor": "Walgreens",
+        "date": "03/28/2023",
+        "location": "Calgary, AB",
+        "subtotal": "$27.60",
+        "tax": "$1.38",
+        "total": "$28.98"
+    },
+    {
+        "transactionId": "2465343",
+        "budgetId": "123456",
+        "budgetName": "Grocery",
+        "vendor": "Walgreens",
+        "date": "03/28/2023",
+        "location": "Calgary, AB",
+        "subtotal": "$27.60",
+        "tax": "$1.38",
+        "total": "$28.98"
+    }
+]

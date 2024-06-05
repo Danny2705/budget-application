@@ -5,7 +5,6 @@ import RecentBudgetTranstable from "../TransactionTable/RecentBudgetTransTable";
 import NewBudget from "../NewBudget/NewBudget.jsx";
 import { FaEdit, FaPlus } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
-import { Link } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../utils/firebase.js";
 import { useDispatch, useSelector } from "react-redux";
