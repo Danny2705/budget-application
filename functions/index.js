@@ -10,7 +10,7 @@ exports.performOcr = onRequest(
         const imageURL = request.body.imageURL;
 
         if (request.method === "OPTIONS") {
-          response.header("Access-Control-Allow-Origin", "https://personal-receipt-management.vercel.app");
+          response.header("Access-Control-Allow-Origin", "https://budget-application-chi.vercel.app/");
           response.header("Access-Control-Allow-Credentials", "true");
           response.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
           response.header("Access-Control-Allow-Headers", "Content-Type");
@@ -41,7 +41,7 @@ exports.performOcr = onRequest(
         };
 
         const veryfiResponse = await axios(config);
-        response.header("Access-Control-Allow-Origin", "https://viovault.vercel.app/");
+        response.header("Access-Control-Allow-Origin", "https://budget-application-chi.vercel.app/");
         response.header("Access-Control-Allow-Credentials", "true");
         response.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         response.header("Access-Control-Allow-Headers", "Content-Type");
@@ -49,7 +49,7 @@ exports.performOcr = onRequest(
       } catch (error) {
         console.error("Error in performOcr function:", error);
         console.log(error);
-        response.header("Access-Control-Allow-Origin", "https://viovault.vercel.app");
+        response.header("Access-Control-Allow-Origin", "https://budget-application-chi.vercel.app/");
         response.header("Access-Control-Allow-Credentials", "true");
         response.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         response.header("Access-Control-Allow-Headers", "Content-Type");
