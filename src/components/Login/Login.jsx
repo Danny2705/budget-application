@@ -47,7 +47,7 @@ export default function Login() {
   const handleForgotPassword = async () => {
     try {
       const actionCodeSettings = {
-        url: 'http://localhost:3000',
+        url: 'https://budget-application-chi.vercel.app/login',
         handleCodeInApp: true,
       };
   
