@@ -3,7 +3,7 @@ import { FileUploader } from "react-drag-drop-files";
 import "../../App.scss";
 import { uploadImageToFirestore } from "../../utils/firebase";
 import { useDropzone } from "react-dropzone";
-// import { performOcr } from "../../utils/ocrVeryfi";
+import { performOcr } from "../../utils/ocrVeryfi";
 
 const fileTypes = ["png", "jpeg", "jpg", "pdf"];
 
@@ -27,10 +27,10 @@ const DragDrop = ({ onSetImageURL, onSetJsonData }) => {
     console.log("Image uploaded to storage", imageURL);
 
     // Calling OCR Perform Function
-    //   if (imageURL) {
-    //     setReceiptJsonData(await performOcr(imageURL));
-    //   }
-    // onSetJsonData(receiptJsonData);
+      if (imageURL) {
+        setReceiptJsonData(await performOcr(imageURL));
+      }
+    onSetJsonData(receiptJsonData);
   };
 
   const { getRootProps, getInputProps } = useDropzone({
