@@ -4,7 +4,6 @@ import DragDrop from "./DragDrop";
 import FileDisplay from "./FileDisplay";
 import JsonDisplay from "./JsonDisplay";
 import SaveButton from "./SaveButton";
-// import { performOcr } from "../../utils/ocrVeryfi";
 
 const UploadTrans = () => {
   const [receiptData, setReceiptData] = useState({});
