@@ -30,7 +30,7 @@ const DropDownMenu = () => {
   useEffect(() => {
     const storedName = localStorage.getItem("profileName");
     const storedImage = localStorage.getItem("profileImage");
-    if (storedName)  setDisplayName(storedName);
+    if (storedName) setDisplayName(storedName);
     if (storedImage) setProfileImage(storedImage);
   });
 
@@ -41,7 +41,7 @@ const DropDownMenu = () => {
         className="flex items-center gap-2 py-2 rounded-md text-indigo-50"
       >
         <span className="font-medium text-sm">
-          <ProfileAvatar name={displayName} image={profileImage}/>
+          <ProfileAvatar name={displayName} image={profileImage} size={true} />
         </span>
         <motion.span
           animate={{ rotate: open ? 180 : 0 }}
@@ -58,10 +58,10 @@ const DropDownMenu = () => {
           className="absolute top-full right-0 w-48 p-2 bg-white rounded-lg shadow-lg"
         >
           <div className="flex items-center gap-3 cursor-pointer">
-            <img
-              src="/gojo.jpeg"
-              alt="user avatar"
-              className="text-2xl text-main-red duration-500 hover:text-[#da3354] w-9 h-9 rounded-full border border-[#801AE5]"
+            <ProfileAvatar
+              name={displayName}
+              image={profileImage}
+              size={true}
             />
             <div className="flex flex-col">
               <span className="text-black text-sm font-bold">

@@ -53,7 +53,7 @@ export default function Profile() {
             {!isSaved ? (
               <ProfileAvatar name={user.displayName} image={image} />
             ) : (
-              <ProfileAvatar name={name} image={image} />
+              <ProfileAvatar name={name} image={image} size={0} />
             )}
             <label
               htmlFor="imageUpload"
