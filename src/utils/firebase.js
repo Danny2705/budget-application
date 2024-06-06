@@ -45,21 +45,21 @@ export const uploadImageToFirestore = async (localImage) => {
 
 
 export const saveReceiptToFirestore = async (
-  receiptNum,
-  receipt,
+  receiptNo,
+  receiptData,
   imageUrl,
-  userEmail
+  //userEmail
 ) => {
   try {
     //cannot add user email to receipt object
     const receiptWithImageURLs = {
-      ...receipt,
+      ...receiptData,
       imageURLs: [imageUrl],
-      userEmail,
+      //userEmail,
     };
     console.log(receiptWithImageURLs);
     console.log("Receipt with image URLs", receiptWithImageURLs);
-    await setDoc(doc(db, "users", receiptNum), receiptWithImageURLs);
+    await setDoc(doc(db, "transactions", receiptNo), receiptWithImageURLs);
     console.log("Submitted to Firestore");
   } catch (error) {
     console.error("Error adding item to Firestore:", error);
