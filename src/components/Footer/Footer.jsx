@@ -9,7 +9,7 @@ export default function Footer() {
         <div className='grid grid-cols-2 md:col-span-3 lg:grid-cols-6 gap-y-16 gap-x-12'>
           <div className='col-span-2 md:col-span-3 lg:col-span-2 lg:pr-8'>
             <div className='flex items-center gap-3'>
-              <img className='w-[40px]' src='./piggy1.png' alt='Logo' />
+              <img className='w-[40px]' src='/piggy1.png' alt='Logo' />
               <span className='large-h1-span font-semibold tracking-wider text-xl'>
                 VioVault
               </span>
@@ -190,7 +190,7 @@ export default function Footer() {
         <hr className='mt-16 mb-10 border-gray-200' />
 
         <p className='text-sm text-center text-gray-600'>
-          © Copyright 2021, All Rights Reserved by Postcraft
+          © Copyright 2021, All Rights Reserved by VioVault
         </p>
       </div>
     </section>
