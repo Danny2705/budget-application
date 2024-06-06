@@ -16,6 +16,7 @@ import Avatar from "react-avatar";
 const DropDownMenu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [profileImage, setProfileImage] = useState("");
   const [open, setOpen] = useState(false);
   const user = useSelector((state) => state.auth.user);
 
@@ -25,15 +26,30 @@ const DropDownMenu = () => {
     navigate("/login");
   };
 
+  const handleIChangeImage = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfileImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="relative">
       <button
         onClick={() => setOpen((prev) => !prev)}
-        className='flex items-center gap-2 py-2 rounded-md text-indigo-50'
+        className="flex items-center gap-2 py-2 rounded-md text-indigo-50"
       >
         <span className="font-medium text-sm">
-          <Avatar src='/gojo.jpeg'
-            name={user.displayName} size="40" round={true} />
+          <Avatar
+            src="/gojo.jpeg"
+            name={user.displayName}
+            size="40"
+            round={true}
+          />
         </span>
         <motion.span
           animate={{ rotate: open ? 180 : 0 }}
