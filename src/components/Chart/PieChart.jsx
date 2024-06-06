@@ -1,17 +1,14 @@
-// Reference: a) "Chart.js documentation for charts" - https://www.chartjs.org/docs/latest/charts/doughnut.html#pie b) ChatGPT refence chartjs-2
-//
 import { Pie } from "react-chartjs-2";
 import { useState, useEffect } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { transactionData } from "../TransactionTable/Data";
 
-
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function PieChart() {
-  const [transactionLables, setTransactionLabels] = useState([]);
+  const [transactionLabels, setTransactionLabels] = useState([]);
   const [transactionAmount, setTransactionAmount] = useState([]);
-  const [randomColor, setRandomColor] = useState("");
+  const [randomColor, setRandomColor] = useState([]);
 
   const options = {
     responsive: true,
@@ -23,7 +20,7 @@ export default function PieChart() {
   };
 
   const pieChartData = {
-    labels: transactionLables,
+    labels: transactionLabels,
     datasets: [
       {
         label: "Pie Chart Describing transaction category versus money spent",
@@ -35,12 +32,27 @@ export default function PieChart() {
     ],
   };
 
+  // Reference from ChatGPT: { i want to be able to iterate through transactions and sum the prices}
   useEffect(() => {
-    const transVenders = transactionData.map(
-      (transaction) => transaction.Vender + " " + transaction.Category 
-    );
-    const transLabels = transactionData.map((transaction) => {})
-    const transAmount = transactionData.map((transaction) => transaction.Total);
+    // Create a map to hold the total amount for each category
+    const categoryAmountMap = new Map();
+
+    transactionData.forEach((transaction) => {
+      const category = transaction.Category;
+      const amount = parseFloat(transaction.Total);
+
+      if (categoryAmountMap.has(category)) {
+        categoryAmountMap.set(category, categoryAmountMap.get(category) + amount);
+      } else {
+        categoryAmountMap.set(category, amount);
+      }
+    });
+
+    // Extract the unique categories and their corresponding total amounts
+    const transCategories = Array.from(categoryAmountMap.keys());
+    const transAmounts = Array.from(categoryAmountMap.values());
+
+    // Generate a random color for each category
     const generateRandomColor = () => {
       const letters = '0123456789ABCDEF';
       let color = '#';
@@ -50,12 +62,12 @@ export default function PieChart() {
       return color;
     };
 
-    const colors = transVenders.map(() => generateRandomColor());
+    const colors = transCategories.map(() => generateRandomColor());
 
-    setTransactionAmount(transAmount);
-    setTransactionLabels(transVenders);
+    setTransactionLabels(transCategories);
+    setTransactionAmount(transAmounts);
     setRandomColor(colors);
-  }, [transactionData]);
+  }, []);
 
   return (
     <div>
