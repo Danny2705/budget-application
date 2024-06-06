@@ -2,7 +2,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
 import Login from "./components/Login/Login";
 import Signup from "./components/Register/Signup";
-import ResetPassword from "./components/ResetPassword/ResetPassword";
 import NoMatch from "./screens/NoMatch/NoMatch";
 import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
@@ -28,7 +27,6 @@ function App() {
           path='/signup'
           element={!user ? <Signup /> : <Navigate to='/' />}
         />
-        <Route path='/reset-password' element={<ResetPassword />} />
 
         <Route
           path='/'
