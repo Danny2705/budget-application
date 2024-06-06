@@ -16,7 +16,6 @@ import Avatar from "react-avatar";
 const DropDownMenu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [profileImage, setProfileImage] = useState("");
   const [open, setOpen] = useState(false);
   const user = useSelector((state) => state.auth.user);
 
@@ -26,17 +25,7 @@ const DropDownMenu = () => {
     navigate("/login");
   };
 
-  const handleIChangeImage = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfileImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
+ 
   return (
     <div className="relative">
       <button
