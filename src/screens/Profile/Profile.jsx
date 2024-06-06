@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from "react";
-import Avatar from "react-avatar";
 import Layout from "../Layout/Layout";
 import { FiEdit } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import ProfileAvatar from "./Avatar";
 
-function ProfileAvatar({ image, name }) {
-  return (
-    <div>
-      <Avatar name={name} src={image} size="100" round={true} color="#801AE5" />
-    </div>
-  );
-}
 
 export default function Profile() {
   const [name, setName] = useState("");
@@ -45,6 +38,8 @@ export default function Profile() {
   const onSave = (event) => {
     event.preventDefault();
     setIsSaved(true);
+    localStorage.setItem("profileName", name);
+    localStorage.setItem("profileImage", image);
     toast.success("Change Successful");
     navigate("/")
     // Here you can add the code to save the updated name and email, for example, making an API call to update the user info in the backend.

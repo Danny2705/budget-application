@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   FiChevronDown,
@@ -11,11 +11,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../redux/authSlice";
 import toast from "react-hot-toast";
-import Avatar from "react-avatar";
+import ProfileAvatar from "../screens/Profile/Avatar";
 
 const DropDownMenu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [displayName, setDisplayName] = useState("");
+  const [profileImage, setProfileImage] = useState("");
   const [open, setOpen] = useState(false);
   const user = useSelector((state) => state.auth.user);
 
@@ -25,7 +27,13 @@ const DropDownMenu = () => {
     navigate("/login");
   };
 
- 
+  useEffect(() => {
+    const storedName = localStorage.getItem("profileName");
+    const storedImage = localStorage.getItem("profileImage");
+    if (storedName)  setDisplayName(storedName);
+    if (storedImage) setProfileImage(storedImage);
+  });
+
   return (
     <div className="relative">
       <button
@@ -33,12 +41,7 @@ const DropDownMenu = () => {
         className="flex items-center gap-2 py-2 rounded-md text-indigo-50"
       >
         <span className="font-medium text-sm">
-          <Avatar
-            src="/gojo.jpeg"
-            name={user.displayName}
-            size="40"
-            round={true}
-          />
+          <ProfileAvatar name={displayName} image={profileImage}/>
         </span>
         <motion.span
           animate={{ rotate: open ? 180 : 0 }}
