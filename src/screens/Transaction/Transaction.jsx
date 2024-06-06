@@ -10,8 +10,9 @@ export default function Transaction() {
   const params = useParams();
   const budgets = useSelector((state) => state.budgets.budgets);
 
+  // SMALL FIX: run localhost:3000/transaction/{needs}
   const budgetInfo = budgets.find((budget) => budget.id === params.id);
-  console.log(budgetInfo);
+  // console.log(budgetInfo);
   return (
     <Layout>
       <div className='mt-[90px] px-4 xl:px-20'>
