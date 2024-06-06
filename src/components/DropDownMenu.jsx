@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../redux/authSlice";
 import toast from "react-hot-toast";
+import Avatar from "react-avatar";
 
 const DropDownMenu = () => {
   const dispatch = useDispatch();
@@ -31,11 +32,8 @@ const DropDownMenu = () => {
         className='flex items-center gap-2 py-2 rounded-md text-indigo-50'
       >
         <span className="font-medium text-sm">
-          <img
-            src='/gojo.jpeg'
-            alt='user avatar'
-            className='text-2xl text-main-red duration-500 hover:text-[#da3354] w-9 h-9 rounded-full border border-[#801AE5] object-cover'
-          />
+          <Avatar src='/gojo.jpeg'
+            name={user.displayName} size="40" round={true} />
         </span>
         <motion.span
           animate={{ rotate: open ? 180 : 0 }}
