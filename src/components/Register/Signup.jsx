@@ -47,7 +47,7 @@ export default function SignUp() {
         );
 
         const actionCodeSettings = {
-          url: "http://localhost:3000/login",
+          url: "https://budget-application-chi.vercel.app/login",
           handleCodeInApp: true,
         };
         await sendEmailVerification(auth.currentUser, actionCodeSettings);

@@ -1,9 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-//chatgpt prompt: Function to format Firestore timestamp to a readable date string
-// code referenced from figma and edited by Emon//
-// chatgpt prompt: "how to make the RecentBudget component responsive?" //
+// Function to format Firestore timestamp to a readable date string
 const formatDate = (timestamp) => {
   if (!timestamp || !timestamp?.seconds) return "";
   const date = new Date(timestamp.seconds * 1000);
@@ -45,6 +43,11 @@ export default function RecentBudget({ budget }) {
   const endDate = new Date(budget?.endDate.seconds * 1000);
   const period = calculatePeriod(startDate, endDate);
 
+  // Sum the transaction amounts to get the total amount spent
+  const amountSpent = budget?.transactions?.reduce((total, transaction) => total + transaction.amount, 0) || 0;
+  const amountTotal = budget?.amount || 1; // Default to 1 to avoid division by zero
+  const percentageSpent = (amountSpent / amountTotal) * 100;
+
   return (
     <div className='w-80 mb-5 p-4 bg-[#18001d] hover:bg-[#2c0b31] rounded-lg border border-main-neonPink shadow-lg hover:shadow-2xl transition-shadow duration-300'>
       <Link to={`/budget/transaction/${budget.id}`} className='flex-grow-0'>
@@ -59,13 +62,15 @@ export default function RecentBudget({ budget }) {
             {formatDate(budget?.startDate)} - {formatDate(budget?.endDate)}
           </span>
           <div className='text-secondary-orangeRed'>
-            <span className='text-secondary-blue'>$200</span> out of{" "}
+            <span className='text-secondary-blue'>${amountSpent}</span> out of{" "}
             <span className='text-secondary-red'>${budget?.amount}</span>
           </div>
         </div>
-        <div className='flex h-3 rounded-full overflow-hidden'>
-          <div className='w-1/2 bg-secondary-pink'></div>
-          <div className='w-1/2 bg-white'></div>
+        <div className='relative w-full h-3 bg-gray-200 rounded-full overflow-hidden'>
+          <div
+            className='absolute top-0 left-0 h-full bg-secondary-pink'
+            style={{ width: `${percentageSpent}%` }}
+          ></div>
         </div>
       </Link>
     </div>
