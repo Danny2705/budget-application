@@ -51,6 +51,7 @@ export default function Dashboard() {
           </div>
 
           <div className='flex flex-wrap justify-between items-center'>
+            {/* ask ChatGPT to solve the problem: How can I solve this problem when I try to sort a new Date Cannot assign to read only property '0' of object '[object Array]'*/}
             {budgets.length > 0 ? (
               [...budgets]
                 .sort(compareCreatedAt)
