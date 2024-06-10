@@ -30,7 +30,7 @@ export default function Dashboard() {
         </div>
 
         <div className='relative h-[300px] lg:h-[700px] w-full mt-[1rem] flex items-start justify-between px-4 xl:px-20'>
-          <h1 className='main-span font-bold mt-4 tracking-wider z-10 w-[55%] lg:w-[70%] right-0 text-right px-4 xl:px-20'>
+          <h1 className='main-span font-bold mt-4 tracking-wider z-10 w-[55%] lg:w-[70%] xl:text-[7rem] lg:text-[5rem] md:text-[4rem] sm:text-[3rem] right-0 text-right px-4 xl:px-20'>
             Innovative Scanning
           </h1>
           <img
@@ -51,18 +51,14 @@ export default function Dashboard() {
           </div>
 
           <div className='flex flex-wrap justify-between items-center'>
-            {/* ask ChatGPT to solve the problem: How can I solve this problem when I try to sort a new Date Cannot assign to read only property '0' of object '[object Array]'*/}
             {budgets.length > 0 ? (
               [...budgets]
                 .sort(compareCreatedAt)
                 .slice(0, 4)
                 .map((budget, i) => (
-                  <div key={i} className='flex-grow-0 relative'>
+                  <div key={i} className='flex-grow-0 relative m-2'>
                     <RecentBudget budget={budget} />
-                    <button
-                      className='text-lg absolute top-0 right-0 bg-main-darkPurple p-2 rounded-lg z-10 cursor-pointer text-white'
-                      // onClick={() => handleEdit(budget)}
-                    >
+                    <button className='text-lg absolute top-0 right-0 bg-main-darkPurple p-2 rounded-lg z-10 cursor-pointer text-white'>
                       <FaEdit />
                     </button>
                   </div>
