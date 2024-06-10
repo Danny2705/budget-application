@@ -1,4 +1,3 @@
-// src/components/Donate/Donate.js
 import React from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
@@ -28,15 +27,15 @@ export default function Donate() {
     }
   };
 
-//   return (
-//     <div className="donate-container">
-//       <h1>Donate to Our Cause</h1>
-//       <form onSubmit={handleSubmit}>
-//         <CardElement />
-//         <button type="submit" disabled={!stripe}>
-//           Donate
-//         </button>
-//       </form>
-//     </div>
-//   );
-// }
+  return (
+    <div className="donate-container">
+      <h1>Donate to Our Cause</h1>
+      <form onSubmit={handleSubmit}>
+        <CardElement />
+        <button type="submit" disabled={!stripe}>
+          Donate
+        </button>
+      </form>
+    </div>
+  );
+}
