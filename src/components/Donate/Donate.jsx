@@ -5,6 +5,8 @@ export default function Donate() {
   const stripe = useStripe();
   const elements = useElements();
 
+  // reference: https://docs.stripe.com/api and gpt: how do i encourpurate a payment method with stripe
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -23,7 +25,6 @@ export default function Donate() {
       console.error("[error]", error.message);
     } else {
       console.log("[PaymentMethod]", paymentMethod);
-      // You can now use the paymentMethod.id to create a payment intent on your server
     }
   };
 
