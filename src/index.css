@@ -36,6 +36,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -144,4 +145,26 @@ body {
   top: 16px;
   right: 4px;
   margin-top: -10px;
+}
+
+.money {
+  object-fit: contain;
+  /* position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; */
+  margin: auto;
+  animation: animate 3s infinite linear;
+}
+@keyframes animate {
+  0% {
+    transform: translateY(-20px);
+  }
+  50% {
+    transform: translateY(20px);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
 }

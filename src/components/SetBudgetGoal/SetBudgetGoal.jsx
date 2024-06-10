@@ -56,20 +56,20 @@ export default function SetBudgetGoal() {
     <div className='p-4 relative'>
       <div className='flex gap-2 mb-6 text-lg w-full'>
         <button
-          className={`py-2 px-3 rounded ${
+          className={`py-2 px-4 rounded-lg transition duration-300 ${
             activeButton === "activeBudgets"
-              ? "text-[#f910f9] bg-black border-white border"
-              : "text-[grey] bg-gray-200"
+              ? "bg-main-darkPink text-white shadow-lg"
+              : "bg-black text-white border border-main-darkPink"
           }`}
           onClick={() => setActiveButton("activeBudgets")}
         >
           Active Budgets
         </button>
         <button
-          className={`py-2 px-3 rounded ${
+          className={`py-2 px-4 rounded-lg transition duration-300 ${
             activeButton === "budgetHistory"
-              ? "text-[#f910f9] bg-black border-white border"
-              : "text-[grey] bg-gray-200"
+              ? "bg-main-darkPink text-white shadow-lg"
+              : "bg-black text-white border border-main-darkPink"
           }`}
           onClick={() => setActiveButton("budgetHistory")}
         >
