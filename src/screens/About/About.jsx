@@ -64,7 +64,6 @@ export default function About() {
                 Contact Us
               </h2>
               <p className='text-base md:text-lg leading-relaxed'>
-
                 Have questions or feedback? We'd love to hear from you! Reach
                 out to us at{" "}
                 <a
@@ -73,7 +72,6 @@ export default function About() {
                 >
                   leaveusalonet@teamtitan.com
                 </a>
-                
               </p>
             </section>
 
@@ -83,7 +81,7 @@ export default function About() {
               </h2>
               <p className='text-base md:text-lg leading-relaxed'>
                 Click here to{" "}
-                <Link to='/Donate' className='text-blue-500 underline'>
+                <Link to='/donate' className='text-blue-500 underline'>
                   donate
                 </Link>{" "}
                 to our cause!
