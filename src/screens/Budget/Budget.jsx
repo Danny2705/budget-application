@@ -21,8 +21,8 @@ export default function Budget() {
               />
             </div>
             <div className='w-full lg:w-1/2 text-center lg:text-left'>
-              <h2 className='large-h1-span text-xl lg:text-5xl font-semibold text-main-darkPink w-[500px] h-[100px]'>
-                Let's keep track of your Budget Goal
+              <h2 className='large-h1-span text-xl lg:text-6xl font-semibold text-main-darkPink w-[520px] h-[150px] tracking-wide leading-8'>
+                Let's keep track of Budget Goal
               </h2>
               <p className='mt-4 text-lg w-[500px] leading-8'>
                 Effective budgeting is key to financial success. Use our tools
