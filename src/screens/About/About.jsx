@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "../Layout/Layout";
 import { Link } from "react-router-dom";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
 //chatgptpromt:i want an about us outline with a similar layout as the home page
 
@@ -63,7 +64,6 @@ export default function About() {
                 Contact Us
               </h2>
               <p className='text-base md:text-lg leading-relaxed'>
-
                 Have questions or feedback? We'd love to hear from you! Reach
                 out to us at{" "}
                 <a
@@ -72,7 +72,6 @@ export default function About() {
                 >
                   leaveusalonet@teamtitan.com
                 </a>
-                
               </p>
             </section>
 
