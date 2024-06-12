@@ -64,7 +64,6 @@ export default function About() {
                 Contact Us
               </h2>
               <p className='text-base md:text-lg leading-relaxed'>
-
                 Have questions or feedback? We'd love to hear from you! Reach
                 out to us at{" "}
                 <a
@@ -73,7 +72,6 @@ export default function About() {
                 >
                   leaveusalone@teamtitan.com
                 </a>
-                
               </p>
             </section>
 

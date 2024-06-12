@@ -179,7 +179,7 @@ export default function Footer() {
 
               <button
                 type='submit'
-                className='inline-flex items-center justify-center px-6 py-4 mt-3 font-semibold text-white transition-all duration-200 bg-main-neonPink rounded-md hover:bg-pink-700 focus:bg-pink-700'
+                className='inline-flex items-center justify-center px-6 py-4 mt-3 font-semibold text-white transition-all duration-200 bg-main-neonPink rounded-md hover:bg-main-darkPink focus:bg-main-darkPink'
               >
                 Subscribe
               </button>
