@@ -13,11 +13,9 @@ import About from "./screens/About/About";
 import "../src/App.scss";
 import CreateTransaction from "./components/CreateTransaction/CreateTransaction";
 import Donate from "./components/Donate/Donate.jsx";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_API_KEY);
+
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -54,14 +52,7 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/budget/transaction/:id' element={<Transaction />} />
         <Route path='/create' element={<CreateTransaction />} />
-        <Route
-          path="/donate"
-          element={
-            <Elements stripe={stripePromise}>
-              <Donate />
-            </Elements>
-          }
-        />
+        <Route path="/donate" element={<Donate />} />
         {/* <Route
           path='*'
           element={
