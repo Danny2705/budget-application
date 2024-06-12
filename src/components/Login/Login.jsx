@@ -11,7 +11,7 @@ import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 
 //refernce: firebase for the password reset and youtube: https://www.youtube.com/watch?v=uA9ejPZiEOw
-
+//chatpromt: how do i make sure that the forgot password link sends an email to the user to reset their password
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -47,7 +47,7 @@ export default function Login() {
   const handleForgotPassword = async () => {
     try {
       const actionCodeSettings = {
-        url: 'http://localhost:3000',
+        url: 'https://budget-application-chi.vercel.app/login',
         handleCodeInApp: true,
       };
   

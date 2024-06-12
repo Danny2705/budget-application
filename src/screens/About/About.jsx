@@ -2,6 +2,9 @@ import React from "react";
 import Layout from "../Layout/Layout";
 import { Link } from "react-router-dom";
 
+
+//chatgptpromt:i want an about us outline with a similar layout as the home page
+
 export default function About() {
   return (
     <Layout>
@@ -61,16 +64,14 @@ export default function About() {
                 Contact Us
               </h2>
               <p className='text-base md:text-lg leading-relaxed'>
-
                 Have questions or feedback? We'd love to hear from you! Reach
                 out to us at{" "}
                 <a
                   href='mailto:leaveusalone@teamtitan.com'
                   className='text-blue-500 underline'
                 >
-                  leaveusalonet@teamtitan.com
+                  leaveusalone@teamtitan.com
                 </a>
-                
               </p>
             </section>
 
