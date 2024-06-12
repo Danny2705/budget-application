@@ -30,8 +30,9 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
     // Calling OCR Perform Function
       if (imageURL) {
         setReceiptJsonData(await performOcr(imageURL));
+        onSetJsonData(await performOcr(imageURL));
       }
-    onSetJsonData(receiptJsonData);
+    //onSetJsonData(receiptJsonData);
   };
 
   const { getRootProps, getInputProps } = useDropzone({
