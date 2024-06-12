@@ -61,6 +61,7 @@ export const saveReceiptToFirestore = async (
     console.log("Receipt with image URLs", receiptWithImageURLs);
     await setDoc(doc(db, "transactions", receiptNo), receiptWithImageURLs);
     console.log("Submitted to Firestore");
+    alert("Receipt saved successfully!");
   } catch (error) {
     console.error("Error adding item to Firestore:", error);
   }

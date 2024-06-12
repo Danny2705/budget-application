@@ -29,7 +29,7 @@ const UploadTrans = () => {
     saveReceiptToFirestore(
       receiptNo,
       receiptData,
-      imageURL,
+      imageURL
       //userEmail,
     );
   };
@@ -46,7 +46,7 @@ const UploadTrans = () => {
         <div className="w-[56px]" />
         <JsonDisplay json={receiptData} />
       </div>
-      <SaveButton onClick = {handleOnClickSaveButton} />
+      <SaveButton onClick={handleOnClickSaveButton} />
     </div>
   );
 };
