@@ -8,7 +8,7 @@ import { performOcr } from "../../utils/ocrVeryfi";
 const fileTypes = ["png", "jpeg", "jpg", "pdf"];
 
 //Refers DragDrop from https://sandydev.medium.com/how-to-create-drag-and-drop-upload-in-reactjs-d2f2c2b2048d
-const DragDrop = ({ onSetImageURL, onSetJsonData }) => {
+const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
   const [file, setFile] = useState("");
   const [receiptJsonData, setReceiptJsonData] = useState({});
   const [fireImageURL, setFireImageURL] = useState(null);
@@ -16,14 +16,15 @@ const DragDrop = ({ onSetImageURL, onSetJsonData }) => {
   const [uploadedFile, setUploadedFile] = useState([]);
 
   // Refers from Demo
-  const storeAndConvertReceiptImage = async () => {
+  const storeAndConvertReceiptImage = async (droppedfile) => {
     // uploadImageToFirestore(localImage) return { transactionNumber, imageURL }
     const { transactionNumber, imageURL } = await uploadImageToFirestore(
-      uploadedFile
+      droppedfile
     );
     setTransactionNo(transactionNumber);
     setFireImageURL(imageURL);
     onSetImageURL(imageURL);
+    onSetTransactionNo(transactionNumber);
     console.log("Image uploaded to storage", imageURL);
 
     // Calling OCR Perform Function
@@ -41,7 +42,7 @@ const DragDrop = ({ onSetImageURL, onSetJsonData }) => {
     maxFiles: 1,
     onDrop: (acceptedFiles) => {
       setUploadedFile(acceptedFiles[0]);
-      storeAndConvertReceiptImage();
+      storeAndConvertReceiptImage(acceptedFiles[0]);
     },
   });
 

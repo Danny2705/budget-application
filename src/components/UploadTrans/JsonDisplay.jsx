@@ -9,10 +9,3 @@ const JsonDisplay = ({ json }) => {
 };
 export default JsonDisplay;
 
-/* Group 40 */
-
-// position: absolute;
-// width: 571px;
-// height: 548px;
-// left: 615px;
-// top: 365px;
