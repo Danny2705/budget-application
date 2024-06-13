@@ -1,5 +1,7 @@
 import React from "react";
 
+// chatgptpromt:i want a donate page with a button that redirects to a stripe checkout page
+
 export default function Donate() {
   const stripeCheckoutUrl = "https://buy.stripe.com/8wM9CP6N78Fh21q5kk";
 
