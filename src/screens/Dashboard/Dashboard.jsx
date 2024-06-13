@@ -44,10 +44,32 @@ export default function Dashboard() {
           <h1 className='main-span font-bold mt-4 tracking-wider z-10 w-full text-[12vw] lg:w-[70%] xl:text-[7rem] lg:text-[6rem] md:text-[5.5rem] sm:text-[4rem] right-0 text-right px-4 xl:px-20'>
             Innovative Scanning
           </h1>
+          <div className='w-full flex flex-col justify-end items-end mt-[250px]'>
+            <div className='flex gap-4 my-10'>
+              <button className='text-white border border-main-neonPink px-[25px] py-[9px] z-10 duration-700 transition-all hover:bg-gradient-to-br hover:from-pink-600 hover:via-red-500 hover:to-purple-700'>
+                Dive into our Technology
+              </button>
+
+              <button className='text-white bg-main-neonPink px-[25px] py-[9px] z-10 hover:bg-gradient-to-br hover:from-pink-600 hover:via-red-500 hover:to-purple-700 duration-500 transition-all'>
+                Learn about our Mission
+              </button>
+            </div>
+
+            <h2 className='text-white max-w-[19ch] text-2xl font-bold'>
+              Welcome to VioVault
+            </h2>
+            <p className='text-white w-full text-[20px] text-right leading-[160%] max-w-[30ch]'>
+              Seamlessly manage your{" "}
+              <span className='text-main-neonPink'>finances</span> with advanced
+              receipt <span className='text-main-neonPink'>scanning</span> and{" "}
+              <span className='text-main-neonPink'>expense tracking</span>{" "}
+              capabilities.
+            </p>
+          </div>
           <img
             src='/receipt-background.png'
             alt='Receipt Background'
-            className='absolute left-0 object-cover h-full z-0 w-full lg:w-[70%] xl:w-[80%]'
+            className='absolute left-0 object-cover h-full z-0 w-full lg:w-[70%] xl:w-[80%] overflow-hidden'
           />
         </div>
 
