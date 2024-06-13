@@ -54,12 +54,12 @@ export default function About() {
               Who We Are
             </h2>
             <p className='text-lg md:text-xl leading-relaxed'>
-              We are a team of dedicated professionals committed to
-              revolutionizing personal finance management. Through our
-              cutting-edge technology and intuitive solutions, we aim to
-              simplify the complexities of budgeting and expense tracking. Our
-              mission is to empower individuals to take control of their
-              financial futures.
+              We are a team of passionate individuals dedicated to
+              revolutionizing the way you manage your finances. With our
+              innovative scanning and intelligent OCR technology, we strive to
+              make budgeting and expense tracking seamless and efficient. Our
+              goal is to empower users with tools that simplify financial
+              management and promote better decision-making.
             </p>
             <p className='mt-4 text-lg md:text-xl leading-relaxed'>
               Our journey began with a simple yet powerful idea: to make
