@@ -24,13 +24,22 @@ export const provider = new GithubAuthProvider();
 export const storage = getStorage();
 
 //Refers from Demo
+const generateRandomString = (length) => {
+  let result = "";
+  const characters = "0123456789";
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+};
+
 export const uploadImageToFirestore = async (localImage) => {
-  const transactionNumber = "U123456B123456T123456";
+  const transactionNumber = generateRandomString(21);
   try {
     const imageRef = storageRef(
       storage,
-      `transactions/${transactionNumber}/${localImage.name}`,
-
+      `transactions/${transactionNumber}/${localImage.name}`
     );
     await uploadBytes(imageRef, localImage);
     const imageURL = await getDownloadURL(imageRef);
@@ -43,11 +52,10 @@ export const uploadImageToFirestore = async (localImage) => {
   }
 };
 
-
 export const saveReceiptToFirestore = async (
   receiptNo,
   receiptData,
-  imageUrl,
+  imageUrl
   //userEmail
 ) => {
   try {
@@ -66,4 +74,3 @@ export const saveReceiptToFirestore = async (
     console.error("Error adding item to Firestore:", error);
   }
 };
-
