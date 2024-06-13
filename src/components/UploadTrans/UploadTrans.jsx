@@ -4,10 +4,12 @@ import DragDrop from "./DragDrop";
 import FileDisplay from "./FileDisplay";
 import JsonDisplay from "./JsonDisplay";
 import SaveButton from "./SaveButton";
+import { saveReceiptToFirestore } from "../../utils/firebase";
 
 const UploadTrans = () => {
-  const [receiptData, setReceiptData] = useState({});
+  const [receiptData, setReceiptData] = useState([]);
   const [imageURL, setImageURL] = useState(null);
+  const [receiptNo, setReceiptNo] = useState("");
 
   const handleImageURLChange = (url) => {
     setImageURL(url);
@@ -19,18 +21,32 @@ const UploadTrans = () => {
     console.log("Parent: Receipt Data", data);
   };
 
+  const handleReceiptNoChange = (receiptNo) => {
+    setReceiptNo(receiptNo);
+  };
+
+  const handleOnClickSaveButton = () => {
+    saveReceiptToFirestore(
+      receiptNo,
+      receiptData,
+      imageURL
+      //userEmail,
+    );
+  };
+
   return (
-    <div className='mt-100 bg-white md:flex flex-col rounded-[24px]'>
+    <div className="mt-100 bg-white md:flex flex-col rounded-[24px]">
       <DragDrop
         onSetImageURL={handleImageURLChange}
         onSetJsonData={handleJsonDataChange}
+        onSetTransactionNo={handleReceiptNoChange}
       />
-      <div className='flex flex-row py-[16px] px-[32px]'>
+      <div className="flex flex-row py-[16px] px-[32px]">
         <FileDisplay imageSrc={imageURL} />
-        <div className='w-[56px]' />
+        <div className="w-[56px]" />
         <JsonDisplay json={receiptData} />
       </div>
-      <SaveButton />
+      <SaveButton onClick={handleOnClickSaveButton} />
     </div>
   );
 };
