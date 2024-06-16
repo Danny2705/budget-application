@@ -13,7 +13,7 @@ import About from "./screens/About/About";
 import "../src/App.scss";
 import CreateTransaction from "./components/CreateTransaction/CreateTransaction";
 import Donate from "./components/Donate/Donate.jsx";
-
+import Chat from "./components/Chat/Chat"; 
 
 
 
@@ -53,6 +53,7 @@ function App() {
         <Route path='/budget/transaction/:id' element={<Transaction />} />
         <Route path='/create' element={<CreateTransaction />} />
         <Route path="/donate" element={<Donate />} />
+        <Route path='/chat' element={<Chat />} />
         {/* <Route
           path='*'
           element={
