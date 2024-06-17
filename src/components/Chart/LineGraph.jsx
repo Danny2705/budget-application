@@ -5,7 +5,8 @@ import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
   Legend,
@@ -14,13 +15,14 @@ import {
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  BarElement,
+  LineElement,
+  PointElement,
   Title,
   Tooltip,
   Legend
 );
 
-export default function BarChart() {
+export default function LineGraph() {
   const options = {
     responsive: true,
     plugins: {
@@ -28,6 +30,20 @@ export default function BarChart() {
         position: "top",
       },
     },
+  };
+
+  const labels = Utils.months({ count: 7 });
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+        label: "My First Dataset",
+        data: [65, 59, 80, 81, 56, 55, 40],
+        fill: false,
+        borderColor: "rgb(75, 192, 192)",
+        tension: 0.1,
+      },
+    ],
   };
 
   const BarChartData = {
@@ -47,22 +63,6 @@ export default function BarChart() {
         borderColor: "blue",
         backgroundColor: "red",
         borderWidth: 1,
-      },
-    ],
-  };
-
-  const data = {
-    labels: ["Red", "Blue", "Yellow"],
-    datasets: [
-      {
-        label: "My First Dataset",
-        data: [300, 50, 100],
-        backgroundColor: [
-          "rgb(255, 99, 132)",
-          "rgb(54, 162, 235)",
-          "rgb(255, 205, 86)",
-        ],
-        hoverOffset: 4,
       },
     ],
   };
