@@ -1,4 +1,4 @@
-// TODO: Remove this Page, temporaroilt just displaying information for other pages.
+// TODO: Remove this Page, temporarily just displaying information for other pages.
 
 // RecentBudgetTransTable Import
 export const transactionData = [
