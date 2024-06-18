@@ -1,7 +1,5 @@
 // MessageParser.jsx
 
-//ref https://fredrikoseberg.github.io/react-chatbot-kit-docs/docs/getting-started
-
 class MessageParser {
   constructor(actionProvider) {
     this.actionProvider = actionProvider;

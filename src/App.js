@@ -12,6 +12,7 @@ import Profile from "./screens/Profile/Profile";
 import About from "./screens/About/About";
 import "../src/App.scss";
 import CreateTransaction from "./components/CreateTransaction/CreateTransaction";
+import { SkeletonTheme } from "react-loading-skeleton";
 import Donate from "./components/Donate/Donate.jsx";
 import Chat from "./components/Chat/Chat"; 
 
@@ -20,18 +21,18 @@ import Chat from "./components/Chat/Chat";
 function App() {
   const user = useSelector((state) => state.auth.user);
   return (
-    <BrowserRouter>
-      <Toaster position='top-right' />
-      <Routes>
-        <Route
-          path='/login'
-          element={!user ? <Login /> : <Navigate to='/' />}
-        />
-        <Route
-          path='/signup'
-          element={!user ? <Signup /> : <Navigate to='/' />}
-        />
-
+    <SkeletonTheme baseColor='#313131' highlightColor='#525252'>
+      <BrowserRouter>
+        <Toaster position='top-right' />
+        <Routes>
+          <Route
+            path='/login'
+            element={!user ? <Login /> : <Navigate to='/' />}
+          />
+          <Route
+            path='/signup'
+            element={!user ? <Signup /> : <Navigate to='/' />}
+          />
         <Route
           path='/'
           element={user ? <Dashboard /> : <Navigate to='/login' />}
@@ -53,15 +54,15 @@ function App() {
         <Route path='/budget/transaction/:id' element={<Transaction />} />
         <Route path='/create' element={<CreateTransaction />} />
         <Route path="/donate" element={<Donate />} />
-        <Route path='/chat' element={<Chat />} />
         {/* <Route
           path='*'
           element={
             !user ? <Navigate to='/login' /> : <Navigate to='/nomatch' />
           }
         /> */}
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </SkeletonTheme>
   );
 }
 

@@ -35,7 +35,8 @@ const generateRandomString = (length) => {
 };
 
 export const uploadImageToFirestore = async (localImage) => {
-  const transactionNumber = generateRandomString(21);
+  // const transactionNumber = generateRandomString(21);
+  const transactionNumber = "U000001B000001T000001";
   try {
     const imageRef = storageRef(
       storage,

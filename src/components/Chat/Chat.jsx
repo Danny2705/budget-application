@@ -7,6 +7,7 @@ import ChatBotConfig from './ChatBotConfig';
 import './Chat.css'; 
 
 //ref https://www.youtube.com/playlist?list=PL_kr51suci7UQAxHOF2GitkM5WrOBPcpf
+//https://fredrikoseberg.github.io/react-chatbot-kit-docs/docs/getting-started
 
 const Chat = () => {
   return (

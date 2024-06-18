@@ -136,15 +136,9 @@ body {
   -webkit-text-stroke: 5px transparent;
   z-index: 1;
   text-transform: uppercase;
-  padding-top: 10px;
-  padding-left: 0;
-  font-size: 100px;
   font-weight: 700;
   line-height: 100%;
   position: absolute;
-  top: 16px;
-  right: 4px;
-  margin-top: -10px;
 }
 
 .money {

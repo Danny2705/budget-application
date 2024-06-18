@@ -1,5 +1,7 @@
 // ActionProvider.jsx
 
+//https://fredrikoseberg.github.io/react-chatbot-kit-docs/docs/getting-started
+
 class ActionProvider {
   constructor(createChatBotMessage, setStateFunc) {
     this.createChatBotMessage = createChatBotMessage;
