@@ -6,6 +6,8 @@ import ActionProvider from './ActionProvider';
 import ChatBotConfig from './ChatBotConfig';
 import './Chat.css'; 
 
+//ref https://www.youtube.com/playlist?list=PL_kr51suci7UQAxHOF2GitkM5WrOBPcpf
+
 const Chat = () => {
   return (
     <div className="react-chatbot-kit-chat-container">

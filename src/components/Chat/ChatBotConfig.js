@@ -2,8 +2,10 @@ import { createChatBotMessage } from "react-chatbot-kit";
 import ActionProvider from './ActionProvider';
 import MessageParser from './MessageParser';
 
+//ref https://www.youtube.com/playlist?list=PL_kr51suci7UQAxHOF2GitkM5WrOBPcpf
+
 const config = {
-  initialMessages: [createChatBotMessage("Hello! How may I assist you today?")],
+  initialMessages: [createChatBotMessage("Hello! My name is Arthur, how may I assist you today?")],
   botName: "ArthurBot",
   customStyles: {
     botMessageBox: {
