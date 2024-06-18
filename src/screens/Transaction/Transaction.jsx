@@ -4,6 +4,7 @@ import RecentBudgetTransTable from "../../components/TransactionTable/RecentBudg
 import PieChart from "../../components/Chart/PieChart";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { CreateNewTransactionButton } from "../../components/CreateTransaction/CreateNewTransactionButton";
 
 export default function Transaction() {
   const params = useParams();
@@ -16,7 +17,7 @@ export default function Transaction() {
     <Layout>
       <div className='mt-[90px] px-4 xl:px-20'>
         <h1 className='text-main-darkPink font-bold text-2xl md:text-4xl lg:text-4xl mt-20 tracking-wider text-center lg:text-left'>
-          {budgetInfo?.title} Budget Transaction Summary
+          {budgetInfo?.title} Budget - Transaction Summary
         </h1>
 
         <div className='mt-8 px-4 xl:px-20 text-white'>
@@ -50,8 +51,8 @@ export default function Transaction() {
             <h3 className='text-white'>Search Bar</h3>
           </div>
         </div>
-
         <RecentBudgetTransTable />
+        <CreateNewTransactionButton />
       </div>
     </Layout>
   );
