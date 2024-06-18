@@ -38,11 +38,11 @@ export default function NewTransLineItemsTable({ receiptInfo }) {
               {lineItems.map((item) => {
                 return (
                   <tr className="bg-[#1D1E42]">
-                    <td className="border-b px-[40px] py-2 text-center">
+                    <td className="border-b px-[80px] py-2 text-center">
                       {item.description}
                     </td>
-                    <td className="border-b border-l px-[32px] py-2">
-                      {item.price ? item.price : item.total/item.quantity}
+                    <td className="border-b border-l px-[40px] py-2">
+                      {item.price ? `${item.price} / ${item.unit_of_measure == null ? "item" : item.unit_of_measure}` : `${item.total/item.quantity} / ${item.unit_of_measure == null ? "item" : item.unit_of_measure}`}
                     </td>
                     <td className="border-b border-l px-4 py-2 text-center">
                       {item.quantity}
