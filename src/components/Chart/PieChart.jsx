@@ -1,10 +1,16 @@
 import { Pie } from "react-chartjs-2";
 import { useState, useEffect } from "react";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, plugins } from "chart.js";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  plugins,
+} from "chart.js";
 import { transactionData } from "../TransactionTable/Data";
-// import ChartDataLabels from "chartjs-plugin-datalabels";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 export default function PieChart() {
   const [transactionLabels, setTransactionLabels] = useState([]);
@@ -14,13 +20,25 @@ export default function PieChart() {
   const options = {
     responsive: true,
     plugins: {
-      // dataLabels: {
-       
-      // },
+      datalabels: {
+        color: "#fff",
+        display: true,
+        font: {
+          weight: "bold",
+        },
+        formatter: (value, context) => {
+          let sum = 0;
+          const dataArr = context.chart.data.datasets[0].data;
+          dataArr.forEach((data) => {
+            sum += data;
+          });
+          const percentage = ((value * 100) / sum).toFixed(2) + "%";
+          return percentage;
+        },
+      },
       legend: {
         position: "left",
       },
-      
     },
   };
 
@@ -47,7 +65,10 @@ export default function PieChart() {
       const amount = parseFloat(transaction.Total);
 
       if (categoryAmountMap.has(category)) {
-        categoryAmountMap.set(category, categoryAmountMap.get(category) + amount);
+        categoryAmountMap.set(
+          category,
+          categoryAmountMap.get(category) + amount
+        );
       } else {
         categoryAmountMap.set(category, amount);
       }
@@ -59,8 +80,8 @@ export default function PieChart() {
 
     // Generate a random color for each category
     const generateRandomColor = () => {
-      const letters = '0123456789ABCDEF';
-      let color = '#';
+      const letters = "0123456789ABCDEF";
+      let color = "#";
       for (let i = 0; i < 6; i++) {
         color += letters[Math.floor(Math.random() * 16)];
       }
