@@ -7,11 +7,12 @@ import SaveButton from "./SaveButton";
 import { saveReceiptToFirestore } from "../../utils/firebase";
 import items from "./items.json";
 
-const UploadTrans = ({ onSetReceiptData }) => {
+const UploadTrans = ({ onSetReceiptData, onSetImageURL, onSetTransactionNo }) => {
   //Avoiding using OCR API useState([]) -> useState(items)
   const [receiptData, setReceiptData] = useState(items);
   const [imageURL, setImageURL] = useState(null);
-  const [receiptNo, setReceiptNo] = useState("");
+  //
+  const [receiptNo, setReceiptNo] = useState("U000001B000001T000005");
 
   const handleImageURLChange = (url) => {
     setImageURL(url);
@@ -29,13 +30,16 @@ const UploadTrans = ({ onSetReceiptData }) => {
   //Make UploadTrans export receiptData even if OCR has ever been used
   useEffect(() => {
     onSetReceiptData(receiptData);
-  }, [receiptData, onSetReceiptData]);
+    onSetImageURL(imageURL);
+    onSetTransactionNo(receiptNo);
+  }, [receiptData, onSetReceiptData, onSetImageURL, onSetTransactionNo, imageURL, receiptNo]);
 
   const handleReceiptNoChange = (receiptNo) => {
     setReceiptNo(receiptNo);
   };
 
   const handleOnClickSaveButton = () => {
+    console.log("Button data", receiptNo);
     saveReceiptToFirestore(
       receiptNo,
       receiptData,
@@ -56,7 +60,6 @@ const UploadTrans = ({ onSetReceiptData }) => {
         <div className="w-[56px]" />
         <JsonDisplay json={receiptData} />
       </div>
-      <SaveButton onClick={handleOnClickSaveButton} />
     </div>
   );
 };

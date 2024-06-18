@@ -1,7 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { useState } from "react";
 
 export default function NewTransVenderTable({ receiptInfo }) {
+  const [editRowIndex, setEditRowIndex] = useState(null);
+
+  const handleEdit = (rewIndex) => {
+    setEditRowIndex(rewIndex);
+  };
+
   return (
     <div className="py-[48px] flex justify-center">
       <div className="py-[48px] overflow-x-scroll px-[48px]">
@@ -46,18 +53,24 @@ export default function NewTransVenderTable({ receiptInfo }) {
                   {info.vendor.name}
                 </td>
                 <td className="border-b border-l px-4 py-2 text-center">
-                {info.date}
+                  {info.date}
                 </td>
                 <td className="border-b border-l px-4 py-2 text-center">
-                {info.vendor.address}
+                  {info.vendor.address}
                 </td>
                 <td className="border-b border-l px-4 py-2 text-center">
-                {info.category}
+                  {info.category}
                 </td>
-                <td className="border-b border-l px-[32px] py-2">{info.subtotal}</td>
+                <td className="border-b border-l px-[32px] py-2">
+                  {info.subtotal}
+                </td>
                 <td className="border-b border-l px-[32px] py-2">{info.tax}</td>
-                <td className="border-b border-l px-[32px] py-2">{info.tip === null ? 0 : info.tip}</td>
-                <td className="border-b border-l px-[32px] py-2">{info.total}</td>
+                <td className="border-b border-l px-[32px] py-2">
+                  {info.tip === null ? 0 : info.tip}
+                </td>
+                <td className="border-b border-l px-[32px] py-2">
+                  {info.total}
+                </td>
                 <td className="border-b border-l px-4 py-2">
                   <div className="flex flex-row justify-center">
                     <button className="pr-[32px]">
