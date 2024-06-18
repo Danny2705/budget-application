@@ -1,14 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
-import { useState } from "react";
 
 export default function NewTransVenderTable({ receiptInfo }) {
-  const [editRowIndex, setEditRowIndex] = useState(null);
-
-  const handleEdit = (rewIndex) => {
-    setEditRowIndex(rewIndex);
-  };
-
   return (
     <div className="py-[48px] flex justify-center">
       <div className="py-[48px] overflow-x-scroll px-[48px]">
