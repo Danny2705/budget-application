@@ -78,7 +78,6 @@ export default function About() {
             />
           </div>
         </div>
-
         <div className='mt-8 text-white'>
           <section className='mt-8'>
             <h2 className='large-h1-span text-2xl md:text-3xl font-bold tracking-wide'>
