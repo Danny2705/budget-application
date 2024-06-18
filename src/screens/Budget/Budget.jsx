@@ -35,6 +35,7 @@ export default function Budget() {
                 <button className='px-6 py-3 bg-main-neonPink text-white font-semibold rounded-lg shadow-md hover:bg-neon-pink transition duration-300'>
                   Create New Budget
                 </button>
+                {/* Using template from landingfolio website and modify the countup by myself to make the transition*/}
                 <section className='py-4'>
                   <div className='max-w-5xl w-full px-4 mx-auto sm:px-6 lg:px-8'>
                     <div className='grid grid-cols-1 gap-8 text-center sm:gap-x-8 md:grid-cols-3 mt-7'>

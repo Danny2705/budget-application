@@ -12,25 +12,23 @@ import Profile from "./screens/Profile/Profile";
 import About from "./screens/About/About";
 import "../src/App.scss";
 import CreateTransaction from "./components/CreateTransaction/CreateTransaction";
-
-
-
+import { SkeletonTheme } from "react-loading-skeleton";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
   return (
-    <BrowserRouter>
-      <Toaster position='top-right' />
-      <Routes>
-        <Route
-          path='/login'
-          element={!user ? <Login /> : <Navigate to='/' />}
-        />
-        <Route
-          path='/signup'
-          element={!user ? <Signup /> : <Navigate to='/' />}
-        />
-
+    <SkeletonTheme baseColor='#313131' highlightColor='#525252'>
+      <BrowserRouter>
+        <Toaster position='top-right' />
+        <Routes>
+          <Route
+            path='/login'
+            element={!user ? <Login /> : <Navigate to='/' />}
+          />
+          <Route
+            path='/signup'
+            element={!user ? <Signup /> : <Navigate to='/' />}
+          />
         <Route
           path='/'
           element={user ? <Dashboard /> : <Navigate to='/login' />}
@@ -57,8 +55,9 @@ function App() {
             !user ? <Navigate to='/login' /> : <Navigate to='/nomatch' />
           }
         /> */}
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </SkeletonTheme>
   );
 }
 
