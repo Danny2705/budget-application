@@ -10,6 +10,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  scales,
 } from "chart.js";
 
 ChartJS.register(
@@ -34,11 +35,11 @@ export default function LineGraph() {
 
   // const labels = ["January", "February", "March", "April", "May",];
   const LineGraphData = {
-    labels: ["January", "February", "March", "April", "May",],
+    labels: ["January", "February", "March", "April", "May"],
     datasets: [
       {
         label: "My First Dataset",
-        data: [65, 59, 80, 81, 56, 55, 40],
+        data: [100, 2000, 400, 1100, 250, 500, 400],
         fill: false,
         showLine: true,
         color: "white",
@@ -46,6 +47,20 @@ export default function LineGraph() {
         backgroundColor: "rgb(255, 16, 240)",
       },
     ],
+    options: {
+      scales: {
+        y: {
+          grid: {
+            color: "white",
+          },
+        },
+        x: {
+          grid: {
+            color: "white",
+          },
+        },
+      },
+    },
   };
 
   return (

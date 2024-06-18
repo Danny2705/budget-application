@@ -1,7 +1,8 @@
 import { Pie } from "react-chartjs-2";
 import { useState, useEffect } from "react";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, plugins } from "chart.js";
 import { transactionData } from "../TransactionTable/Data";
+// import ChartDataLabels from "chartjs-plugin-datalabels";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -13,9 +14,13 @@ export default function PieChart() {
   const options = {
     responsive: true,
     plugins: {
+      // dataLabels: {
+       
+      // },
       legend: {
         position: "left",
       },
+      
     },
   };
 
