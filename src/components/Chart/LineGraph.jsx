@@ -38,15 +38,23 @@ export default function LineGraph() {
     labels: ["January", "February", "March", "April", "May"],
     datasets: [
       {
-        label: "My First Dataset",
+        label: "Money Spent",
         data: [100, 2000, 400, 1100, 250, 500, 400],
         fill: false,
         showLine: true,
         color: "white",
         borderColor: "Green",
         backgroundColor: "rgb(255, 16, 240)",
-      },
+      }, {
+        label: "Budget Linit",
+        data: [200, 1500, 500, 2000, 500, 550, 1000],
+        fill: false,
+        showLine: true,
+        borderColor: "Red",
+        backgroundColor: "rgb(255, 16, 240)"
+      }
     ],
+    // Need fixing
     options: {
       scales: {
         y: {
