@@ -1,9 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
-import { NewTransactionData } from "./Data";
 
+export default function NewTransLineItemsTable({ receiptInfo }) {
+  const lineItems = receiptInfo?.[0]?.line_items ?? [];
+  console.log('!!!receiptInfo', receiptInfo, lineItems)
 
-export default function NewTransLineItemsTable() {
   return (
     <div className="py-[48px] flex justify-center">
       <div className="py-[48px] overflow-x-scroll px-[48px]">
@@ -34,29 +35,23 @@ export default function NewTransLineItemsTable() {
               </tr>
             </thead>
             <tbody className="text-white">
-              {NewTransactionData.map((val, key) => {
+              {lineItems.map((item) => {
                 return (
-                  /* switch color of the row refer from https://chatgpt.com/
-            bg-[#26264F] and bg-[#1D1E42] are the colors used in the Figma Design
-            */
-                  <tr
-                    key={key}
-                    className={key % 2 === 0 ? "bg-[#26264F]" : "bg-[#1D1E42]"}
-                  >
+                  <tr className="bg-[#1D1E42]">
                     <td className="border-b px-[40px] py-2 text-center">
-                      {val.Item}
+                      {item.description}
                     </td>
                     <td className="border-b border-l px-[32px] py-2">
-                      {val.Price}
+                      {item.price ? item.price : item.total/item.quantity}
                     </td>
                     <td className="border-b border-l px-4 py-2 text-center">
-                      {val.Quantity}
+                      {item.quantity}
                     </td>
                     <td className="border-b border-l px-[32px] py-2">
-                      {val.Total}
+                      {item.total}
                     </td>
                     <td className="border-b border-l px-[32px] py-2 text-center">
-                      {val.Category}
+                      {item.type}
                     </td>
                     <td className="border-b border-l px-4 py-2">
                       <div className="flex flex-row justify-center">

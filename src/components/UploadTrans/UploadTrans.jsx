@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DragDrop from "./DragDrop";
 import FileDisplay from "./FileDisplay";
 import JsonDisplay from "./JsonDisplay";
@@ -7,7 +7,7 @@ import SaveButton from "./SaveButton";
 import { saveReceiptToFirestore } from "../../utils/firebase";
 import items from "./items.json";
 
-const UploadTrans = ({onSetReceiptData}) => {
+const UploadTrans = ({ onSetReceiptData }) => {
   //Avoiding using OCR API useState([]) -> useState(items)
   const [receiptData, setReceiptData] = useState(items);
   const [imageURL, setImageURL] = useState(null);
@@ -22,9 +22,14 @@ const UploadTrans = ({onSetReceiptData}) => {
     setReceiptData(data);
     //Avoiding using OCR API onSetReceiptData(data) -> onSetReceiptData(items)
     //onSetReceiptData(data);
-    onSetReceiptData(items);
+    console.log("Parent: Receipt Data", receiptData);
     console.log("Parent: Receipt Data", data);
   };
+
+  //Make UploadTrans export receiptData even if OCR has ever been used
+  useEffect(() => {
+    onSetReceiptData(receiptData);
+  }, [receiptData, onSetReceiptData]);
 
   const handleReceiptNoChange = (receiptNo) => {
     setReceiptNo(receiptNo);
