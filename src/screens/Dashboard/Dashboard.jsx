@@ -17,7 +17,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsLoading(true);
+      setIsLoading(false);
     }, 2000);
 
     return () => clearTimeout(timer);
@@ -83,7 +83,7 @@ export default function Dashboard() {
             </Link>
           </div>
 
-          <div className='flex flex-wrap justify-center gap-3 lg:justify-between'>
+          <div className='grid grid-cols-4 gap-8'>
             {/* ask ChatGPT to solve the problem: How can I solve this problem when I try to sort a new Date Cannot assign to read only property '0' of object '[object Array]'*/}
             {isLoading ? (
               Array(4)

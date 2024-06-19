@@ -22,7 +22,6 @@ export default function Transaction() {
         <div className='mt-8 px-4 xl:px-20 text-white'>
           <div className='flex flex-col lg:flex-row items-center gap-8'>
             <div className='w-full lg:w-1/2'>
-              <h2 className='text-xl font-bold mb-4'>Budget Performance</h2>
               <PieChart />
             </div>
             <div className='w-full lg:w-1/2 text-center lg:text-left'>

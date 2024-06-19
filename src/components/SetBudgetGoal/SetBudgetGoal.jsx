@@ -107,7 +107,7 @@ export default function SetBudgetGoal() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 50 }}
               transition={{ duration: 0.3 }}
-              className='flex flex-wrap gap-4 justify-between'
+              className='grid grid-cols-4 gap-8'
             >
               {budgets.length > 0 ? (
                 [...budgets].sort(compareCreatedAt).map((budget, i) => (
