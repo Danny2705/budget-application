@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { CreateNewTransactionButton } from "../../components/CreateTransaction/CreateNewTransactionButton";
 
+
 export default function Transaction() {
   const params = useParams();
   const budgets = useSelector((state) => state.budgets.budgets);
