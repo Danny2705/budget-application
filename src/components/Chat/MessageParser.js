@@ -1,5 +1,9 @@
 // MessageParser.jsx
 
+//ref https://gist.github.com/FredrikOseberg/c1e8ec83ade6e89ca84882e33caf599c//
+// gpt prompt: how do i make sure user questions are answered using the list?""
+
+//gpt: help me generate more questions and answers for the list
 class MessageParser {
   constructor(actionProvider) {
     this.actionProvider = actionProvider;
@@ -22,10 +26,12 @@ class MessageParser {
     ];
   }
 
-  parse(message) {
-    const lowerCaseMessage = message.toLowerCase(); // Convert user input to lowercase
 
-    // Find a matching question
+//gpt: how should i make sure the user questions are answered when wrtitten in lowercase?
+  parse(message) {
+    const lowerCaseMessage = message.toLowerCase(); 
+
+   
     const matchedQuestion = this.questions.find(
       item => lowerCaseMessage.includes(item.question.toLowerCase())
     );
@@ -33,7 +39,7 @@ class MessageParser {
     if (matchedQuestion) {
       return this.actionProvider.handleAnswer(matchedQuestion.answer);
     } else {
-      // Handle case when no match is found
+     
       return this.actionProvider.handleNoAnswer();
     }
   }
