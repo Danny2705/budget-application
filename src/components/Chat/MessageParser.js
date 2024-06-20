@@ -3,6 +3,7 @@
 //ref https://gist.github.com/FredrikOseberg/c1e8ec83ade6e89ca84882e33caf599c//
 // gpt prompt: how do i make sure user questions are answered using the list?""
 
+//gpt: help me generate more questions and answers for the list
 class MessageParser {
   constructor(actionProvider) {
     this.actionProvider = actionProvider;
