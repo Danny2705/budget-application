@@ -1,5 +1,5 @@
 /* chatbot css ref https://github.com/FredrikOseberg/react-chatbot-kit/blob/master/src/components/Chat/Chat.css  */
-
+/* gpt prompt: remove the unused chatbot css */
 .react-chatbot-kit-user-chat-message-container {
     display: flex;
     margin: 15px 0;
