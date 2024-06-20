@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  user: localStorage.getItem("user"),
-  token: localStorage.getItem("token"),
+  user: localStorage.getItem("user") || null,
+  token: localStorage.getItem("token") || null,
 };
 
 const authSlice = createSlice({
@@ -10,13 +10,13 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     logIn: (state, action) => {
-      localStorage.setItem("user", action.payload.user);
+      localStorage.setItem("user", JSON.stringify(action.payload.user));
       localStorage.setItem("token", action.payload.token);
       state.user = action.payload.user;
       state.token = action.payload.token;
     },
     register: (state, action) => {
-      localStorage.setItem("user", action.payload.user);
+      localStorage.setItem("user", JSON.stringify(action.payload.user));
       localStorage.setItem("token", action.payload.token);
       state.user = action.payload.user;
       state.token = action.payload.token;
@@ -27,13 +27,19 @@ const authSlice = createSlice({
       state.user = null;
       state.token = null;
     },
+    updateProfilePicture: (state, action) => {
+      if (state.user) {
+        state.user.photoURL = action.payload;
+      }
+    },
     updateUser: (state, action) => {
-      state.user = action.payload;
-      localStorage.setItem("user", action.payload);
+      state.user.displayName = action.payload.displayName;
+      state.user.email = action.payload.email;
     },
   },
 });
 
-export const { logIn, register, logout, updateUser } = authSlice.actions;
+export const { logIn, register, logout, updateProfilePicture, updateUser } =
+  authSlice.actions;
 
 export default authSlice.reducer;

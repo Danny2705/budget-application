@@ -45,15 +45,8 @@ export default function Navbar({ scroll }) {
 
   const handleLogOut = () => {
     dispatch(logout());
-    clearProfileFromLocalStorage();
     toast.success("Log out successfully");
     navigate("/login");
-  };
-
-  const clearProfileFromLocalStorage = () => {
-    localStorage.removeItem("profileName");
-    localStorage.removeItem("profileImage");
-    localStorage.removeItem("profileEmail");
   };
 
   const toggleMenu = () => {
@@ -66,17 +59,17 @@ export default function Navbar({ scroll }) {
         scroll > 50 ? "scrolled" : undefined
       } flex items-center justify-between bg-transparent text-white h-[50px] px-4 fixed top-3 left-0 right-0 z-20 py-10`}
     >
-      <Link to={"/"} className="flex items-center pt-[4px]">
-        <img src="/piggy1.png" alt="Logo" className="w-[40px] lg:w-[60px]" />
-        <h1 className="text-[1.3rem] lg:text-[32px] large-h1-span tracking-wider font-bold px-[8px] pt-[8px]">
+      <Link to={"/"} className='flex items-center pt-[4px]'>
+        <img src='/piggy1.png' alt='Logo' className='w-[40px] lg:w-[60px]' />
+        <h1 className='text-[1.3rem] lg:text-[32px] large-h1-span tracking-wider font-bold px-[8px] pt-[8px]'>
           VioVault
         </h1>
       </Link>
-      <div className="h-full hidden md:flex">
+      <div className='h-full hidden md:flex'>
         <Links />
       </div>
-      <div className="flex items-center gap-4 h-full">
-        <h1 className="text-base lg:text-lg font-bold tracking-wider w-full">
+      <div className='flex items-center gap-4 h-full'>
+        <h1 className='text-base lg:text-lg font-bold tracking-wider'>
           {greets}, {user.displayName}!
         </h1>
         <DropDownMenu />
@@ -90,21 +83,21 @@ export default function Navbar({ scroll }) {
             initial={false}
             animate={active ? "open" : "closed"}
             onClick={toggleMenu}
-            className="relative h-10 w-10 rounded-full bg-white/0 transition-colors hover:bg-white/20 z-20 block md:hidden"
+            className='relative h-10 w-10 rounded-full bg-white/0 transition-colors hover:bg-white/20 z-20 block md:hidden'
           >
             <motion.span
               variants={VARIANTS.top}
-              className="absolute h-[0.1rem] w-6 bg-white"
+              className='absolute h-[0.1rem] w-6 bg-white'
               style={{ y: "-50%", left: "50%", x: "-50%", top: "25%" }}
             />
             <motion.span
               variants={VARIANTS.middle}
-              className="absolute h-[0.1rem] w-6 bg-white"
+              className='absolute h-[0.1rem] w-6 bg-white'
               style={{ left: "50%", x: "-50%", top: "50%", y: "-50%" }}
             />
             <motion.span
               variants={VARIANTS.bottom}
-              className="absolute h-[0.1rem] w-3 bg-white"
+              className='absolute h-[0.1rem] w-3 bg-white'
               style={{
                 x: "-50%",
                 y: "50%",
@@ -118,44 +111,44 @@ export default function Navbar({ scroll }) {
 
       {/* Corner navigation menu */}
       <motion.div
-        initial="closed"
+        initial='closed'
         animate={active ? "open" : "closed"}
         variants={VARIANTS.cornerMenu}
-        className="fixed h-screen top-0 right-0 bottom-0 left-0 bg-gradient-to-br from-violet-500 to-indigo-500 z-10 p-8"
+        className='fixed h-screen top-0 right-0 bottom-0 left-0 bg-gradient-to-br from-violet-500 to-indigo-500 z-10 p-8'
       >
-        <div className="w-full h-full flex flex-col justify-between ">
+        <div className='w-full h-full flex flex-col justify-between '>
           <Link to={"/"}>
-            <h1 className="text-2xl">Budget Tracker</h1>
+            <h1 className='text-2xl'>Budget Tracker</h1>
           </Link>
 
-          <div className="space-y-6 p-12 pl-4 md:pl-20 flex flex-col items-start">
+          <div className='space-y-6 p-12 pl-4 md:pl-20 flex flex-col items-start'>
             <Link
-              to="/"
-              className="text-link duration-150 text-[2.5rem] md:text-7xl font-poppins font-semibold hover:text-indigo-800 block w-full"
+              to='/'
+              className='text-link duration-150 text-[2.5rem] md:text-7xl font-poppins font-semibold hover:text-indigo-800 block w-full'
               style={{ opacity: 1, transform: "none" }}
               onClick={toggleMenu}
             >
               home.
             </Link>
             <Link
-              to="/transaction"
-              className="text-link duration-150 text-[2.5rem] md:text-7xl font-poppins font-semibold hover:text-indigo-800 block w-full"
+              to='/transaction'
+              className='text-link duration-150 text-[2.5rem] md:text-7xl font-poppins font-semibold hover:text-indigo-800 block w-full'
               style={{ opacity: 1, transform: "none" }}
               onClick={toggleMenu}
             >
               transaction.
             </Link>
             <Link
-              to="/budget"
-              className="text-link duration-150 text-[2.5rem] md:text-7xl font-poppins font-semibold hover:text-indigo-800 block w-full"
+              to='/budget'
+              className='text-link duration-150 text-[2.5rem] md:text-7xl font-poppins font-semibold hover:text-indigo-800 block w-full'
               style={{ opacity: 1, transform: "none" }}
               onClick={toggleMenu}
             >
               budget.
             </Link>
             <Link
-              to="/profile"
-              className="text-link duration-150 text-[2.5rem] md:text-7xl font-poppins font-semibold hover:text-indigo-800 block w-full"
+              to='/profile'
+              className='text-link duration-150 text-[2.5rem] md:text-7xl font-poppins font-semibold hover:text-indigo-800 block w-full'
               style={{ opacity: 1, transform: "none" }}
               onClick={toggleMenu}
             >
@@ -163,25 +156,25 @@ export default function Navbar({ scroll }) {
             </Link>
             <button
               onClick={handleLogOut}
-              className="text-link duration-150 text-[2.5rem] md:text-7xl font-poppins font-semibold hover:text-indigo-800 block w-fit"
+              className='text-link duration-150 text-[2.5rem] md:text-7xl font-poppins font-semibold hover:text-indigo-800 block w-fit'
               style={{ opacity: 1, transform: "none" }}
             >
               logout.
             </button>
           </div>
 
-          <div className="flex gap-4 justify-start md:flex-col">
+          <div className='flex gap-4 justify-start md:flex-col'>
             <FaInstagram
               size={30}
-              className="hover:text-indigo-800 duration-150 cursor-pointer"
+              className='hover:text-indigo-800 duration-150 cursor-pointer'
             />
             <FaLinkedin
               size={30}
-              className="hover:text-indigo-800 duration-150 cursor-pointer"
+              className='hover:text-indigo-800 duration-150 cursor-pointer'
             />
             <FaGithub
               size={30}
-              className="hover:text-indigo-800 duration-150 cursor-pointer"
+              className='hover:text-indigo-800 duration-150 cursor-pointer'
             />
           </div>
         </div>
