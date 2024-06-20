@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setBudgets } from "../../redux/budgetSlice.js";
 import EditBudget from "./EditBudget.jsx";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import Confirmation from "../Confirmation/Confirmation.jsx";
 
 export default function SetBudgetGoal() {
   const [activeButton, setActiveButton] = useState("activeBudgets");
@@ -20,6 +21,8 @@ export default function SetBudgetGoal() {
   const dispatch = useDispatch();
   const [selectBudgetId, setSelectBudgetId] = useState(null);
   const [showIconsForBudgetId, setShowIconsForBudgetId] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [budgetToDelete, setBudgetToDelete] = useState(null);
 
   const compareCreatedAt = (a, b) => {
     const timeA = new Date(
@@ -39,10 +42,19 @@ export default function SetBudgetGoal() {
     setSelectBudgetId(data);
   };
 
-  const handleDelete = async (data) => {
-    const budgetDoc = doc(db, `users/${user.uid}/budget`, data.id);
-    await deleteDoc(budgetDoc);
-    getData();
+  const handleDeleteClick = (budget) => {
+    setBudgetToDelete(budget);
+    setIsOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (budgetToDelete) {
+      const budgetDoc = doc(db, `users/${user.uid}/budget`, budgetToDelete.id);
+      await deleteDoc(budgetDoc);
+      setIsOpen(false);
+      setBudgetToDelete(null);
+      getData();
+    }
   };
 
   const handleDots = (budgetId) => {
@@ -98,7 +110,7 @@ export default function SetBudgetGoal() {
 
       {click && (
         <div className='fixed inset-0 z-50 flex items-center justify-center bg-opacity-50 bg-gray-900'>
-          <div className='relative w-full  backdrop-blur-sm rounded-lg p-8'>
+          <div className='relative w-full backdrop-blur-sm rounded-lg p-8'>
             <NewBudget getData={getData} handleClick={handleClick} />
             <button
               className='absolute right-4 top-10 bg-gray-600 w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-pink-600 transition duration-300'
@@ -135,7 +147,7 @@ export default function SetBudgetGoal() {
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
-                          className='absolute -top-10 right-0 p-1 rounded-lg z-10 cursor-pointer flex items-center gap-1 mx-auto '
+                          className='absolute -top-10 right-0 p-1 rounded-lg z-10 cursor-pointer flex items-center gap-1 mx-auto'
                         >
                           <motion.div
                             whileHover={{ scale: 1.1 }}
@@ -144,11 +156,10 @@ export default function SetBudgetGoal() {
                           >
                             <FaEdit />
                           </motion.div>
-
                           <motion.div
                             whileHover={{ scale: 1.1 }}
                             className='text-red-400 bg-gray-800 text-sm rounded-full p-2 cursor-pointer'
-                            onClick={() => handleDelete(budget)}
+                            onClick={() => handleDeleteClick(budget)}
                           >
                             <FaTrashAlt />
                           </motion.div>
@@ -184,7 +195,7 @@ export default function SetBudgetGoal() {
 
         {selectBudgetId && (
           <div className='fixed inset-0 z-50 flex items-center justify-center bg-opacity-50 bg-gray-900'>
-            <div className='relative w-full  backdrop-blur-sm rounded-lg p-8'>
+            <div className='relative w-full backdrop-blur-sm rounded-lg p-8'>
               <EditBudget
                 data={selectBudgetId}
                 getData={getData}
@@ -200,6 +211,12 @@ export default function SetBudgetGoal() {
           </div>
         )}
       </div>
+
+      <Confirmation
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        onConfirm={handleConfirmDelete}
+      />
     </div>
   );
 }
