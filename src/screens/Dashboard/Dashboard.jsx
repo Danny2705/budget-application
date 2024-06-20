@@ -5,9 +5,9 @@ import RecentBudget from "../../components/RecentBudget/RecentBudget";
 import BudgetImage from "../../components/BudgetImage/BudgetImage";
 import Scan from "../../components/Scan/Scan";
 import RecentTransaction from "../../components/RecentTransaction/RecentTransaction";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { FaEdit } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -15,6 +15,7 @@ export default function Dashboard() {
   const budgets = useSelector((state) => state.budgets.budgets);
   const [isLoading, setIsLoading] = useState(true);
   const user = useSelector((state) => state.auth.user);
+  const navigate = useNavigate();
   console.log(user);
 
   useEffect(() => {
@@ -43,11 +44,11 @@ export default function Dashboard() {
         </div>
 
         <div className='relative h-[300px] lg:h-[700px] md:h-[600px] sm:h-[500px] xl:h-[880px] w-full mt-[1rem] flex items-start justify-between px-4 xl:px-20'>
-          <h1 className='main-span font-bold mt-4 tracking-wider z-10 w-full text-[12vw] lg:w-[70%] xl:text-[7rem] lg:text-[6rem] md:text-[5.5rem] sm:text-[4rem] right-0 text-right px-4 xl:px-20'>
+          <h1 className='main-span font-bold mt-4 tracking-wider z-10 w-full text-[12vw] lg:w-[70%] xl:text-[6.5rem] xl:mt-[9rem] lg:text-[6rem] md:text-[5.5rem] sm:text-[4rem] right-0 text-right px-4 xl:px-20'>
             Innovative Scanning
           </h1>
           <div className='w-full flex flex-col justify-end items-end mt-[250px]'>
-            <div className='flex gap-4 my-10'>
+            <div className='flex gap-4 my-[10rem]'>
               <button className='text-white border border-main-neonPink px-[25px] py-[9px] z-10 duration-700 transition-all hover:bg-gradient-to-br hover:from-pink-600 hover:via-red-500 hover:to-purple-700 text-lg'>
                 Dive into our Technology
               </button>
@@ -57,7 +58,7 @@ export default function Dashboard() {
               </button>
             </div>
 
-            <h2 className='text-white max-w-[19ch] text-2xl font-bold mb-4'>
+            {/* <h2 className='text-white max-w-[19ch] text-2xl font-bold mb-4'>
               Welcome to VioVault
             </h2>
             <p className='text-white w-full text-[20px] text-right leading-[160%] max-w-[30ch]'>
@@ -66,7 +67,7 @@ export default function Dashboard() {
               receipt <span className='text-main-neonPink'>scanning</span> and{" "}
               <span className='text-main-neonPink'>expense tracking</span>{" "}
               capabilities.
-            </p>
+            </p> */}
           </div>
           <img
             src='/receipt-background.png'
@@ -105,8 +106,14 @@ export default function Dashboard() {
                     className='flex-grow-0 relative my-2 items-center'
                   >
                     <RecentBudget budget={budget} />
-                    <button className='text-lg absolute top-0 right-0 bg-main-darkPurple p-2 rounded-lg z-10 cursor-pointer text-white'>
-                      <FaEdit />
+                    <button
+                      className='text-lg absolute top-0 right-0 py-2 px-1 rounded-lg z-10 cursor-pointer bg-main-darkPurple border-main-neonPink border-t border-r text-white'
+                      title={"Go to budget page to view more"}
+                      onClick={() => {
+                        navigate("/budget");
+                      }}
+                    >
+                      <FaEye />
                     </button>
                   </div>
                 ))
