@@ -14,6 +14,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 export default function Dashboard() {
   const budgets = useSelector((state) => state.budgets.budgets);
   const [isLoading, setIsLoading] = useState(true);
+  const user = useSelector((state) => state.auth.user);
+  console.log(user);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -46,16 +48,16 @@ export default function Dashboard() {
           </h1>
           <div className='w-full flex flex-col justify-end items-end mt-[250px]'>
             <div className='flex gap-4 my-10'>
-              <button className='text-white border border-main-neonPink px-[25px] py-[9px] z-10 duration-700 transition-all hover:bg-gradient-to-br hover:from-pink-600 hover:via-red-500 hover:to-purple-700'>
+              <button className='text-white border border-main-neonPink px-[25px] py-[9px] z-10 duration-700 transition-all hover:bg-gradient-to-br hover:from-pink-600 hover:via-red-500 hover:to-purple-700 text-lg'>
                 Dive into our Technology
               </button>
 
-              <button className='text-white bg-main-neonPink px-[25px] py-[9px] z-10 hover:bg-gradient-to-br hover:from-pink-600 hover:via-red-500 hover:to-purple-700 duration-500 transition-all'>
+              <button className='text-white bg-main-neonPink px-[25px] py-[9px] z-10 hover:bg-gradient-to-br hover:from-pink-600 hover:via-red-500 hover:to-purple-700 duration-500 transition-all text-lg'>
                 Learn about our Mission
               </button>
             </div>
 
-            <h2 className='text-white max-w-[19ch] text-2xl font-bold'>
+            <h2 className='text-white max-w-[19ch] text-2xl font-bold mb-4'>
               Welcome to VioVault
             </h2>
             <p className='text-white w-full text-[20px] text-right leading-[160%] max-w-[30ch]'>
