@@ -27,7 +27,7 @@ class MessageParser {
   }
 
 
-//how should i make sure the user questions are answered when wrtitten in lowercase?
+//gpt: how should i make sure the user questions are answered when wrtitten in lowercase?
   parse(message) {
     const lowerCaseMessage = message.toLowerCase(); 
 
