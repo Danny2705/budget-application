@@ -23,17 +23,16 @@ export default function PieChart() {
       datalabels: {
         color: "#fff",
         display: true,
-        font: {
-          weight: "bold",
-        },
+        // reference from chatGPT: code was not modified
         formatter: (value, context) => {
           let sum = 0;
           const dataArr = context.chart.data.datasets[0].data;
           dataArr.forEach((data) => {
             sum += data;
           });
-          const percentage = ((value * 100) / sum).toFixed(2) + "%";
-          return percentage;
+          const percentage = ((value * 100) / sum).toFixed(1) + "%";
+          const digit = "$" + value;
+          return digit + "\n" + percentage;
         },
       },
       legend: {
@@ -59,11 +58,9 @@ export default function PieChart() {
   useEffect(() => {
     // Create a map to hold the total amount for each category
     const categoryAmountMap = new Map();
-
     transactionData.forEach((transaction) => {
       const category = transaction.Category;
       const amount = parseFloat(transaction.Total);
-
       if (categoryAmountMap.has(category)) {
         categoryAmountMap.set(
           category,
@@ -78,7 +75,6 @@ export default function PieChart() {
     const transCategories = Array.from(categoryAmountMap.keys());
     const transAmounts = Array.from(categoryAmountMap.values());
 
-    // Generate a random color for each category
     const generateRandomColor = () => {
       const letters = "0123456789ABCDEF";
       let color = "#";

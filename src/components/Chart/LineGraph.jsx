@@ -46,7 +46,7 @@ export default function LineGraph() {
         borderColor: "Green",
         backgroundColor: "rgb(255, 16, 240)",
       }, {
-        label: "Budget Linit",
+        label: "Budget Limit",
         data: [200, 1500, 500, 2000, 500, 550, 1000],
         fill: false,
         showLine: true,
