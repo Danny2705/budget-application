@@ -33,7 +33,6 @@ export default function LineGraph() {
     },
   };
 
-  // const labels = ["January", "February", "March", "April", "May",];
   const LineGraphData = {
     labels: ["January", "February", "March", "April", "May"],
     datasets: [
