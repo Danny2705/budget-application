@@ -107,18 +107,20 @@ export default function SetBudgetGoal() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 50 }}
               transition={{ duration: 0.3 }}
-              className='grid grid-cols-4 gap-8'
+              className='grid grid-cols-4'
             >
               {budgets.length > 0 ? (
                 [...budgets].sort(compareCreatedAt).map((budget, i) => (
-                  <div key={i} className='flex-grow-0 relative'>
-                    <RecentBudget budget={budget} />
-                    <button
-                      className='text-lg absolute top-0 right-0 bg-main-darkPurple p-2 rounded-lg z-10 cursor-pointer'
-                      onClick={() => handleEdit(budget)}
-                    >
-                      <FaEdit />
-                    </button>
+                  <div key={i} className='relative grid grid-cols-4"'>
+                    <div className="relative">
+                      <RecentBudget budget={budget} />
+                      <button
+                        className='text-lg absolute top-0 right-0 bg-main-darkPurple p-2 rounded-lg z-10 cursor-pointer'
+                        onClick={() => handleEdit(budget)}
+                      >
+                        <FaEdit />
+                      </button>
+                    </div>
                   </div>
                 ))
               ) : (
