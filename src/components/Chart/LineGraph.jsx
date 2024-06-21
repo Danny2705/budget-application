@@ -40,7 +40,6 @@ export default function LineGraph() {
         label: "Money Spent",
         data: [100, 2000, 400, 1100, 250, 500, 400],
         fill: false,
-        showLine: true,
         color: "white",
         borderColor: "Green",
         backgroundColor: "rgb(255, 16, 240)",
@@ -48,7 +47,6 @@ export default function LineGraph() {
         label: "Budget Limit",
         data: [200, 1500, 500, 2000, 500, 550, 1000],
         fill: false,
-        showLine: true,
         borderColor: "Red",
         backgroundColor: "rgb(255, 16, 240)"
       }
@@ -58,12 +56,12 @@ export default function LineGraph() {
       scales: {
         y: {
           grid: {
-            color: "white",
+            color: "red",
           },
         },
         x: {
           grid: {
-            color: "white",
+            color: "green",
           },
         },
       },

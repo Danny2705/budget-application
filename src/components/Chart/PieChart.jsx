@@ -45,7 +45,7 @@ export default function PieChart() {
     labels: transactionLabels,
     datasets: [
       {
-        label: "Pie Chart Describing transaction category versus money spent",
+        label: "Money spent",
         data: transactionAmount,
         borderColor: "none",
         backgroundColor: randomColor,

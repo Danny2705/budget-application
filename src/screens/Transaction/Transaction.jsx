@@ -4,6 +4,7 @@ import RecentBudgetTransTable from "../../components/TransactionTable/RecentBudg
 import PieChart from "../../components/Chart/PieChart";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Quotes from "../../components/Text/GenerateRandomQuote";
 
 export default function Transaction() {
   const params = useParams();
@@ -20,21 +21,17 @@ export default function Transaction() {
         </h1>
 
         <div className='mt-8 px-4 xl:px-20 text-white'>
-          <div className='flex flex-col lg:flex-row items-center gap-8'>
+          <div className='flex flex-col lg:flex-row items-center gap-0'>
             <div className='w-full lg:w-1/2'>
               <PieChart />
             </div>
             <div className='w-full lg:w-1/2 text-center lg:text-left'>
-              <h2 className='text-xl lg:text-2xl font-semibold text-main-darkPink'>
+              <h2 className='large-h1-span text-xl lg:text-5xl font-semibold text-main-darkPink h-[50px]'>
                 Master the Principles of Budget Saving
               </h2>
 
               <p className='mt-4 text-lg'>
-                Understanding and applying budget saving principles is essential
-                for financial stability. Learn how to create a budget,
-                prioritize your spending, and set achievable savings goals. Our
-                resources will help you make informed decisions, avoid common
-                pitfalls, and maximize your savings potential.
+                <Quotes/>
               </p>
             </div>
           </div>
