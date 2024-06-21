@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { FiAlertCircle } from "react-icons/fi";
 // Using hover.dev library for the modal here
-const Confirmation = ({ isOpen, setIsOpen, onConfirm }) => {
+const Confirmation = ({ isOpen, setIsOpen, onConfirm, budgetTitle }) => {
   if (!isOpen) return null;
   return (
     <AnimatePresence>
@@ -26,7 +26,7 @@ const Confirmation = ({ isOpen, setIsOpen, onConfirm }) => {
                 <FiAlertCircle />
               </div>
               <h3 className='text-3xl font-bold text-center mb-2'>
-                Are you sure you want to delete this Budget?
+                Are you sure you want to delete {budgetTitle} budget?
               </h3>
               <p className='text-center mb-6'>
                 If you delete this budget, all the transactions and data will be
@@ -35,13 +35,13 @@ const Confirmation = ({ isOpen, setIsOpen, onConfirm }) => {
               <div className='flex gap-2'>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className='bg-transparent hover:bg-white/10 transition-colors text-  font-semibold w-full py-2 rounded'
+                  className=' hover:bg-white/20 transition-colors text-  font-semibold w-full py-2 rounded bg-white/10 duration-200'
                 >
                   Cancel
                 </button>
                 <button
                   onClick={onConfirm}
-                  className='bg-white hover:opacity-90 transition-opacity text-main-neonPink hover:bg-pink-400 duration-300 hover:text-white font-semibold w-full py-2 rounded'
+                  className='bg-white hover:opacity-90 transition-opacity text-main-neonPink hover:bg-pink-700 duration-200 hover:text-white font-semibold w-full py-2 rounded'
                 >
                   Delete
                 </button>

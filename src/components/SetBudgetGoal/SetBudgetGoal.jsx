@@ -23,6 +23,7 @@ export default function SetBudgetGoal() {
   const [showIconsForBudgetId, setShowIconsForBudgetId] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [budgetToDelete, setBudgetToDelete] = useState(null);
+  const [budgetTitle, setBudgetTitle] = useState(null);
 
   const compareCreatedAt = (a, b) => {
     const timeA = new Date(
@@ -43,6 +44,7 @@ export default function SetBudgetGoal() {
   };
 
   const handleDeleteClick = (budget) => {
+    setBudgetTitle(budget.title);
     setBudgetToDelete(budget);
     setIsOpen(true);
   };
@@ -216,6 +218,7 @@ export default function SetBudgetGoal() {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         onConfirm={handleConfirmDelete}
+        budgetTitle={budgetTitle}
       />
     </div>
   );
