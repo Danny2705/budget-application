@@ -13,6 +13,10 @@ import About from "./screens/About/About";
 import "../src/App.scss";
 import CreateTransaction from "./components/CreateTransaction/CreateTransaction";
 import { SkeletonTheme } from "react-loading-skeleton";
+import Donate from "./components/Donate/Donate.jsx";
+import Chat from "./components/Chat/Chat"; 
+
+
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -29,27 +33,27 @@ function App() {
             path='/signup'
             element={!user ? <Signup /> : <Navigate to='/' />}
           />
-        <Route
-          path='/'
-          element={user ? <Dashboard /> : <Navigate to='/login' />}
-        />
-        <Route
-          path='/transaction'
-          element={user ? <Transaction /> : <Navigate to='/login' />}
-        />
-        <Route
-          path='/budget'
-          element={user ? <Budget /> : <Navigate to='/login' />}
-        />
-        <Route
-          path='/profile'
-          element={user ? <Profile /> : <Navigate to='/login' />}
-        />
-        <Route path='/nomatch' element={<NoMatch />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/budget/transaction/:id' element={<Transaction />} />
-        <Route path='/create' element={<CreateTransaction />} />
-        {/* <Route
+          <Route
+            path='/'
+            element={user ? <Dashboard /> : <Navigate to='/login' />}
+          />
+          <Route
+            path='/transaction'
+            element={user ? <Transaction /> : <Navigate to='/login' />}
+          />
+          <Route
+            path='/budget'
+            element={user ? <Budget /> : <Navigate to='/login' />}
+          />
+          <Route
+            path='/profile'
+            element={user ? <Profile /> : <Navigate to='/login' />}
+          />
+          <Route path='/nomatch' element={<NoMatch />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/budget/transaction/:id' element={<Transaction />} />
+          <Route path='/create' element={<CreateTransaction />} />
+          {/* <Route
           path='*'
           element={
             !user ? <Navigate to='/login' /> : <Navigate to='/nomatch' />

@@ -1,5 +1,9 @@
 // MessageParser.jsx
 
+//ref https://gist.github.com/FredrikOseberg/c1e8ec83ade6e89ca84882e33caf599c//
+// gpt prompt: how do i make sure user questions are answered using the list?""
+
+//gpt: help me generate more questions and answers for the list
 class MessageParser {
   constructor(actionProvider) {
     this.actionProvider = actionProvider;
@@ -13,8 +17,17 @@ class MessageParser {
       { question: 'can i connect it to my banking account?', answer: 'No, you cannot yet as that feature is not available.' },
       { question: 'what other features?', answer: 'Our application offers various features including expense tracking, budget management, and real-time financial insights.' },
       { question: 'are those graphs in real time?', answer: 'Yes, the graphs are updated in real time to provide you with the most accurate financial data.' },
-     
+      { question: 'suck', answer: 'I am sorry you feel that way. Could you please rephrase that? I want to make sure I understand your feedback.' },
+      { question: 'dick', answer: 'I am sorry you feel that way. Could you please rephrase that? I want to make sure I understand your feedback.' },
+      { question: 'fuck', answer: 'I am sorry you feel that way. Could you please rephrase that? I want to make sure I understand your feedback.' },
+      { question: 'shit', answer: 'I am sorry you feel that way. Could you please rephrase that? I want to make sure I understand your feedback.' },
       { question: 'hello', answer: 'Hello! How can I assist you today?' },
+      { question: 'Xin chào', answer: 'Hello! How can I assist you today?' },
+      { question: 'sawasdee', answer: 'Hello! How can I assist you today?' },
+      { question: '你好', answer: 'Hello! How can I assist you today?' },
+      { question: 'こんにちは', answer: 'Hello! How can I assist you today?' },
+      { question: 'Namaste', answer: 'Hello! How can I assist you today?' },
+      { question: 'नमस्ते', answer: 'Hello! How can I assist you today?' },
       { question: 'hi', answer: 'Hi there! How can I help you?' },
       { question: 'hey', answer: 'Hey! What can I do for you today?' },
       { question: 'how are you', answer: 'I am just a bot, but I am here to help you!' },
@@ -22,10 +35,12 @@ class MessageParser {
     ];
   }
 
-  parse(message) {
-    const lowerCaseMessage = message.toLowerCase(); // Convert user input to lowercase
 
-    // Find a matching question
+//gpt: how should i make sure the user questions are answered when wrtitten in lowercase?
+  parse(message) {
+    const lowerCaseMessage = message.toLowerCase(); 
+
+   
     const matchedQuestion = this.questions.find(
       item => lowerCaseMessage.includes(item.question.toLowerCase())
     );
@@ -33,7 +48,7 @@ class MessageParser {
     if (matchedQuestion) {
       return this.actionProvider.handleAnswer(matchedQuestion.answer);
     } else {
-      // Handle case when no match is found
+     
       return this.actionProvider.handleNoAnswer();
     }
   }
