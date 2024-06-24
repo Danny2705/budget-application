@@ -122,10 +122,8 @@ export default function Dashboard() {
 
           <div>{isLoading ? <Skeleton height={450} /> : <BudgetImage />}</div>
 
-          <div className="mt-10 px-4 xl:px-20">
-            <div className="p-6 bg-white shadow-lg rounded-lg">
-              <LineGraph />
-            </div>
+          <div className="">
+            <LineGraph />
           </div>
 
           <div className="mt-5">
