@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export function CreateNewTransactionButton() {
+export default function CreateNewTransactionButton() {
 
   return (
     <Link to="/create">
