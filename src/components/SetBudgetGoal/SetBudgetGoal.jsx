@@ -99,7 +99,7 @@ export default function SetBudgetGoal() {
       )}
 
       <div className='relative w-full'>
-        <AnimatePresence mode='wait'>
+      <AnimatePresence mode='wait'>
           {activeButton === "activeBudgets" && (
             <motion.div
               key='activeBudgets'

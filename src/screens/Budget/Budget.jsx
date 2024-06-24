@@ -3,12 +3,15 @@ import Layout from "../Layout/Layout";
 import SetBudgetGoal from "../../components/SetBudgetGoal/SetBudgetGoal";
 import ParticleRing from "../../components/ParticleRing/ParticleRing";
 import CountUp from "react-countup";
+import { Bar } from "react-chartjs-2";
+import LineGraph from "../../components/Chart/LineGraph";
+import Quotes from "../../components/Text/GenerateRandomQuote";
 
 export default function Budget() {
   return (
     <Layout>
       <div className='mt-[60px] text-white'>
-        <h1 className='text-main-darkPink font-bold text-2xl md:text-4xl lg:text-4xl mt-20 tracking-wider px-4 xl:px-20'>
+        <h1 className='text-main-darkPink text-2xl md:text-4xl lg:text-4xl mt-20 tracking-wider px-4 xl:px-20'>
           Budget Management
         </h1>
 
@@ -26,10 +29,7 @@ export default function Budget() {
                 Let's keep track of Budget Goal
               </h2>
               <p className='mt-4 text-lg leading-8'>
-                Effective budgeting is key to financial success. Use our tools
-                and tips to manage your budget, set financial goals, and track
-                your progress. Whether you are saving for a big purchase or just
-                trying to manage your monthly expenses, we've got you covered.
+                <Quotes/>
               </p>
               <div className='mt-6 flex flex-col items-center lg:items-start'>
                 <button className='px-6 py-3 bg-main-neonPink text-white font-semibold rounded-lg shadow-md hover:bg-neon-pink transition duration-300'>
@@ -68,7 +68,6 @@ export default function Budget() {
                           Across all budgets
                         </p>
                       </div>
-
                       <div>
                         <h3 className='font-bold text-5xl'>
                           <span className='text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-600 to-blue-600'>
@@ -82,6 +81,10 @@ export default function Budget() {
                         <p className='text-base mt-0.5 text-gray-500'>
                           Managing budgets daily
                         </p>
+                      </div>
+                      {/* TODO: remove from this page */}
+                      <div>
+                        {/* <LineGraph/> */}
                       </div>
                     </div>
                   </div>

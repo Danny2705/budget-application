@@ -1,18 +1,42 @@
 import { Pie } from "react-chartjs-2";
 import { useState, useEffect } from "react";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  plugins,
+} from "chart.js";
 import { transactionData } from "../TransactionTable/Data";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 export default function PieChart() {
   const [transactionLabels, setTransactionLabels] = useState([]);
   const [transactionAmount, setTransactionAmount] = useState([]);
+  // TODO: change if needed
   const [randomColor, setRandomColor] = useState([]);
 
   const options = {
     responsive: true,
     plugins: {
+      datalabels: {
+        color: "black",
+        
+        display: true,
+        // reference from chatGPT: code was not modified
+        formatter: (value, context) => {
+          let sum = 0;
+          const dataArr = context.chart.data.datasets[0].data;
+          dataArr.forEach((data) => {
+            sum += data;
+          });
+          const percentage = ((value * 100) / sum).toFixed(1) + "%";
+          const digit = "$" + value;
+          return digit + "\n" + percentage;
+        },
+      },
       legend: {
         position: "left",
       },
@@ -23,10 +47,19 @@ export default function PieChart() {
     labels: transactionLabels,
     datasets: [
       {
-        label: "Pie Chart Describing transaction category versus money spent",
+        label: "Money spent",
         data: transactionAmount,
         borderColor: "none",
-        backgroundColor: randomColor,
+        backgroundColor: ["rgb(255, 0, 0)",
+        "rgb(0, 255, 0)",
+        "rgb(0, 140, 255)",
+        "rgb(255, 255, 0)",
+        "rgb(0, 255, 255)",
+        "rgb(255, 0, 255)",
+        "rgb(255, 165, 0)",
+        "rgb(255, 192, 203)",
+        "rgb(0, 255, 255)",
+        "rgb(238, 130, 238)"],
         hoverOffset: 4,
       },
     ],
@@ -36,13 +69,14 @@ export default function PieChart() {
   useEffect(() => {
     // Create a map to hold the total amount for each category
     const categoryAmountMap = new Map();
-
     transactionData.forEach((transaction) => {
       const category = transaction.Category;
       const amount = parseFloat(transaction.Total);
-
       if (categoryAmountMap.has(category)) {
-        categoryAmountMap.set(category, categoryAmountMap.get(category) + amount);
+        categoryAmountMap.set(
+          category,
+          categoryAmountMap.get(category) + amount
+        );
       } else {
         categoryAmountMap.set(category, amount);
       }
@@ -52,10 +86,10 @@ export default function PieChart() {
     const transCategories = Array.from(categoryAmountMap.keys());
     const transAmounts = Array.from(categoryAmountMap.values());
 
-    // Generate a random color for each category
+    // TODO: change if needed
     const generateRandomColor = () => {
-      const letters = '0123456789ABCDEF';
-      let color = '#';
+      const letters = "0123456789ABCDEF";
+      let color = "#";
       for (let i = 0; i < 6; i++) {
         color += letters[Math.floor(Math.random() * 16)];
       }
