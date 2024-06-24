@@ -78,10 +78,8 @@ export default function LineGraph() {
   };
 
   return (
-    <div>
-      <div className="w-[600px] h-[400px]">
-        <Line options={options} data={LineGraphData} />
-      </div>
+    <div className="w-2/3 h-full py-10">
+      <Line options={options} data={LineGraphData} />
     </div>
   );
 }
