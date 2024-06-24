@@ -99,7 +99,7 @@ export default function SetBudgetGoal() {
       )}
 
       <div className='relative w-full'>
-        <AnimatePresence mode='wait'>
+      <AnimatePresence mode='wait'>
           {activeButton === "activeBudgets" && (
             <motion.div
               key='activeBudgets'
@@ -107,20 +107,18 @@ export default function SetBudgetGoal() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 50 }}
               transition={{ duration: 0.3 }}
-              className='grid grid-cols-3'
+              className='flex flex-wrap gap-4 justify-between'
             >
               {budgets.length > 0 ? (
                 [...budgets].sort(compareCreatedAt).map((budget, i) => (
-                  <div key={i} className='relative grid grid-cols-4'>
-                    <div>
-                      <RecentBudget budget={budget} className='relative'/>
-                      <button
-                        className='text-lg absolute top-0 right-0 bg-main-darkPurple p-2 rounded-lg z-10 cursor-pointer'
-                        onClick={() => handleEdit(budget)}
-                      >
-                        <FaEdit />
-                      </button>
-                    </div>
+                  <div key={i} className='flex-grow-0 relative'>
+                    <RecentBudget budget={budget} />
+                    <button
+                      className='text-lg absolute top-0 right-0 bg-main-darkPurple p-2 rounded-lg z-10 cursor-pointer'
+                      onClick={() => handleEdit(budget)}
+                    >
+                      <FaEdit />
+                    </button>
                   </div>
                 ))
               ) : (
