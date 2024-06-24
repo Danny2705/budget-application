@@ -9,7 +9,9 @@ import items from "./items.json";
 
 const UploadTrans = ({ onSetReceiptData, onSetImageURL, onSetTransactionNo }) => {
   //Avoiding using OCR API useState([]) -> useState(items)
-  const [receiptData, setReceiptData] = useState(items);
+  // const [receiptData, setReceiptData] = useState(items);
+  //Using OCR API
+  const [receiptData, setReceiptData] = useState([]);
   const [imageURL, setImageURL] = useState(null);
   //
   const [receiptNo, setReceiptNo] = useState("U000001B000001T000005");
@@ -22,7 +24,7 @@ const UploadTrans = ({ onSetReceiptData, onSetImageURL, onSetTransactionNo }) =>
   const handleJsonDataChange = (data) => {
     setReceiptData(data);
     //Avoiding using OCR API onSetReceiptData(data) -> onSetReceiptData(items)
-    //onSetReceiptData(data);
+    onSetReceiptData(data);
     console.log("Parent: Receipt Data", receiptData);
     console.log("Parent: Receipt Data", data);
   };
@@ -36,17 +38,17 @@ const UploadTrans = ({ onSetReceiptData, onSetImageURL, onSetTransactionNo }) =>
 
   const handleReceiptNoChange = (receiptNo) => {
     setReceiptNo(receiptNo);
-  };
+  }; 
 
-  const handleOnClickSaveButton = () => {
-    console.log("Button data", receiptNo);
-    saveReceiptToFirestore(
-      receiptNo,
-      receiptData,
-      imageURL
-      //userEmail,
-    );
-  };
+  // const handleOnClickSaveButton = () => {
+  //   console.log("Button data", receiptNo);
+  //   saveReceiptToFirestore(
+  //     receiptNo,
+  //     receiptData,
+  //     imageURL
+  //     //userEmail,
+  //   );
+  // };
 
   return (
     <div className="mt-100 bg-white md:flex flex-col rounded-[24px]">
