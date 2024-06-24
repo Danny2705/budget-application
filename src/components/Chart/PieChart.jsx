@@ -15,13 +15,15 @@ ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 export default function PieChart() {
   const [transactionLabels, setTransactionLabels] = useState([]);
   const [transactionAmount, setTransactionAmount] = useState([]);
+  // TODO: change if needed
   const [randomColor, setRandomColor] = useState([]);
 
   const options = {
     responsive: true,
     plugins: {
       datalabels: {
-        color: "#fff",
+        color: "black",
+        
         display: true,
         // reference from chatGPT: code was not modified
         formatter: (value, context) => {
@@ -48,7 +50,16 @@ export default function PieChart() {
         label: "Money spent",
         data: transactionAmount,
         borderColor: "none",
-        backgroundColor: randomColor,
+        backgroundColor: ["rgb(255, 0, 0)",
+        "rgb(0, 255, 0)",
+        "rgb(0, 0, 255)",
+        "rgb(255, 255, 0)",
+        "rgb(0, 255, 255)",
+        "rgb(255, 0, 255)",
+        "rgb(255, 165, 0)",
+        "rgb(255, 192, 203)",
+        "rgb(0, 255, 255)",
+        "rgb(238, 130, 238)"],
         hoverOffset: 4,
       },
     ],
@@ -75,6 +86,7 @@ export default function PieChart() {
     const transCategories = Array.from(categoryAmountMap.keys());
     const transAmounts = Array.from(categoryAmountMap.values());
 
+    // TODO: change if needed
     const generateRandomColor = () => {
       const letters = "0123456789ABCDEF";
       let color = "#";

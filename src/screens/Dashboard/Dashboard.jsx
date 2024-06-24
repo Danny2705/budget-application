@@ -11,6 +11,7 @@ import { FaEdit } from "react-icons/fa";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import LineGraph from "../../components/Chart/LineGraph";
+import Barchart from "../../components/Chart/BarChart";
 
 export default function Dashboard() {
   const budgets = useSelector((state) => state.budgets.budgets);
@@ -126,6 +127,7 @@ export default function Dashboard() {
               How much are your Savings?
             </h1>
             <LineGraph />
+            <Barchart/>
           </div>
 
           <div className="mt-5">
