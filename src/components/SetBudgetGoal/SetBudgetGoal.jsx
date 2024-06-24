@@ -3,13 +3,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import RecentBudget from "../RecentBudget/RecentBudget";
 import RecentBudgetTranstable from "../TransactionTable/RecentBudgetTransTable";
 import NewBudget from "../NewBudget/NewBudget.jsx";
-import { FaEdit, FaPlus } from "react-icons/fa";
+import { FaEdit, FaPlus, FaTrashAlt } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { db } from "../../utils/firebase.js";
 import { useDispatch, useSelector } from "react-redux";
 import { setBudgets } from "../../redux/budgetSlice.js";
 import EditBudget from "./EditBudget.jsx";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import Confirmation from "../Confirmation/Confirmation.jsx";
 
 export default function SetBudgetGoal() {
   const [activeButton, setActiveButton] = useState("activeBudgets");
@@ -18,8 +20,11 @@ export default function SetBudgetGoal() {
   const budgets = useSelector((state) => state.budgets.budgets);
   const dispatch = useDispatch();
   const [selectBudgetId, setSelectBudgetId] = useState(null);
+  const [showIconsForBudgetId, setShowIconsForBudgetId] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [budgetToDelete, setBudgetToDelete] = useState(null);
+  const [budgetTitle, setBudgetTitle] = useState(null);
 
-  // Ask ChatGPT: can you help me convert the data object that I get from redux to JS Date for sorting the time of the latest budget
   const compareCreatedAt = (a, b) => {
     const timeA = new Date(
       a?.createdAt?.seconds * 1000 + a?.createdAt?.nanoseconds / 1000000
@@ -35,8 +40,29 @@ export default function SetBudgetGoal() {
   };
 
   const handleEdit = (data) => {
-    console.log(data);
     setSelectBudgetId(data);
+  };
+
+  const handleDeleteClick = (budget) => {
+    setBudgetTitle(budget.title);
+    setBudgetToDelete(budget);
+    setIsOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (budgetToDelete) {
+      const budgetDoc = doc(db, `users/${user.uid}/budget`, budgetToDelete.id);
+      await deleteDoc(budgetDoc);
+      setIsOpen(false);
+      setBudgetToDelete(null);
+      getData();
+    }
+  };
+
+  const handleDots = (budgetId) => {
+    setShowIconsForBudgetId(
+      budgetId === showIconsForBudgetId ? null : budgetId
+    );
   };
 
   const getData = async () => {
@@ -86,7 +112,7 @@ export default function SetBudgetGoal() {
 
       {click && (
         <div className='fixed inset-0 z-50 flex items-center justify-center bg-opacity-50 bg-gray-900'>
-          <div className='relative w-full  backdrop-blur-sm rounded-lg p-8'>
+          <div className='relative w-full backdrop-blur-sm rounded-lg p-8'>
             <NewBudget getData={getData} handleClick={handleClick} />
             <button
               className='absolute right-4 top-10 bg-gray-600 w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-pink-600 transition duration-300'
@@ -98,8 +124,8 @@ export default function SetBudgetGoal() {
         </div>
       )}
 
-      <div className='relative w-full'>
-      <AnimatePresence mode='wait'>
+      <div className='relative w-full my-12'>
+        <AnimatePresence mode='wait'>
           {activeButton === "activeBudgets" && (
             <motion.div
               key='activeBudgets'
@@ -114,10 +140,33 @@ export default function SetBudgetGoal() {
                   <div key={i} className='flex-grow-0 relative'>
                     <RecentBudget budget={budget} />
                     <button
-                      className='text-lg absolute top-0 right-0 bg-main-darkPurple p-2 rounded-lg z-10 cursor-pointer'
-                      onClick={() => handleEdit(budget)}
+                      className='text-lg absolute top-0 right-0 py-2 px-1 rounded-lg z-10 cursor-pointer bg-main-darkPurple border-main-neonPink border-t border-r'
+                      onClick={() => handleDots(budget.id)}
                     >
-                      <FaEdit />
+                      <BsThreeDotsVertical />
+                      {showIconsForBudgetId === budget.id && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          className='absolute -top-10 right-0 p-1 rounded-lg z-10 cursor-pointer flex items-center gap-1 mx-auto'
+                        >
+                          <motion.div
+                            whileHover={{ scale: 1.1 }}
+                            className='text-blue-400 bg-gray-800 text-sm rounded-full p-2 cursor-pointer'
+                            onClick={() => handleEdit(budget)}
+                          >
+                            <FaEdit />
+                          </motion.div>
+                          <motion.div
+                            whileHover={{ scale: 1.1 }}
+                            className='text-red-400 bg-gray-800 text-sm rounded-full p-2 cursor-pointer'
+                            onClick={() => handleDeleteClick(budget)}
+                          >
+                            <FaTrashAlt />
+                          </motion.div>
+                        </motion.div>
+                      )}
                     </button>
                   </div>
                 ))
@@ -148,7 +197,7 @@ export default function SetBudgetGoal() {
 
         {selectBudgetId && (
           <div className='fixed inset-0 z-50 flex items-center justify-center bg-opacity-50 bg-gray-900'>
-            <div className='relative w-full  backdrop-blur-sm rounded-lg p-8'>
+            <div className='relative w-full backdrop-blur-sm rounded-lg p-8'>
               <EditBudget
                 data={selectBudgetId}
                 getData={getData}
@@ -164,6 +213,13 @@ export default function SetBudgetGoal() {
           </div>
         )}
       </div>
+
+      <Confirmation
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        onConfirm={handleConfirmDelete}
+        budgetTitle={budgetTitle}
+      />
     </div>
   );
 }
