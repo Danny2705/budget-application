@@ -32,7 +32,6 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
         setReceiptJsonData(await performOcr(imageURL));
         onSetJsonData(await performOcr(imageURL));
       }
-    //onSetJsonData(receiptJsonData);
   };
 
   const { getRootProps, getInputProps } = useDropzone({

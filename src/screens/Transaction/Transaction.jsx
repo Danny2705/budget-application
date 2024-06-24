@@ -5,6 +5,7 @@ import PieChart from "../../components/Chart/PieChart";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Quotes from "../../components/Text/GenerateRandomQuote";
+import CreateNewTransactionButton from "../../components/CreateTransaction/CreateNewTransactionButton";
 
 export default function Transaction() {
   const params = useParams();
@@ -44,8 +45,8 @@ export default function Transaction() {
             <h3 className="text-white">Search Bar</h3>
           </div>
         </div>
-
         <RecentBudgetTransTable />
+        <CreateNewTransactionButton/>
       </div>
     </Layout>
   );
