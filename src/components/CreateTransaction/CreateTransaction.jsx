@@ -33,8 +33,8 @@ export default function CreateTransaction() {
         <h1 className="text-main-darkPink font-bold text-2xl md:text-4xl lg:text-4xl mt-8 mb-8 tracking-wider text-center lg:text-left">
           Create New Transaction
         </h1>
-        <NewTransVenderTable receiptInfo={receiptData} />
-        <NewTransLineItemsTable receiptInfo={receiptData}/>
+        {/* <NewTransVenderTable receiptInfo={receiptData} />
+        <NewTransLineItemsTable receiptInfo={receiptData}/> */}
         <SaveButton onClick={handleOnClickSaveButton} />
       </div>
     </Layout>
