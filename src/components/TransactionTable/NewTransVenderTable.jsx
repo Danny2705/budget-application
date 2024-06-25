@@ -40,7 +40,7 @@ export default function NewTransVenderTable({ receiptInfo }) {
             </tr>
           </thead>
           <tbody className="text-white">
-            {receiptInfo?.map((info) => (
+            {receiptInfo?.keys((info) => (
               <tr className="bg-[#1D1E42]">
                 <td className="border-b px-4 py-2 text-center">
                   {info.vendor.name}
