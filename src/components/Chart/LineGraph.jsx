@@ -1,79 +1,85 @@
-// Reference: a) "Chart.js documentation for charts" - https://www.chartjs.org/docs/latest/charts/doughnut.html#pie b) ChatGPT refence chartjs-2
-// NOT USED YET: TODO? change to a line chart
-import { Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement,
+  PointElement,
+  LineElement,
   Title,
   Tooltip,
   Legend,
 } from "chart.js";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  BarElement,
+  LineElement,
+  PointElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  ChartDataLabels
 );
 
-export default function BarChart() {
+export default function LineGraph() {
   const options = {
     responsive: true,
     plugins: {
+      dataLabels: {
+        display: false,
+      },
+
       legend: {
         position: "top",
       },
     },
-  };
 
-  const BarChartData = {
-    labels: [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday",
-    ],
-    datasets: [
-      {
-        label: "Steps",
-        data: [3000, 5000, 4500, 6000, 8000, 7000, 9000],
-        borderColor: "blue",
-        backgroundColor: "red",
-        borderWidth: 1,
+    scales: {
+      y: {
+        grid: {
+          color: "grey",
+        },
+        ticks: {
+          display: true,
+        },
       },
-    ],
+      x: {
+        grid: {
+          color: "green",
+        },
+        ticks: {
+          display: true,
+        },
+      },
+    },
   };
 
-  const data = {
-    labels: ["Red", "Blue", "Yellow"],
+  const LineGraphData = {
+    labels: ["January", "February", "March", "April", "May"],
     datasets: [
       {
-        label: "My First Dataset",
-        data: [300, 50, 100],
-        backgroundColor: [
-          "rgb(255, 99, 132)",
-          "rgb(54, 162, 235)",
-          "rgb(255, 205, 86)",
-        ],
-        hoverOffset: 4,
+        label: "Money Spent",
+        data: [100, 2000, 400, 1100, 250, 500, 400],
+        fill: false,
+        borderColor: "Green",
+        backgroundColor: "rgb(255, 16, 240)",
+        pointRadius: 1,
+      },
+      {
+        label: "Budget Limit",
+        data: [200, 1500, 500, 2000, 500, 550, 1000],
+        fill: false,
+        borderColor: "Red",
+        backgroundColor: "rgb(255, 16, 240)",
+        pointRadius: 1,
       },
     ],
   };
 
   return (
-    <div>
-      <div className="w-[600px] h-[400px]">
-        <div>
-          <Bar options={options} data={BarChartData} />
-        </div>
-      </div>
+    <div className="w-2/3 h-full py-10">
+      <Line options={options} data={LineGraphData} />
     </div>
   );
 }

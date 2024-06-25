@@ -50,6 +50,7 @@ export default function Profile() {
       uploadTask.on(
         "state_changed",
         (snapshot) => {
+          //ask chatgpt to generate the calculation of the progress
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           setImagePercent(Math.round(progress));
