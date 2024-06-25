@@ -1,4 +1,5 @@
 import React from "react";
+import items from "../UploadTrans/items.json";
 
 const JsonDisplay = ({ json }) => {
   return (
@@ -12,3 +13,5 @@ const JsonDisplay = ({ json }) => {
   );
 };
 export default JsonDisplay;
+
+

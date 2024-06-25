@@ -11,7 +11,7 @@ const UploadTrans = ({ onSetReceiptData, onSetImageURL, onSetTransactionNo }) =>
   //Avoiding using OCR API useState([]) -> useState(items)
   // const [receiptData, setReceiptData] = useState(items);
   //Using OCR API
-  const [receiptData, setReceiptData] = useState([]);
+  const [receiptData, setReceiptData] = useState(items);
   const [imageURL, setImageURL] = useState(null);
   //
   const [receiptNo, setReceiptNo] = useState("U000001B000001T000005");
