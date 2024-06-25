@@ -40,48 +40,44 @@ export default function NewTransVenderTable({ receiptInfo }) {
             </tr>
           </thead>
           <tbody className="text-white">
-            {receiptInfo?.keys((info) => (
-              <tr className="bg-[#1D1E42]">
-                <td className="border-b px-4 py-2 text-center">
-                  {info.vendor.name}
-                </td>
-                <td className="border-b border-l px-4 py-2 text-center">
-                  {info.date}
-                </td>
-                <td className="border-b border-l px-4 py-2 text-center">
-                  {info.vendor.address}
-                </td>
-                <td className="border-b border-l px-4 py-2 text-center">
-                  {info.category}
-                </td>
-                <td className="border-b border-l px-[32px] py-2">
-                  {info.subtotal}
-                </td>
-                <td className="border-b border-l px-[32px] py-2">{info.tax}</td>
-                <td className="border-b border-l px-[32px] py-2">
-                  {info.tip === null ? 0 : info.tip}
-                </td>
-                <td className="border-b border-l px-[32px] py-2">
-                  {info.total}
-                </td>
-                <td className="border-b border-l px-4 py-2">
-                  <div className="flex flex-row justify-center">
-                    <button className="pr-[32px]">
-                      <FontAwesomeIcon
-                        icon={faPenToSquare}
-                        style={{ color: "#624DE3" }}
-                      />
-                    </button>
-                    <button>
-                      <FontAwesomeIcon
-                        icon={faTrashCan}
-                        style={{ color: "#A30D11" }}
-                      />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+            <tr className="bg-[#1D1E42]">
+              <td className="border-b px-4 py-2 text-center">
+                {receiptInfo.vendor.name}
+              </td>
+              <td className="border-b border-l px-4 py-2 text-center">
+                {receiptInfo.date}
+              </td>
+              <td className="border-b border-l px-4 py-2 text-center">
+                {receiptInfo.vendor.address}
+              </td>
+              <td className="border-b border-l px-4 py-2 text-center">
+                {receiptInfo.category}
+              </td>
+              <td className="border-b border-l px-[32px] py-2">
+                {receiptInfo.subtotal}
+              </td>
+              <td className="border-b border-l px-[32px] py-2">{receiptInfo.tax}</td>
+              <td className="border-b border-l px-[32px] py-2">
+                {receiptInfo.tip === null ? 0 : receiptInfo.tip}
+              </td>
+              <td className="border-b border-l px-[32px] py-2">{receiptInfo.total}</td>
+              <td className="border-b border-l px-4 py-2">
+                <div className="flex flex-row justify-center">
+                  <button className="pr-[32px]">
+                    <FontAwesomeIcon
+                      icon={faPenToSquare}
+                      style={{ color: "#624DE3" }}
+                    />
+                  </button>
+                  <button>
+                    <FontAwesomeIcon
+                      icon={faTrashCan}
+                      style={{ color: "#A30D11" }}
+                    />
+                  </button>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

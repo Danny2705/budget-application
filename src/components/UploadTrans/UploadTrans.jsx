@@ -13,7 +13,6 @@ const UploadTrans = ({ onSetReceiptData, onSetImageURL, onSetTransactionNo }) =>
   //Using OCR API
   const [receiptData, setReceiptData] = useState(items);
   const [imageURL, setImageURL] = useState(null);
-  //
   const [receiptNo, setReceiptNo] = useState("U000001B000001T000005");
 
   const handleImageURLChange = (url) => {
@@ -24,7 +23,8 @@ const UploadTrans = ({ onSetReceiptData, onSetImageURL, onSetTransactionNo }) =>
   const handleJsonDataChange = (data) => {
     setReceiptData(data);
     //Avoiding using OCR API onSetReceiptData(data) -> onSetReceiptData(items)
-    onSetReceiptData(data);
+    //onSetReceiptData(data);
+    onSetReceiptData(items);
     console.log("Parent: Receipt Data", receiptData);
     console.log("Parent: Receipt Data", data);
   };
