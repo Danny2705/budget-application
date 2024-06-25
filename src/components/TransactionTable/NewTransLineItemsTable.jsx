@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
 export default function NewTransLineItemsTable({ receiptInfo }) {
-  const lineItems = receiptInfo?.[0]?.line_items ?? [];
+  const lineItems = receiptInfo?.line_items ?? [];
   console.log('!!!receiptInfo', receiptInfo, lineItems)
 
   return (
@@ -35,7 +35,7 @@ export default function NewTransLineItemsTable({ receiptInfo }) {
               </tr>
             </thead>
             <tbody className="text-white">
-              {lineItems.map((item) => {
+              {lineItems?.map((item) => {
                 return (
                   <tr className="bg-[#1D1E42]">
                     <td className="border-b px-[80px] py-2 text-center">
