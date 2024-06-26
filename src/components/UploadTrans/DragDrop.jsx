@@ -24,7 +24,7 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
     setTransactionNo(transactionNumber);
     setFireImageURL(imageURL);
     onSetImageURL(imageURL);
-    onSetTransactionNo(transactionNumber);
+    onSetTransactionNo(transactionNo);
     console.log("Image uploaded to storage", imageURL);
 
     // Calling OCR Perform Function

@@ -7,7 +7,11 @@ import SaveButton from "./SaveButton";
 import { saveReceiptToFirestore } from "../../utils/firebase";
 import items from "./items.json";
 
-const UploadTrans = ({ onSetReceiptData, onSetImageURL, onSetTransactionNo }) => {
+const UploadTrans = ({
+  onSetReceiptData,
+  onSetImageURL,
+  onSetTransactionNo,
+}) => {
   //Avoiding using OCR API useState([]) -> useState(items)
   // const [receiptData, setReceiptData] = useState(items);
   //Using OCR API
@@ -17,6 +21,7 @@ const UploadTrans = ({ onSetReceiptData, onSetImageURL, onSetTransactionNo }) =>
 
   const handleImageURLChange = (url) => {
     setImageURL(url);
+    onSetImageURL(url);
     console.log("Parent: Image URL", url);
   };
 
@@ -26,16 +31,10 @@ const UploadTrans = ({ onSetReceiptData, onSetImageURL, onSetTransactionNo }) =>
     console.log("receiptData in UploadTrans", receiptData);
   };
 
-  //Make UploadTrans export receiptData even if OCR has ever been used
-  // useEffect(() => {
-  //   onSetReceiptData(receiptData);
-  //   onSetImageURL(imageURL);
-  //   onSetTransactionNo(receiptNo);
-  // }, [receiptData, onSetReceiptData, onSetImageURL, onSetTransactionNo, imageURL, receiptNo]);
-
   const handleReceiptNoChange = (receiptNo) => {
     setReceiptNo(receiptNo);
-  }; 
+    onSetTransactionNo(receiptNo);
+  };
 
   return (
     <div className="mt-100 bg-white md:flex flex-col rounded-[24px]">
