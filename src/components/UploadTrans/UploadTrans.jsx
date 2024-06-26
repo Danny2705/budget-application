@@ -39,15 +39,14 @@ const UploadTrans = ({
   };
 
   return (
-    <div className="mt-100 bg-white md:flex flex-col rounded-[24px]">
+    <div className="p-(32px) bg-white md:flex flex-col rounded-[24px]">
       <DragDrop
         onSetImageURL={handleImageURLChange}
         onSetJsonData={handleJsonDataChange}
         onSetTransactionNo={handleReceiptNoChange}
       />
-      <div className="flex flex-row py-[16px] px-[32px]">
+      <div className="flex flex-row py-[16px] px-[32px] space-x-20">
         <FileDisplay imageSrc={imageURL} />
-        <div className="w-[56px]" />
         <JsonDisplay json={receiptData} loading={!!imageURL && !receiptData}/>
       </div>
     </div>
