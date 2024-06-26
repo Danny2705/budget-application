@@ -47,7 +47,7 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
   });
 
   return (
-    <div className="bg-[#D4B4F3] my-[16px] mx-[32px] rounded-[16px] h-[80px] flex justify-center items-center">
+    <div className="bg-main-neonPink my-[16px] mx-[32px] rounded-[16px] h-[80px] flex justify-center items-center text-white font-semibold hover:bg-neon-pink">
       <div {...getRootProps()} >
         <input {...getInputProps()} />
         <p>Drag and drop files here or click to browse.</p>

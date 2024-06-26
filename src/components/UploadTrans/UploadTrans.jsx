@@ -39,7 +39,7 @@ const UploadTrans = ({
   };
 
   return (
-    <div className="p-(32px) bg-white md:flex flex-col rounded-[24px]">
+    <div className="p-(32px) bg-[#2c0b31] md:flex flex-col rounded-[24px] border border-main-neonPink">
       <DragDrop
         onSetImageURL={handleImageURLChange}
         onSetJsonData={handleJsonDataChange}
