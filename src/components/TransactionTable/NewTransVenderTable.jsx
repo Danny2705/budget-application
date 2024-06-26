@@ -23,8 +23,7 @@ export default function NewTransVenderTable({ receiptInfo }) {
           </div>
 
           <div
-            className={`grid grid-cols-9 gap-2 p-4 "bg-gray-700"
-            } text-white`}
+            className={`grid grid-cols-9 gap-2 p-4 bg-gray-800 text-white rounded-b-xl`}
           >
             <div className="text-center">{receiptInfo.vendor.name}</div>
             <div className="text-center">{receiptInfo.date}</div>
