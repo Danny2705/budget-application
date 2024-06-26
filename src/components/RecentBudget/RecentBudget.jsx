@@ -39,12 +39,16 @@ const calculatePeriod = (startDate, endDate) => {
 };
 
 export default function RecentBudget({ budget }) {
-  const startDate = new Date(budget?.startDate.seconds * 1000);
-  const endDate = new Date(budget?.endDate.seconds * 1000);
+  const startDate = new Date(budget?.startDate?.seconds * 1000);
+  const endDate = new Date(budget?.endDate?.seconds * 1000);
   const period = calculatePeriod(startDate, endDate);
 
   // Sum the transaction amounts to get the total amount spent
-  const amountSpent = budget?.transactions?.reduce((total, transaction) => total + transaction.amount, 0) || 0;
+  const amountSpent =
+    budget?.transactions?.reduce(
+      (total, transaction) => total + transaction.amount,
+      0
+    ) || 0;
   const amountTotal = budget?.amount || 1; // Default to 1 to avoid division by zero
   const percentageSpent = (amountSpent / amountTotal) * 100;
 
