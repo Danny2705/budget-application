@@ -26,6 +26,7 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
     onSetImageURL(imageURL);
     onSetTransactionNo(transactionNo);
     console.log("Image uploaded to storage", imageURL);
+    console.log("Transaction no from Firebase", transactionNumber);
 
     // Calling OCR Perform Function
       if (imageURL) {

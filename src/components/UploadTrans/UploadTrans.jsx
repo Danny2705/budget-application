@@ -17,7 +17,7 @@ const UploadTrans = ({
   //Using OCR API
   const [receiptData, setReceiptData] = useState();
   const [imageURL, setImageURL] = useState(null);
-  const [receiptNo, setReceiptNo] = useState("U000001B000001T000005");
+  const [receiptNo, setReceiptNo] = useState("");
 
 
   const handleImageURLChange = (url) => {
