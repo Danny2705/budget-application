@@ -19,16 +19,18 @@ const UploadTrans = ({
   const [imageURL, setImageURL] = useState(null);
   const [receiptNo, setReceiptNo] = useState("U000001B000001T000005");
 
+
   const handleImageURLChange = (url) => {
     setImageURL(url);
     onSetImageURL(url);
-    console.log("Parent: Image URL", url);
+    setReceiptData(undefined);
+    console.log("ImageURLChange", url);
   };
 
   const handleJsonDataChange = (data) => {
     setReceiptData(data);
     onSetReceiptData(data);
-    console.log("receiptData in UploadTrans", receiptData);
+    console.log("receiptDataChange", receiptData);
   };
 
   const handleReceiptNoChange = (receiptNo) => {
@@ -46,7 +48,7 @@ const UploadTrans = ({
       <div className="flex flex-row py-[16px] px-[32px]">
         <FileDisplay imageSrc={imageURL} />
         <div className="w-[56px]" />
-        <JsonDisplay json={receiptData} />
+        <JsonDisplay json={receiptData} loading={!!imageURL && !receiptData}/>
       </div>
     </div>
   );

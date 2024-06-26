@@ -12,8 +12,6 @@ export default function CreateTransaction() {
   const [imageURL, setImageURL] = useState(null);
   const [receiptNo, setReceiptNo] = useState("");
 
-  console.log("receiptData in create transaction page!!!", receiptData);
-
   const handleOnClickSaveButton = () => {
     console.log("save!!!", receiptNo);
     saveReceiptToFirestore(
