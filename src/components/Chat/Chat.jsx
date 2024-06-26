@@ -18,7 +18,7 @@ const Chat = () => {
         <div className="react-chatbot-kit-chat-inner-container">
           <div className="react-chatbot-kit-chat-header">
             ArthurBot
-            <button className="close-button" onClick={handleToggleChatbot}>
+            <button className="close-button hover:bg-gray-300" onClick={handleToggleChatbot}>
               X
             </button>
           </div>
@@ -28,11 +28,6 @@ const Chat = () => {
             actionProvider={ActionProvider}
           />
         </div>
-      )}
-      {!showChatbot && (
-        <button className="open-button" onClick={handleToggleChatbot}>
-          Open Chat
-        </button>
       )}
     </div>
   );
