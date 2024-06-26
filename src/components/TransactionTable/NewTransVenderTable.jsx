@@ -3,87 +3,58 @@ import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
 export default function NewTransVenderTable({ receiptInfo }) {
   return (
-    <div className="py-[48px] flex justify-center">
-      <div className="py-[48px] overflow-x-scroll px-[48px]">
-        <table className="bg-[#26264F] text-white border-separate border rounded-lg">
-          <thead>
-            <tr>
-              {/* control boarder radius of the table head; refer from 
-            https://stackoverflow.com/questions/4932181/rounded-table-corners-css-only */}
-              <th className="border-b px-3 py-2 bg-[#1D1E42] text-white">
-                Vender
-              </th>
-              <th className="border-b border-l px-3 py-2 bg-[#1D1E42] text-white">
-                Date
-              </th>
-              <th className="border-b border-l px-3 py-2 bg-[#1D1E42] text-white">
-                Location
-              </th>
-              <th className="border-b border-l px-3 py-2 bg-[#1D1E42] text-white">
-                Category
-              </th>
-              <th className="border-b border-l px-3 py-2 bg-[#1D1E42] text-white">
-                Subtotal(CAD$)
-              </th>
-              <th className="border-b border-l px-3 py-2 bg-[#1D1E42] text-white">
-                Tax(CAD$)
-              </th>
-              <th className="border-b border-l px-3 py-2 bg-[#1D1E42] text-white">
-                Tip(CAD$)
-              </th>
-              <th className="border-b border-l px-3 py-2 bg-[#1D1E42] text-white">
-                Total(CAD$)
-              </th>
-              <th className="border-b border-l px-3 py-2 bg-[#1D1E42] text-white">
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody className="text-white">
-            {receiptInfo?.keys((info) => (
-              <tr className="bg-[#1D1E42]">
-                <td className="border-b px-4 py-2 text-center">
-                  {info.vendor.name}
-                </td>
-                <td className="border-b border-l px-4 py-2 text-center">
-                  {info.date}
-                </td>
-                <td className="border-b border-l px-4 py-2 text-center">
-                  {info.vendor.address}
-                </td>
-                <td className="border-b border-l px-4 py-2 text-center">
-                  {info.category}
-                </td>
-                <td className="border-b border-l px-[32px] py-2">
-                  {info.subtotal}
-                </td>
-                <td className="border-b border-l px-[32px] py-2">{info.tax}</td>
-                <td className="border-b border-l px-[32px] py-2">
-                  {info.tip === null ? 0 : info.tip}
-                </td>
-                <td className="border-b border-l px-[32px] py-2">
-                  {info.total}
-                </td>
-                <td className="border-b border-l px-4 py-2">
-                  <div className="flex flex-row justify-center">
-                    <button className="pr-[32px]">
-                      <FontAwesomeIcon
-                        icon={faPenToSquare}
-                        style={{ color: "#624DE3" }}
-                      />
-                    </button>
-                    <button>
-                      <FontAwesomeIcon
-                        icon={faTrashCan}
-                        style={{ color: "#A30D11" }}
-                      />
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div>
+      <h1 className="text-main-darkPink font-bold text-2xl md:text-4xl lg:text-4xl mt-8 mb-8 tracking-wider text-center lg:text-left">
+        Vendor information
+      </h1>
+
+      <div className="wrapper mx-auto gap-1 py-4 w-full overflow-x-auto md:overflow-x-visible">
+        <div className="">
+          <div className="grid grid-cols-9 gap-2  rounded-t-xl p-4 text-sm font-bold text-white bg-gradient-to-r from-purple-500 via-pink-500 to-red-500">
+            <div className="text-center">Vendor</div>
+            <div className="text-center">Date</div>
+            <div className="text-center">Location</div>
+            <div className="text-center">Category</div>
+            <div className="text-center">Subtotal</div>
+            <div className="text-center">Tax</div>
+            <div className="text-center">Tip</div>
+            <div className="text-center">Total</div>
+            <div className="text-center">Action</div>
+          </div>
+
+          <div
+            className={`grid grid-cols-9 gap-2 p-4 bg-gray-800 text-white rounded-b-xl`}
+          >
+            <div className="text-center">{receiptInfo.vendor.name}</div>
+            <div className="text-center">{receiptInfo.date}</div>
+            <div className="text-center">{receiptInfo.vendor.address}</div>
+            <div className="text-center">{receiptInfo.category}</div>
+            <div className="text-center">
+              {receiptInfo.subtotal === null ? 0 : receiptInfo.subtotal}
+            </div>
+            <div className="text-center">
+              {receiptInfo.tax === null ? 0 : receiptInfo.tax}
+            </div>
+            <div className="text-center">
+              {receiptInfo.tip === null ? 0 : receiptInfo.tip}
+            </div>
+            <div className="text-center">{receiptInfo.total}</div>
+            <div className="flex justify-center gap-2">
+              <button className="pr-[16px]">
+                <FontAwesomeIcon
+                  icon={faPenToSquare}
+                  style={{ color: "#9E5EED" }}
+                />
+              </button>
+              <button>
+                <FontAwesomeIcon
+                  icon={faTrashCan}
+                  style={{ color: "#DD5250" }}
+                />
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
