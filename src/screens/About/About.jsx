@@ -108,10 +108,10 @@ export default function About() {
                 <h2 className="large-h1-span text-2xl md:text-3xl font-bold tracking-wide">
                   Our Mission
                 </h2>
-                <p className="text-base md:text-lg leading-relaxed">
+                <p className="text-base md:text-xl leading-relaxed">
                   Our mission is to provide users with the tools they need to gain control over their finances. By leveraging cutting-edge technology, we aim to simplify the process of tracking expenses and managing budgets, enabling our users to make informed financial decisions.
                 </p>
-                <p className="mt-4 text-base md:text-lg leading-relaxed">
+                <p className="mt-4 text-base md:text-xl leading-relaxed">
                   We strive to create an ecosystem where financial independence and literacy are accessible to everyone. Our mission is driven by a commitment to innovation, user-centric design, and a deep understanding of the financial challenges faced by individuals and businesses alike.
                 </p>
               </div>
@@ -122,48 +122,28 @@ export default function About() {
                 <h2 className="large-h1-span text-2xl md:text-3xl font-bold tracking-wide">
                   Our Vision
                 </h2>
-                <p className="text-base md:text-lg leading-relaxed">
+                <p className="text-base md:text-xl leading-relaxed">
                   We envision a world where managing personal finances is no longer a chore but a streamlined and intuitive experience. Through continuous innovation and user-centric design, we aim to set the standard for financial management solutions.
                 </p>
-                <p className="mt-4 text-base md:text-lg leading-relaxed">
+                <p className="mt-4 text-base md:text-xl leading-relaxed">
                   Our vision is to transform financial management into a seamless experience that empowers users to take control of their financial futures. We are committed to evolving with the needs of our users and leveraging the latest technologies to provide unmatched value.
                 </p>
               </div>
             </section>
 
             <section className="mt-8 lg:mt-0 flex flex-col justify-between">
-              <div>
-                <h2 className="large-h1-span text-2xl md:text-3xl font-bold tracking-wide">
-                  Contact Us
-                </h2>
-                <p className="text-base md:text-lg leading-relaxed">
-                  Have questions or feedback? We'd love to hear from you! Reach out to us at{" "}
-                  <a
-                    href="mailto:leaveusalone@teamtitan.com"
-                    className="text-blue-500 underline"
-                  >
-                    leaveusalone@teamtitan.com
-                  </a>
-                </p>
-                <p className="mt-4 text-base md:text-lg leading-relaxed">
-                  Our team is here to support you and ensure you get the most out of our solutions. Don't hesitate to get in touch for any inquiries, support, or feedback. We're committed to providing exceptional service and continuously improving based on your input.
-                </p>
-              </div>
-            </section>
-
-            <section className="mt-8 lg:mt-0 flex flex-col justify-between">
-              <div>
+              <div >
                 <h2 className="large-h1-span text-2xl md:text-3xl font-bold tracking-wide">
                   Support Us
                 </h2>
-                <p className="text-base md:text-lg leading-relaxed">
+                <p className="text-base md:text-xl leading-relaxed">
                   Click here to{" "}
                   <a href="https://buy.stripe.com/8wM9CP6N78Fh21q5kk" className="text-blue-500 underline">
                     donate
                   </a>{" "}
                   to our cause!
                 </p>
-                <p className="mt-4 text-base md:text-lg leading-relaxed">
+                <p className="mt-4 text-base md:text-xl leading-relaxed">
                   Your support helps us to continue innovating and improving our tools for financial management. Every contribution makes a difference and helps us achieve our mission to make financial literacy and independence accessible to all. Thank you for your generosity!
                 </p>
               </div>
