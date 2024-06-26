@@ -28,6 +28,7 @@ class MessageParser {
       { question: 'こんにちは', answer: 'Hello! How can I assist you today?' },
       { question: 'Namaste', answer: 'Hello! How can I assist you today?' },
       { question: 'नमस्ते', answer: 'Hello! How can I assist you today?' },
+      {question: 'knock knock', answer: 'Who is there?'},
       { question: 'hi', answer: 'Hi there! How can I help you?' },
       { question: 'hey', answer: 'Hey! What can I do for you today?' },
       { question: 'how are you', answer: 'I am just a bot, but I am here to help you!' },
