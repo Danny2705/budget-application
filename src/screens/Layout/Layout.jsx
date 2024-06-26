@@ -28,7 +28,7 @@ const Layout = ({ children }) => {
       </div>
       <Footer />
       <button
-        className="fixed bottom-5 right-5 bg-blue-500 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg z-50"
+        className="fixed bottom-5 right-5 hover:bg-gray-800 text-white rounded-full w-12 h-12 flex items-center justify-center shadow-lg z-50"
         onClick={() => setShowChat(!showChat)} 
         style={{ zIndex: 50 }} 
       >
