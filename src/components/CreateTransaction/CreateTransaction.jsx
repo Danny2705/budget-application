@@ -8,13 +8,12 @@ import SaveButton from "../UploadTrans/SaveButton";
 import { saveReceiptToFirestore } from "../../utils/firebase";
 
 export default function CreateTransaction() {
-  const [receiptData, setReceiptData] = useState([]);
+  const [receiptData, setReceiptData] = useState();
   const [imageURL, setImageURL] = useState(null);
   const [receiptNo, setReceiptNo] = useState("");
 
-  console.log("receiptData in create transaction page", receiptData);
-
   const handleOnClickSaveButton = () => {
+    console.log("save!!!", receiptNo);
     saveReceiptToFirestore(
       receiptNo,
       receiptData,
@@ -29,16 +28,9 @@ export default function CreateTransaction() {
         <h1 className='text-main-darkPink font-bold text-2xl md:text-4xl lg:text-4xl mt-16 mb-8 tracking-wider text-center lg:text-left'>
           Budget Name1
         </h1>
-        <UploadTrans
-          onSetReceiptData={setReceiptData}
-          onSetImageURL={setImageURL}
-          onSetTransactionNo={setReceiptNo}
-        />
-        <h1 className='text-main-darkPink font-bold text-2xl md:text-4xl lg:text-4xl mt-8 mb-8 tracking-wider text-center lg:text-left'>
-          Create New Transaction
-        </h1>
-        <NewTransVenderTable receiptInfo={receiptData} />
-        <NewTransLineItemsTable receiptInfo={receiptData} />
+        <UploadTrans onSetReceiptData={setReceiptData} onSetImageURL={setImageURL} onSetTransactionNo={setReceiptNo}/>
+        {!!receiptData && <NewTransVenderTable receiptInfo={receiptData} />}
+        {!!receiptData && <NewTransLineItemsTable receiptInfo={receiptData}/>}
         <SaveButton onClick={handleOnClickSaveButton} />
       </div>
     </Layout>
