@@ -89,6 +89,42 @@ const Profile = () => {
     );
   };
 
+  const updatePasswordHandler = async () => {
+    if (!oldPassword) {
+      toast.error("Missing old password");
+      return false;
+    }
+
+    try {
+      if (newPassword !== confirmPassword) {
+        toast.error("Passwords do not match");
+        return false;
+      }
+
+      const userCredential = EmailAuthProvider.credential(
+        user.email,
+        oldPassword
+      );
+      await reauthenticateWithCredential(auth.currentUser, userCredential);
+      await updatePassword(auth.currentUser, newPassword);
+
+      setOldPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+      return true;
+    } catch (error) {
+      console.error("Error updating password", error.message);
+      if (error.code === "auth/invalid-credential") {
+        toast.error("Incorrect old password");
+      } else if (error.code === "auth/too-many-requests") {
+        toast.error("Too many requests. Try again later.");
+      } else {
+        toast.error("Error updating password");
+      }
+      return false;
+    }
+  };
+
   const onSubmit = async (event) => {
     event.preventDefault();
 
@@ -113,46 +149,32 @@ const Profile = () => {
       photoURL: uploadedImageURL || user.photoURL,
     };
 
-    // Update profile if name or email changed
     if (isNameEmailChanged) {
-      try {
-        // Reauthenticate with the current password
-        const credential = EmailAuthProvider.credential(
-          user.email,
-          oldPassword
-        );
-        await reauthenticateWithCredential(auth.currentUser, credential);
-
-        // Update email and display name
-        await updateEmail(auth.currentUser, email);
-        await updateProfile(auth.currentUser, {
-          displayName: name,
-        });
-
-        // Dispatch updated user info
-        dispatch(updateUser({ displayName: name, email: email }));
-
-        // If password was also updated, notify success
-        if (passwordUpdated) {
-          toast.success("Information Updated successfully");
-          navigate("/");
-        }
-      } catch (error) {
-        console.error("Error updating profile", error.message);
-        toast.error("Error updating profile");
-        return;
-      }
+      await updateProfile(auth.currentUser, {
+        displayName: name,
+        email,
+      });
+      dispatch(updateUser({ displayName: name, email: email }));
+      toast.success("Profile updated successfully");
+      navigate("/");
+    } else {
+      navigate("/");
     }
 
     // Update profile picture if a new image is selected
     if (selectedFile) {
       if (uploadedImageURL) {
         profileData.photoURL = uploadedImageURL;
-        await updateProfile(auth.currentUser, profileData);
-        dispatch(updateUser(profileData));
-        dispatch(updateProfilePicture(uploadedImageURL));
-        toast.success("Profile updated successfully");
-        navigate("/");
+        try {
+          await updateProfile(auth.currentUser, profileData);
+          dispatch(updateUser(profileData));
+          dispatch(updateProfilePicture(uploadedImageURL));
+          toast.success("Profile updated successfully");
+          navigate("/");
+        } catch (error) {
+          console.error("Error updating profile picture", error.message);
+          toast.error("Error updating profile picture");
+        }
       } else {
         toast.error("Image upload in progress, please wait...");
       }
@@ -162,41 +184,6 @@ const Profile = () => {
     if (newPassword && confirmPassword) {
       toast.success("Password updated successfully");
       navigate("/");
-    }
-  };
-  const updatePasswordHandler = async () => {
-    if (!oldPassword) {
-      toast.error("Missing old password");
-    }
-
-    try {
-      if (newPassword !== confirmPassword) {
-        toast.error("Passwords do not match");
-        return false;
-      }
-      const userCredential = EmailAuthProvider.credential(
-        user.email,
-        oldPassword
-      );
-      await reauthenticateWithCredential(auth.currentUser, userCredential);
-      await updatePassword(auth.currentUser, newPassword);
-      setOldPassword("");
-      setNewPassword("");
-      setConfirmPassword("");
-      navigate("/");
-      return true;
-    } catch (error) {
-      if (error.code === "auth/invalid-credential") {
-        toast.error("Incorrect old password");
-      } else if (error.code === "auth/too-many-requests") {
-        toast.error("Too many requests. Try again later.");
-      } else if (error.code === "auth/missing-password") {
-        toast.error("Missing old password");
-      } else {
-        console.error("Error updating password", error.message);
-        toast.error("Error updating password");
-      }
-      return false;
     }
   };
 
