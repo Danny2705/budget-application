@@ -24,8 +24,9 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
     setTransactionNo(transactionNumber);
     setFireImageURL(imageURL);
     onSetImageURL(imageURL);
-    onSetTransactionNo(transactionNumber);
+    onSetTransactionNo(transactionNo);
     console.log("Image uploaded to storage", imageURL);
+    console.log("Transaction no from Firebase", transactionNumber);
 
     // Calling OCR Perform Function
       if (imageURL) {
@@ -47,11 +48,11 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
   });
 
   return (
-    <div className="w-1040 bg-[#D4B4F3] my-[16px] mx-[32px] rounded-[16px] h-[80px] flex justify-center">
-      <div {...getRootProps()}>
+    <div className="bg-main-neonPink my-[16px] mx-[32px] rounded-[16px] h-[80px] flex justify-center items-center text-white font-semibold hover:bg-neon-pink">
+      <div {...getRootProps()} >
         <input {...getInputProps()} />
         <p>Drag and drop files here or click to browse.</p>
-        <span>{uploadedFile.name}</span>
+        <span >{uploadedFile.name}</span>
       </div>
     </div>
   );

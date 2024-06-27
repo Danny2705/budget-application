@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../redux/authSlice";
 import toast from "react-hot-toast";
+import { deleteBudget } from "../redux/budgetSlice";
 
 const DropDownMenu = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const DropDownMenu = () => {
   const user = useSelector((state) => state.auth.user);
 
   const handleLogOut = () => {
+    dispatch(deleteBudget());
     dispatch(logout());
     toast.success("Logged out successfully");
     navigate("/login");

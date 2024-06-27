@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  budgets: [],
+  budgets: localStorage.getItem("budgets") || [],
 };
 
 const budgetSlice = createSlice({
@@ -10,9 +10,14 @@ const budgetSlice = createSlice({
   reducers: {
     setBudgets: (state, action) => {
       state.budgets = action.payload;
+      localStorage.setItem("budgets", JSON.stringify(action.payload));
+    },
+    deleteBudget: (state) => {
+      localStorage.removeItem("budgets");
+      state.budgets = [];
     },
   },
 });
 
-export const { setBudgets } = budgetSlice.actions;
+export const { setBudgets, deleteBudget } = budgetSlice.actions;
 export default budgetSlice.reducer;

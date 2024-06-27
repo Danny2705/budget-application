@@ -8,6 +8,7 @@ import { logout } from "../../redux/authSlice";
 import toast from "react-hot-toast";
 import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 import DropDownMenu from "../DropDownMenu";
+import { deleteBudget } from "../../redux/budgetSlice";
 
 export default function Navbar({ scroll }) {
   const [active, setActive] = useState(false);
@@ -44,6 +45,7 @@ export default function Navbar({ scroll }) {
   }, [user]);
 
   const handleLogOut = () => {
+    dispatch(deleteBudget());
     dispatch(logout());
     toast.success("Log out successfully");
     navigate("/login");
