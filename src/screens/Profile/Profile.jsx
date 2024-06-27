@@ -155,7 +155,7 @@ const Profile = () => {
         email,
       });
       dispatch(updateUser({ displayName: name, email: email }));
-      toast.success("Profile updated successfully");
+      toast.success("Information updated successfully");
       navigate("/");
     } else {
       navigate("/");
