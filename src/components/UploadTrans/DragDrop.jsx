@@ -15,10 +15,11 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
   const [receiptJsonData, setReceiptJsonData] = useState({});
   const [fireImageURL, setFireImageURL] = useState(null);
   const [transactionNo, setTransactionNo] = useState("");
-  const [uploadedFile, setUploadedFile] = useState([]);
+  const [uploadedFiles, setUploadedFiles] = useState([]);
   const [imageB64, setImageB64] = useState("");
 
   //merging the images
+  //https://www.npmjs.com/package/merge-images
   const runMergeImages = async (files) => {
     const urls = files.map(URL.createObjectURL)
     try {
@@ -26,14 +27,24 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
     } catch (error) {
       console.error('error merging images', error)
     } finally {
+      //https://stackoverflow.com/questions/6765370/merge-image-using-javascript
       urls.forEach(URL.revokeObjectURL)
     }
   };
 
+  const dataURLtoFile = (dataUrl, fileName) => {
+    let arr = dataUrl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], fileName, { type: mime });
+  };
+
   useEffect(() => {
-    console.log('!!!files', uploadedFile)
-    runMergeImages(uploadedFile);
-  }, [uploadedFile]);
+    storeAndConvertReceiptImage(dataURLtoFile(imageB64, 'mergedReceipt.png'));
+    console.log("imageB64", dataURLtoFile(imageB64, 'mergedReceipt.png'));
+  }, [imageB64]);
 
   // Refers from Demo
   const storeAndConvertReceiptImage = async (droppedfile) => {
@@ -64,8 +75,10 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
     },
     maxFiles: 10,
     onDrop: (acceptedFiles) => {
-      setUploadedFile(acceptedFiles);
-      storeAndConvertReceiptImage(acceptedFiles);
+      setUploadedFiles(acceptedFiles);
+      runMergeImages(acceptedFiles);
+      console.log("acceptedFiles", acceptedFiles);
+      // storeAndConvertReceiptImage(acceptedFiles);
     },
   });
 
@@ -74,13 +87,13 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
       <div {...getRootProps()}>
         <input {...getInputProps()} />
         <p>Drag and drop files here or click to browse.</p>
-        {uploadedFile.map((file) => (
+        {uploadedFiles.map((file) => (
           <span key={file.path}>
             {file.path} {(file.size / 1048576).toFixed(2)} MB <br />
           </span>
         ))}
       </div>
-      {!!imageB64 && <img src={imageB64} alt="merged" />}
+      {/* {!!imageB64 && <img src={imageB64} alt="merged" />} */}
     </div>
   );
 };
