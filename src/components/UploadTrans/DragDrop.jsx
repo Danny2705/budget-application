@@ -31,7 +31,7 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
       urls.forEach(URL.revokeObjectURL)
     }
   };
-
+  //https://stackoverflow.com/questions/43358456/convert-image-uri-into-javascript-file-object
   const dataURLtoFile = (dataUrl, fileName) => {
     let arr = dataUrl.split(','), mime = arr[0].match(/:(.*?);/)[1],
       bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
@@ -41,9 +41,13 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
     return new File([u8arr], fileName, { type: mime });
   };
 
+
   useEffect(() => {
-    storeAndConvertReceiptImage(dataURLtoFile(imageB64, 'mergedReceipt.png'));
-    console.log("imageB64", dataURLtoFile(imageB64, 'mergedReceipt.png'));
+    if (imageB64 !== "") {
+      const file = dataURLtoFile(imageB64, 'mergedReceipt.png');
+      storeAndConvertReceiptImage(file);
+      console.log("imageB64", file);
+    }
   }, [imageB64]);
 
   // Refers from Demo
