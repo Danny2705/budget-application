@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import "../../App.scss";
 import { uploadImageToFirestore } from "../../utils/firebase";
 import { useDropzone } from "react-dropzone";
 import { performOcr } from "../../utils/ocrVeryfi";
+import { Public } from "@mui/icons-material";
+import mergeImages from "merge-images";
 
 const fileTypes = ["png", "jpeg", "jpg", "pdf"];
 
@@ -14,40 +16,25 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
   const [fireImageURL, setFireImageURL] = useState(null);
   const [transactionNo, setTransactionNo] = useState("");
   const [uploadedFile, setUploadedFile] = useState([]);
+  const [imageB64, setImageB64] = useState("");
 
   //merging the images
-  const mergeImages = (files) => {
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    const images = [];
-    let maxImageWidth = 0;
-    let totalImageHeight = 0;
-
-    return new Promise((resolve, reject) => {
-      files.forEach((file) => {
-        const img = new Image();
-        img.src = URL.createObjectURL(file);
-        img.onload = () => {
-          images.push(img);
-          maxImageWidth = Math.max(maxImageWidth, img.width);
-          totalImageHeight += img.height;
-
-          if (images.length === files.length) {
-            canvas.width = maxImageWidth;
-            canvas.height = totalImageHeight;
-
-            let y = 0;
-            images.forEach((image) => {
-              ctx.drawImage(image, 0, y);
-              y += image.height;
-            });
-
-            resolve(canvas.toDataURL("image/jpeg"));
-          }
-        };
-      });
-    });
+  const runMergeImages = async (files) => {
+    const urls = files.map(URL.createObjectURL)
+    try {
+      setImageB64(await mergeImages(urls));
+    } catch (error) {
+      console.error('error merging images', error)
+    } finally {
+      urls.forEach(URL.revokeObjectURL)
+    }
   };
+
+  useEffect(() => {
+    console.log('!!!files', uploadedFile)
+    runMergeImages(uploadedFile);
+  }, [uploadedFile]);
+
   // Refers from Demo
   const storeAndConvertReceiptImage = async (droppedfile) => {
     // uploadImageToFirestore(localImage) return { transactionNumber, imageURL }
@@ -78,7 +65,7 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
     maxFiles: 10,
     onDrop: (acceptedFiles) => {
       setUploadedFile(acceptedFiles);
-      storeAndConvertReceiptImage(mergeImages(acceptedFiles));
+      storeAndConvertReceiptImage(acceptedFiles);
     },
   });
 
@@ -93,6 +80,7 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
           </span>
         ))}
       </div>
+      {!!imageB64 && <img src={imageB64} alt="merged" />}
     </div>
   );
 };
