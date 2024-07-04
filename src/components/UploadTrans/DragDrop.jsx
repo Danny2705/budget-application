@@ -104,7 +104,7 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
     if (imageURL) {
       setReceiptJsonData(await performOcr(imageURL));
       onSetJsonData(await performOcr(imageURL));
-      
+
     }
   };
 
@@ -127,7 +127,7 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
     <div className="bg-main-neonPink  my-[16px] mx-[32px] rounded-[16px] py-[16px] flex justify-center items-center text-white font-semibold hover:bg-neon-pink">
       <div {...getRootProps()}>
         <input {...getInputProps()} className="my-[16px]" />
-        <p>Drag and drop files here or click to browse.</p>
+        <p>Drag and drop photos here or click to browse (10 Maximum files)</p>
         {uploadedFiles.map((file) => (
           <span key={file.path}>
             {file.path} {(file.size / 1048576).toFixed(2)} MB <br />
