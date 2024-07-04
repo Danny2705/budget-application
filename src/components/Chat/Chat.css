@@ -1,4 +1,4 @@
-/* Chatbot CSS ref https://github.com/FredrikOseberg/react-chatbot-kit/blob/master/src/components/Chat/Chat.css */
+/* Chatbot CSS with main colors */
 
 .react-chatbot-kit-user-chat-message-container {
   display: flex;
@@ -76,7 +76,7 @@
 }
 
 .react-chatbot-kit-chat-bot-message {
-  background-color: #2898ec;
+  background-color: #992189; /* Main color for bot messages */
   padding: 10px;
   border-radius: 5px;
   font-size: 0.9rem;
@@ -93,47 +93,10 @@
   height: 0;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
-  border-right: 8px solid #2898ec;
+  border-right: 8px solid #992189; /* Main color for bot messages */
   position: absolute;
   left: -7px;
   top: 13px;
-}
-
-.react-chatbot-kit-chat-bot-loading-icon-container {
-  height: 17px;
-  width: 25px;
-}
-
-.chatbot-loader-container {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-}
-
-#chatbot-loader #chatbot-loader-dot1 {
-  animation: load 1s infinite;
-}
-
-#chatbot-loader #chatbot-loader-dot2 {
-  animation: load 1s infinite;
-  animation-delay: 0.2s;
-}
-
-#chatbot-loader #chatbot-loader-dot3 {
-  animation: load 1s infinite;
-  animation-delay: 0.4s;
-}
-
-@keyframes load {
-  0% {
-      opacity: 0;
-  }
-  50% {
-      opacity: 1;
-  }
-  100% {
-      opacity: 0;
-  }
 }
 
 .react-chatbot-kit-chat-container {
@@ -194,7 +157,7 @@
 }
 
 .react-chatbot-kit-chat-btn-send {
-  background-color: #2898ec;
+  background-color: #992189; /* Main color for send button */
   width: 100px;
   border: none;
   color: #fff;
@@ -239,8 +202,29 @@
 .close-button {
   background-color: transparent;
   border: none;
-  font-size: 1.5rem;
   cursor: pointer;
   color: #514f4f;
-  width: 40px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  outline: none;
+  padding: 0;
+}
+
+.open-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #514f4f;
+  font-weight: bold;
+  font-size: 1.2rem;
+  outline: none;
+  padding: 0;
+}
+
+.open-button:hover {
+  color: #992189; /* Main color on hover for open button */
+}
+
+.close-button:hover {
+  color: #992189; /* Main color on hover for close button */
 }

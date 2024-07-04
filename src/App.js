@@ -16,8 +16,6 @@ import { SkeletonTheme } from "react-loading-skeleton";
 import Donate from "./components/Donate/Donate.jsx";
 import Chat from "./components/Chat/Chat"; 
 
-
-
 function App() {
   const user = useSelector((state) => state.auth.user);
   return (
@@ -53,12 +51,16 @@ function App() {
           <Route path='/about' element={<About />} />
           <Route path='/budget/transaction/:id' element={<Transaction />} />
           <Route path='/create' element={<CreateTransaction />} />
+          <Route
+            path='/chat'
+            element={user ? <Chat userId={user.uid} /> : <Navigate to='/login' />}
+          />
           {/* <Route
-          path='*'
-          element={
-            !user ? <Navigate to='/login' /> : <Navigate to='/nomatch' />
-          }
-        /> */}
+            path='*'
+            element={
+              !user ? <Navigate to='/login' /> : <Navigate to='/nomatch' />
+            }
+          /> */}
         </Routes>
       </BrowserRouter>
     </SkeletonTheme>
