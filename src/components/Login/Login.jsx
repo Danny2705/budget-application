@@ -70,8 +70,11 @@ export default function Login() {
               <h1 className='font-bold text-2xl text-center'>Welcome</h1>
               <h2 className='text-sm text-center'>Log in to get started!</h2>
               <div className='login-form bg-main-darkPurple rounded-sm md:rounded-e-[2rem] mt-4 relative left-0 md:left-2 w-full md:w-[270px]'>
-                <div className='flex flex-col p-4 gap-4'>
-                  <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
+                <div className='flex flex-col p-4 gap-3 md:gap-4'>
+                  <form
+                    className='flex flex-col gap-2 md:gap-4'
+                    onSubmit={handleSubmit}
+                  >
                     <div className='flex flex-col gap-1'>
                       <label className='text-pink-600'>Email:</label>
                       <input
@@ -111,7 +114,7 @@ export default function Login() {
 
                     <button
                       type='submit'
-                      className='bg-white py-1 hover:bg-slate-300 duration-300 rounded-full mt-[20px]'
+                      className='bg-white py-1 hover:bg-slate-300 duration-300 rounded-full mt-[10px] md:mt-[20px]'
                     >
                       Log In
                     </button>
@@ -134,7 +137,7 @@ export default function Login() {
               <img
                 src='/loginImage.jpg'
                 alt='Profile'
-                className='rounded-xl w-full md:w-[500px] h-auto'
+                className='rounded-xl w-full md:w-[500px] h-auto mb-3 md:mb-0'
               />
             </div>
           </div>
