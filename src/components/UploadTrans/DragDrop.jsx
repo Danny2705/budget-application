@@ -103,7 +103,7 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
   //     setReceiptJsonData(await performOcr(imageURL));
   //     onSetJsonData(await performOcr(imageURL));
   //   }
-  // };
+  };
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
@@ -135,4 +135,5 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
     </div>
   );
 };
-export default DragDrop;
+
+export default DragDrop ;
