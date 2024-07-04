@@ -32,7 +32,19 @@ const Links = () => {
             : "text-white hover:text-main-neonPink"
         } text-lg transition-colors px-2.5 py-0.5 font-medium rounded-md relative`}
       >
-        Budget Management
+        Expense
+      </Link>
+
+      <Link
+        to='/overview'
+        onClick={() => handleSelect("/overview")}
+        className={`${
+          selected === "/overview"
+            ? "border-b-2 border-main-neonPink shadow-top-md text-main-neonPink"
+            : "text-white hover:text-main-neonPink"
+        } text-lg transition-colors px-2.5 py-0.5 font-medium rounded-md relative`}
+      >
+        Overview
       </Link>
 
       <Link
