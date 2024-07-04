@@ -59,6 +59,8 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
       urls.forEach(URL.revokeObjectURL);
     }
   };
+
+  //convert image to file object mergedReceipt.png
   //https://stackoverflow.com/questions/43358456/convert-image-uri-into-javascript-file-object
   const dataURLtoFile = (dataUrl, fileName) => {
     let arr = dataUrl.split(","),
@@ -99,10 +101,11 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
     console.log("Transaction no from Firebase", transactionNumber);
 
     //Calling OCR Perform Function
-  //   if (imageURL) {
-  //     setReceiptJsonData(await performOcr(imageURL));
-  //     onSetJsonData(await performOcr(imageURL));
-  //   }
+    if (imageURL) {
+      setReceiptJsonData(await performOcr(imageURL));
+      onSetJsonData(await performOcr(imageURL));
+      
+    }
   };
 
   const { getRootProps, getInputProps } = useDropzone({
