@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './Chat.css';
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../../FirebaseConfig/FirebaseConfig";
-import { getFunctions, httpsCallable } from "firebase/functions";
+import { db } from "../../FirebaseConfig";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+
+const GeminiAPIKey = process.env.REACT_APP_GEMINI_API_KEY;
 
 const systemMessage = {
   role: "system",
@@ -18,9 +22,34 @@ const Chat = ({ userId }) => {
     }
   ]);
   const [isTyping, setIsTyping] = useState(false);
+  const [chat, setChat] = useState(null);
 
-  const functions = getFunctions();
-  const getOpenAIResponse = httpsCallable(functions, 'getOpenAIResponse');
+  useEffect(() => {
+    const initializeChat = async () => {
+      const genAI = new GoogleGenerativeAI(GeminiAPIKey);
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+      const initialChat = model.startChat({
+        history: [
+          {
+            role: "user",
+            parts: [{ text: "Hello, I'm Arthur! Ask me anything about your transactions!" }],
+          },
+          {
+            role: "model",
+            parts: [{ text: "Great to meet you. What would you like to know?" }],
+          },
+        ],
+        generationConfig: {
+          maxOutputTokens: 100,
+        },
+      });
+
+      setChat(initialChat);
+    };
+
+    initializeChat();
+  }, []);
 
   const handleSend = async (message) => {
     const newMessage = {
@@ -69,31 +98,32 @@ const Chat = ({ userId }) => {
     }));
 
     try {
-      const response = await getOpenAIResponse({ conversation: apiMessages });
+      if (chat) {
+        const response = await chat.sendMessage(apiMessages[apiMessages.length - 1].content);
+        const geminiMessage = await response.response.text();
 
-      const gptMessage = response.data.response;
+        let responseMessage = geminiMessage;
 
-      let responseMessage = gptMessage;
+        if (apiMessages[apiMessages.length - 1].content.toLowerCase().includes('transactions')) {
+          const transactionData = await fetchTransactionData(userId);
+          responseMessage += `\n\nHere are some details from your transactions: ${JSON.stringify(transactionData)}`;
+        }
 
-      if (apiMessages[apiMessages.length - 1].content.toLowerCase().includes('transactions')) {
-        const transactionData = await fetchTransactionData(userId);
-        responseMessage += `\n\nHere are some details from your transactions: ${JSON.stringify(transactionData)}`;
+        if (apiMessages[apiMessages.length - 1].content.toLowerCase().includes('user')) {
+          const userData = await fetchUserData(userId);
+          responseMessage += `\n\nHere are some details from your account: ${JSON.stringify(userData)}`;
+        }
+
+        const newMessages = [...chatMessages, {
+          message: responseMessage,
+          sender: "ArthurBot"
+        }];
+        setMessages(newMessages);
       }
-
-      if (apiMessages[apiMessages.length - 1].content.toLowerCase().includes('user')) {
-        const userData = await fetchUserData(userId);
-        responseMessage += `\n\nHere are some details from your account: ${JSON.stringify(userData)}`;
-      }
-
-      const newMessages = [...chatMessages, {
-        message: responseMessage,
-        sender: "ArthurBot"
-      }];
-      setMessages(newMessages);
 
       setIsTyping(false);
     } catch (error) {
-      console.error("Error processing message to ChatGPT:", error);
+      console.error("Error processing message to Gemini API:", error);
       setIsTyping(false);
     }
   };
@@ -102,7 +132,7 @@ const Chat = ({ userId }) => {
     <div className="react-chatbot-kit-chat-container">
       <div className="react-chatbot-kit-chat-inner-container">
         <div className="react-chatbot-kit-chat-header">
-          ChatGPT
+          Chat
         </div>
         <div className="react-chatbot-kit-chat-message-container">
           {messages.map((msg, index) => (
