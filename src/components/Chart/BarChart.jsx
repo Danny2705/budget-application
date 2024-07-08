@@ -89,7 +89,7 @@ const BarData = {
 
 export default function Barchart() {
   return (
-    <div className="w-2/3 h-full py-10">
+    <div className="w-2/3">
       <Bar options={options} data={BarData} />
     </div>
   );
