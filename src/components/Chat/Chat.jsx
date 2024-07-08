@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './Chat.css';
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../../FirebaseConfig";
-import { GoogleGenerativeAI } from "@google/generative-ai";
 
+import React, { useState, useEffect } from 'react';
+import './Chat.css';
+import { addPrompt, getResponse } from './FirebaseFunctions';
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { db } from './FirebaseConfig'; 
+import { collection, query, where, getDocs } from 'firebase/firestore';
 
 const GeminiAPIKey = process.env.REACT_APP_GEMINI_API_KEY;
 
@@ -30,16 +30,7 @@ const Chat = ({ userId }) => {
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
       const initialChat = model.startChat({
-        history: [
-          {
-            role: "user",
-            parts: [{ text: "Hello, I'm Arthur! Ask me anything about your transactions!" }],
-          },
-          {
-            role: "model",
-            parts: [{ text: "Great to meet you. What would you like to know?" }],
-          },
-        ],
+        history: [],
         generationConfig: {
           maxOutputTokens: 100,
         },
@@ -99,31 +90,36 @@ const Chat = ({ userId }) => {
 
     try {
       if (chat) {
-        const response = await chat.sendMessage(apiMessages[apiMessages.length - 1].content);
-        const geminiMessage = await response.response.text();
+        const userMessage = apiMessages[apiMessages.length - 1].content;
+        const promptId = await addPrompt(userMessage);
 
-        let responseMessage = geminiMessage;
+        // Add delay to simulate processing time
+        setTimeout(async () => {
+          const geminiMessage = await getResponse(promptId);
 
-        if (apiMessages[apiMessages.length - 1].content.toLowerCase().includes('transactions')) {
-          const transactionData = await fetchTransactionData(userId);
-          responseMessage += `\n\nHere are some details from your transactions: ${JSON.stringify(transactionData)}`;
-        }
+          let responseMessage = geminiMessage;
 
-        if (apiMessages[apiMessages.length - 1].content.toLowerCase().includes('user')) {
-          const userData = await fetchUserData(userId);
-          responseMessage += `\n\nHere are some details from your account: ${JSON.stringify(userData)}`;
-        }
+          if (userMessage.toLowerCase().includes('transactions')) {
+            const transactionData = await fetchTransactionData(userId);
+            responseMessage += `\n\nHere are some details from your transactions: ${JSON.stringify(transactionData)}`;
+          }
 
-        const newMessages = [...chatMessages, {
-          message: responseMessage,
-          sender: "ArthurBot"
-        }];
-        setMessages(newMessages);
+          if (userMessage.toLowerCase().includes('user')) {
+            const userData = await fetchUserData(userId);
+            responseMessage += `\n\nHere are some details from your account: ${JSON.stringify(userData)}`;
+          }
+
+          const newMessages = [...chatMessages, {
+            message: responseMessage,
+            sender: "ArthurBot"
+          }];
+          setMessages(newMessages);
+
+          setIsTyping(false);
+        }, 2000); // Adjust delay as needed
       }
-
-      setIsTyping(false);
     } catch (error) {
-      console.error("Error processing message to Gemini API:", error);
+      console.error("Error processing message:", error);
       setIsTyping(false);
     }
   };

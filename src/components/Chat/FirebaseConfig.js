@@ -1,5 +1,6 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
+
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAtA55wstINLnhPcN5v4KVV5tmBr4Ryuaw",
@@ -16,24 +17,7 @@ const firebaseConfig = {
 
 };
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-} else {
-  firebase.app();
-}
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-const firestore = firebase.firestore();
-
-export const addPrompt = async (prompt) => {
-  const docRef = await firestore.collection('generate').add({ prompt });
-  return docRef.id;
-};
-
-export const getResponse = async (docId) => {
-  const docRef = firestore.collection('generate').doc(docId);
-  const doc = await docRef.get();
-  if (doc.exists && doc.data().response) {
-    return doc.data().response;
-  }
-  return null;
-};
+export { db };
