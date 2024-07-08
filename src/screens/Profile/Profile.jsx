@@ -155,7 +155,7 @@ const Profile = () => {
         email,
       });
       dispatch(updateUser({ displayName: name, email: email }));
-      toast.success("Profile updated successfully");
+      toast.success("Information updated successfully");
       navigate("/");
     } else {
       navigate("/");
@@ -233,7 +233,7 @@ const Profile = () => {
                 type='text'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:border-main-neonPink  caret-main-neonPink focus:outline-none focus:shadow-outline'
               />
             </div>
             <div className='mb-6'>
@@ -248,7 +248,7 @@ const Profile = () => {
                 type='text'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:border-main-neonPink  caret-main-neonPink focus:outline-none focus:shadow-outline'
               />
             </div>
             <div className='mb-3'>
@@ -264,7 +264,7 @@ const Profile = () => {
                   type={showOldPassword ? "text" : "password"}
                   value={oldPassword}
                   onChange={(e) => setOldPassword(e.target.value)}
-                  className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10'
+                  className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10 focus:border-main-neonPink  caret-main-neonPink'
                 />
                 <button
                   type='button'
@@ -307,7 +307,7 @@ const Profile = () => {
                       type={showNewPassword ? "text" : "password"}
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
-                      className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10'
+                      className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10 focus:border-main-neonPink caret-main-neonPink'
                     />
                     <button
                       type='button'
@@ -335,7 +335,7 @@ const Profile = () => {
                       type={showConfirmPassword ? "text" : "password"}
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10'
+                      className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10 focus:border-main-neonPink caret-main-neonPink'
                     />
                     <button
                       type='button'
