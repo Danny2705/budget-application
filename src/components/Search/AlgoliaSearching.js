@@ -32,7 +32,7 @@ const AlgoliaSearch = () => {
       }, [doSearch]);
     
       return (
-        <div>
+        <div className="bg-gray-300">
           <input
             type="text"
             onChange={(e) => setSearch(e.currentTarget.value)}
