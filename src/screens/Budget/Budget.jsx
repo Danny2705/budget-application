@@ -12,7 +12,7 @@ export default function Budget() {
     <Layout>
       <div className='mt-[60px] text-white'>
         <h1 className='text-main-darkPink text-2xl md:text-4xl lg:text-4xl mt-20 tracking-wider px-4 xl:px-20'>
-          Budget Management
+          Expense Management
         </h1>
 
         <div className='mt-8 px-4 xl:px-20'>
