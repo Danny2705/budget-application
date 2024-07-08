@@ -9,9 +9,8 @@ const Hit = ({ hit }) => {
 
     return (
         <div className="bg-gray-300">
-        <h2>{hit.title}</h2>
-        <p>{hit.description}</p>
-        <button onClick={handleShowImage}>View receipt image</button>
+        <h2>{hit.ocr_text}</h2>
+        {/* <button onClick={handleShowImage}>View receipt image</button> */}
         </div>
     );
 };
