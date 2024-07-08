@@ -71,7 +71,7 @@ export default function Navbar({ scroll }) {
         <Links />
       </div>
       <div className='flex items-center gap-4 h-full'>
-        <h1 className='text-base lg:text-lg font-bold tracking-wider'>
+        <h1 className=' hidden sm:block text-base lg:text-lg font-bold tracking-wider'>
           {greets}, {user.displayName}!
         </h1>
         <DropDownMenu />
@@ -116,11 +116,18 @@ export default function Navbar({ scroll }) {
         initial='closed'
         animate={active ? "open" : "closed"}
         variants={VARIANTS.cornerMenu}
-        className='fixed h-screen top-0 right-0 bottom-0 left-0 bg-gradient-to-br from-violet-500 to-indigo-500 z-10 p-8'
+        className='fixed h-screen top-0 right-0 bottom-0 left-0  bg-gradient-to-r from-fuchsia-600 to-blue-600 z-10 p-8'
       >
         <div className='w-full h-full flex flex-col justify-between '>
-          <Link to={"/"}>
-            <h1 className='text-2xl'>Budget Tracker</h1>
+          <Link to={"/"} className='flex items-center pt-[4px]'>
+            <img
+              src='/piggy1.png'
+              alt='Logo'
+              className='w-[50px] lg:w-[60px]'
+            />
+            <h1 className='text-[2rem] lg:text-[32px] large-h1-span tracking-wider font-bold px-[8px] pt-[8px]'>
+              VioVault
+            </h1>
           </Link>
 
           <div className='space-y-6 p-12 pl-4 md:pl-20 flex flex-col items-start'>
@@ -133,12 +140,12 @@ export default function Navbar({ scroll }) {
               home.
             </Link>
             <Link
-              to='/transaction'
+              to='/overview'
               className='text-link duration-150 text-[2.5rem] md:text-7xl font-poppins font-semibold hover:text-indigo-800 block w-full'
               style={{ opacity: 1, transform: "none" }}
               onClick={toggleMenu}
             >
-              transaction.
+              overview.
             </Link>
             <Link
               to='/budget'
@@ -146,7 +153,7 @@ export default function Navbar({ scroll }) {
               style={{ opacity: 1, transform: "none" }}
               onClick={toggleMenu}
             >
-              budget.
+              expense.
             </Link>
             <Link
               to='/profile'
@@ -168,15 +175,15 @@ export default function Navbar({ scroll }) {
           <div className='flex gap-4 justify-start md:flex-col'>
             <FaInstagram
               size={30}
-              className='hover:text-indigo-800 duration-150 cursor-pointer'
+              className='hover:text-main-neonPink duration-150 cursor-pointer'
             />
             <FaLinkedin
               size={30}
-              className='hover:text-indigo-800 duration-150 cursor-pointer'
+              className='hover:text-main-neonPink duration-150 cursor-pointer'
             />
             <FaGithub
               size={30}
-              className='hover:text-indigo-800 duration-150 cursor-pointer'
+              className='hover:text-main-neonPink duration-150 cursor-pointer'
             />
           </div>
         </div>
