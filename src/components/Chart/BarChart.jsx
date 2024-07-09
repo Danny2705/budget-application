@@ -12,7 +12,6 @@ import {
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import useExpenseData from "./BarData";
 
-
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -24,30 +23,28 @@ ChartJS.register(
   Filler
 );
 
-
 export default function Barchart() {
-  const { month, totalMoneySpent, totalBudgetLimit } = useExpenseData();
-  const labels = Object.keys(totalMoneySpent);
-  const spentData = labels.map((label) => totalMoneySpent[label]);
+  const { labels, totalMoneySpent, totalBudgetLimit } = useExpenseData();
+  const spentData = labels.map((month) => totalMoneySpent[month]);
 
   const options = {
     responsive: true,
     plugins: {
       title: {
         display: true,
-        text: 'Monthly Budget Analysis',
+        text: "Monthly Budget Analysis",
       },
       tooltip: {
         enabled: true,
-        mode: 'index',
+        mode: "index",
         intersect: false,
       },
       legend: {
-        position: 'top',
+        position: "top",
       },
       datalabels: {
-        anchor: 'end',
-        align: 'top',
+        anchor: "end",
+        align: "top",
         formatter: (value) => `${value}`,
       },
     },
@@ -55,8 +52,9 @@ export default function Barchart() {
       x: {
         title: {
           display: true,
-          color: 'white',
-          text: 'Month',
+          color: "white",
+          text: "Month",
+          font: { size: 16 },
         },
         grid: {
           display: false,
@@ -65,20 +63,21 @@ export default function Barchart() {
       y: {
         title: {
           display: true,
-          color: 'white',
-          text: 'Amount ($)',
+          color: "white",
+          text: "Amount ($)",
+          font: { size: 16 },
         },
         grid: {
           display: true,
         },
       },
     },
-    barPercentage: 0.8, // Adjust as needed to keep bars grouped
-    categoryPercentage: 0.5, // Adjust to increase space between months
+    barPercentage: 1.4,
+    categoryPercentage: 0.5,
   };
-  
-  const defaultBarData = {
-    labels: ["January", "February", "March", "April", "May"],
+
+  const BarData = {
+    labels: labels,
     datasets: [
       {
         label: "Money Spent",
@@ -97,7 +96,7 @@ export default function Barchart() {
 
   return (
     <div className="w-2/3">
-      <Bar options={options} data={defaultBarData} />
+      <Bar options={options} data={BarData} />
     </div>
   );
 }
