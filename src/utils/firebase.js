@@ -75,3 +75,34 @@ export const saveReceiptToFirestore = async (
     console.error("Error adding item to Firestore:", error);
   }
 };
+
+export const saveBudgetToFireDB = async (
+  budgetTitle,
+  budgetAmount,
+  budgetStartDate,
+  budgetEndtDate,
+  //budgetNumber,
+  //userEmail
+) => {
+  if(budgetTitle === "" || budgetAmount === "" || budgetStartDate === "" || budgetEndtDate === ""){
+    alert("Please enter all the fields");
+    return;
+  }
+  try {
+    //cannot add user email to receipt object
+    const userBudget = {
+      Title: budgetTitle,
+      Amount: budgetAmount,
+      StartDate: budgetStartDate,
+      EndDate: budgetEndtDate,
+      //userEmail,
+    };
+    console.log(userBudget);
+    console.log("saveBudgetToFireDB: userBudget", userBudget);
+    await setDoc(doc(db, "userBudgetInfo", budgetTitle), userBudget);
+    console.log("Submitted to FireDB");
+    alert("Budget saved successfully!");
+  } catch (error) {
+    console.error("Error adding userBudget to FireDB:", error);
+  }
+};
