@@ -52,6 +52,7 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
       });
 
       setImageB64(mergedImageDataURLB64);
+      console.log("mergedImageDataURLB64", mergedImageDataURLB64);
     } catch (error) {
       console.error("error merging images", error);
     } finally {
