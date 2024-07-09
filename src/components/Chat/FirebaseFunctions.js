@@ -24,6 +24,7 @@ export const addPrompt = async (prompt) => {
 // Function to get response from Gemini based on prompt ID
 export const getResponse = async (promptId) => {
   const promptDoc = await getDoc(doc(firestore, 'generate', promptId));
+  console.log(promptDoc.data())
   if (promptDoc.exists()) {
     return promptDoc.data().response || null;
   } else {

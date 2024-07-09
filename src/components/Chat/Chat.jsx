@@ -23,6 +23,7 @@ const Chat = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [chat, setChat] = useState(null);
   const messageContainerRef = useRef(null);
+  const [input, setInput] = useState('')
 
   useEffect(() => {
     const initializeChat = async () => {
@@ -73,6 +74,12 @@ const Chat = () => {
 
     return transactions;
   };
+
+  const handleSubmitSend = async (e) => {
+    e.preventDefault();
+    handleSend(e.target.elements.message.value);
+    setInput('') 
+  }
 
   const processMessage = async (chatMessages) => {
     let apiMessages = chatMessages.map((messageObject) => ({
@@ -137,15 +144,17 @@ const Chat = () => {
           )}
         </div>
         <div className="react-chatbot-kit-chat-input-container">
-          <form className="react-chatbot-kit-chat-input-form" onSubmit={(e) => {
-            e.preventDefault();
-            handleSend(e.target.elements.message.value);
-            e.target.elements.message.value = '';
-          }}>
+          <form className="react-chatbot-kit-chat-input-form" 
+          onSubmit={(e) => {
+            handleSubmitSend(e)}
+            
+          }>
             <input
               className="react-chatbot-kit-chat-input"
               type="text"
+              value={input}
               name="message"
+              onChange={(e) => setInput(e.target.value)}
               placeholder="Type your message here..."
             />
             <button type="submit" className="react-chatbot-kit-chat-btn-send">
