@@ -47,11 +47,11 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
         src: url,
         y: imageHeights.slice(0, index).reduce((a, b) => a + b, 0),
       }));
-      const mergedImage = await mergeImages(imagesForMerge, {
+      const mergedImageDataURLB64 = await mergeImages(imagesForMerge, {
         height: imageHeights.reduce((a, b) => a + b, 0),
       });
 
-      setImageB64(mergedImage);
+      setImageB64(mergedImageDataURLB64);
     } catch (error) {
       console.error("error merging images", error);
     } finally {
