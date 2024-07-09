@@ -5,6 +5,11 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { db } from './FirebaseConfig'; 
 import { collection, getDocs } from 'firebase/firestore';
 
+//ref https://aistudio.google.com/app/prompts/new_data for chat structure
+//ref https://ai.google.dev/gemini-api/docs/ai-studio-quickstart
+//ref chat prompt: whats the best way to coneect this to my transaction firebase database so it can answer user questions about transactions
+//ref https://www.youtube.com/watch?v=_HNMEGkjzsE
+
 const GeminiAPIKey = process.env.REACT_APP_GEMINI_API_KEY;
 
 const systemMessage = {
