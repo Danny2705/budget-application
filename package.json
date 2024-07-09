@@ -30,6 +30,7 @@
     "date-fns": "^3.6.0",
     "firebase": "^10.11.1",
     "framer-motion": "^11.2.10",
+    "jspdf": "^2.5.1",
     "merge-images": "^2.0.0",
     "node-sass": "^9.0.0",
     "react": "^18.3.1",

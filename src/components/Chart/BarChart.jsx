@@ -72,8 +72,8 @@ export default function Barchart() {
         },
       },
     },
-    barPercentage: 1.4,
-    categoryPercentage: 0.5,
+    barPercentage: 1.0,
+    categoryPercentage: 0.7,
   };
 
   const BarData = {
