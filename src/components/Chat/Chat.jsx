@@ -122,7 +122,7 @@ const Chat = () => {
       setIsTyping(false);
     }
   };
-
+//ref how do i add the css to my chatbot using this chat.css file
   return (
     <div className="react-chatbot-kit-chat-container">
       <div className="react-chatbot-kit-chat-inner-container">
