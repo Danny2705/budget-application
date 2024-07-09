@@ -1,4 +1,4 @@
-
+//ref chatprompt: how do i configure firebase for my gemini chatbot
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
