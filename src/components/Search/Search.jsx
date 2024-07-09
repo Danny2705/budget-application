@@ -63,6 +63,12 @@ export default function Search() {
                     </li>
                     <li className='w-full'>
                       <div>
+                        <span className='large-h1-span'>Address:</span>{" "}
+                        {result?.vendor.address
+                          ? result?.vendor.address
+                          : "updating..."}
+                      </div>
+                      <div>
                         <span className='large-h1-span'>Category:</span>{" "}
                         {result?.category}
                       </div>
