@@ -45,13 +45,13 @@
   top: 13px;
 }
 
-.react-chatbot-kit-chat-bot-message-container {
+.react-chatbot-kit-ArthurBot-chat-message-container {
   display: flex;
   margin: 15px 0;
   justify-content: flex-start;
 }
 
-.react-chatbot-kit-chat-bot-avatar-container {
+.react-chatbot-kit-ArthurBot-avatar-container {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -63,19 +63,19 @@
   align-items: center;
 }
 
-.react-chatbot-kit-chat-bot-avatar-icon {
+.react-chatbot-kit-ArthurBot-avatar-icon {
   fill: #494646;
   width: 22.5px;
   height: 22.5px;
 }
 
-.react-chatbot-kit-chat-bot-avatar-letter {
+.react-chatbot-kit-ArthurBot-avatar-letter {
   color: #1d1d1d;
   margin: 0;
   padding: 0;
 }
 
-.react-chatbot-kit-chat-bot-message {
+.react-chatbot-kit-ArthurBot-chat-message {
   background-color: #992189; /* Main color for bot messages */
   padding: 10px;
   border-radius: 5px;
@@ -88,7 +88,7 @@
   text-align: left;
 }
 
-.react-chatbot-kit-chat-bot-message-arrow {
+.react-chatbot-kit-ArthurBot-chat-message-arrow {
   width: 0;
   height: 0;
   border-top: 8px solid transparent;
@@ -227,4 +227,44 @@
 
 .close-button:hover {
   color: #992189; /* Main color on hover for close button */
+}
+
+/* Typing indicator styles */
+.typing-indicator-container {
+  display: flex;
+  margin: 15px 0;
+  justify-content: flex-start;
+}
+
+.typing-indicator-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #d8d8d8;
+  margin-right: 12.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.typing-indicator-message {
+  background-color: #992189; /* Main color for bot messages */
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  color: #fff;
+  font-weight: medium;
+  position: relative;
+  text-align: left;
+  width: 60px;
+  height: 20px;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.typing-indicator-message:before {
+  content: '...';
+  font-size: 1rem;
 }

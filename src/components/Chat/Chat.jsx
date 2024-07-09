@@ -1,10 +1,9 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Chat.css';
 import { addPrompt, getResponse } from './FirebaseFunctions';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { db } from './FirebaseConfig'; 
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 
 const GeminiAPIKey = process.env.REACT_APP_GEMINI_API_KEY;
 
@@ -13,16 +12,17 @@ const systemMessage = {
   content: "You are a helpful assistant. Answer questions about transactions."
 };
 
-const Chat = ({ userId }) => {
+const Chat = () => {
   const [messages, setMessages] = useState([
     {
-      message: "Hello, I'm Arthur! Ask me anything about your transactions!",
+      message: "Hello, I'm ArthurBot! Ask me anything!",
       sentTime: "just now",
       sender: "ArthurBot"
     }
   ]);
   const [isTyping, setIsTyping] = useState(false);
   const [chat, setChat] = useState(null);
+  const messageContainerRef = useRef(null);
 
   useEffect(() => {
     const initializeChat = async () => {
@@ -42,6 +42,12 @@ const Chat = ({ userId }) => {
     initializeChat();
   }, []);
 
+  useEffect(() => {
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+    }
+  }, [messages, isTyping]);
+
   const handleSend = async (message) => {
     const newMessage = {
       message,
@@ -53,13 +59,12 @@ const Chat = ({ userId }) => {
     setMessages(newMessages);
 
     setIsTyping(true);
-    await processMessage(newMessages, userId);
+    await processMessage(newMessages);
   };
 
-  const fetchTransactionData = async (userId) => {
+  const fetchTransactionData = async () => {
     const transactionsRef = collection(db, "transactions");
-    const q = query(transactionsRef, where("userId", "==", userId));
-    const querySnapshot = await getDocs(q);
+    const querySnapshot = await getDocs(transactionsRef);
     let transactions = [];
 
     querySnapshot.forEach((doc) => {
@@ -69,20 +74,7 @@ const Chat = ({ userId }) => {
     return transactions;
   };
 
-  const fetchUserData = async (userId) => {
-    const usersRef = collection(db, "users");
-    const q = query(usersRef, where("userId", "==", userId));
-    const querySnapshot = await getDocs(q);
-    let userData = [];
-
-    querySnapshot.forEach((doc) => {
-      userData.push(doc.data());
-    });
-
-    return userData;
-  };
-
-  const processMessage = async (chatMessages, userId) => {
+  const processMessage = async (chatMessages) => {
     let apiMessages = chatMessages.map((messageObject) => ({
       role: messageObject.sender === "ArthurBot" ? "assistant" : "user",
       content: messageObject.message
@@ -100,13 +92,8 @@ const Chat = ({ userId }) => {
           let responseMessage = geminiMessage;
 
           if (userMessage.toLowerCase().includes('transactions')) {
-            const transactionData = await fetchTransactionData(userId);
+            const transactionData = await fetchTransactionData();
             responseMessage += `\n\nHere are some details from your transactions: ${JSON.stringify(transactionData)}`;
-          }
-
-          if (userMessage.toLowerCase().includes('user')) {
-            const userData = await fetchUserData(userId);
-            responseMessage += `\n\nHere are some details from your account: ${JSON.stringify(userData)}`;
           }
 
           const newMessages = [...chatMessages, {
@@ -116,7 +103,7 @@ const Chat = ({ userId }) => {
           setMessages(newMessages);
 
           setIsTyping(false);
-        }, 2000); // Adjust delay as needed
+        }, 2000); 
       }
     } catch (error) {
       console.error("Error processing message:", error);
@@ -130,7 +117,7 @@ const Chat = ({ userId }) => {
         <div className="react-chatbot-kit-chat-header">
           Chat
         </div>
-        <div className="react-chatbot-kit-chat-message-container">
+        <div className="react-chatbot-kit-chat-message-container" ref={messageContainerRef}>
           {messages.map((msg, index) => (
             <div key={index} className={`react-chatbot-kit-${msg.sender}-chat-message-container`}>
               <div className={`react-chatbot-kit-${msg.sender}-avatar-container`}>
@@ -142,6 +129,12 @@ const Chat = ({ userId }) => {
               </div>
             </div>
           ))}
+          {isTyping && (
+            <div className="typing-indicator-container">
+              <div className="typing-indicator-avatar" />
+              <div className="typing-indicator-message" />
+            </div>
+          )}
         </div>
         <div className="react-chatbot-kit-chat-input-container">
           <form className="react-chatbot-kit-chat-input-form" onSubmit={(e) => {
@@ -161,7 +154,6 @@ const Chat = ({ userId }) => {
           </form>
         </div>
       </div>
-      {isTyping && <div className="typing-indicator">ArthurBot is typing...</div>}
     </div>
   );
 };
