@@ -12,7 +12,7 @@ export default function Insights() {
   return (
     <div className="flex w-1/3 min-h-20 max-h-40 bg-[#31164c] align-middle gap-1 flex-col p-4 m-4 rounded-lg border border-main-neonPink text-white">
       <div className=" text-2xl text-bold">Insights</div>
-      <div className="bg-white rounded-lg m-3 p-2">Hello {user.displayName}</div>
+      <div className=" rounded-lg m-3 p-2 ">Hello {user.displayName}</div>
       <div className="flex justify-center gap-1">
         <div className=" font-bold">
             Download report analysis
