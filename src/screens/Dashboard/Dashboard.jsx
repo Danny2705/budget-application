@@ -70,7 +70,7 @@ export default function Dashboard() {
       <div className='mt-[90px]'>
         <div>
           <Search />
-          <AlgoliaSearch />
+          {/* <AlgoliaSearch /> */}
         </div>
 
         <div className='relative h-[300px] lg:h-[700px] md:h-[600px] sm:h-[500px] xl:h-[880px] w-full mt-[1rem] flex items-start justify-between px-4 xl:px-20'>
