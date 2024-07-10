@@ -1,7 +1,9 @@
+// reference from chatGPT[Modified]: {Can you tell me how id be able to export data from my application?}
 import { useDispatch, useSelector } from "react-redux";
-import { Download } from "@mui/icons-material";
 import { FiDownload } from "react-icons/fi";
 import { jsPDF } from "jspdf";
+import { transactionData } from "../TransactionTable/Data";
+
 
 export default function Insights() {
   const user = useSelector((state) => state.auth.user);
@@ -13,6 +15,7 @@ export default function Insights() {
     July: 250,
   };
 
+  // default limit value
   const budgetLimit = 500;
 
   const calculateSavings = (month) => {
@@ -24,85 +27,7 @@ export default function Insights() {
   const handleDownloadReportAnalysis = (event) => {
     event.preventDefault();
     const doc = new jsPDF();
-    const receiptData = [
-      {
-        TransactionNo: "2465343",
-        Vender: "Walgreens",
-        Date: "04/15/2024",
-        Category: "Grocery",
-        Total: "50.00",
-      },
-      {
-        TransactionNo: "2465344",
-        Vender: "Walmart",
-        Date: "05/22/2024",
-        Category: "Food",
-        Total: "60.00",
-      },
-      {
-        TransactionNo: "2465345",
-        Vender: "AB Clean",
-        Date: "06/13/2024",
-        Category: "Housing",
-        Total: "70.00",
-      },
-      {
-        TransactionNo: "2465346",
-        Vender: "Walgreens",
-        Date: "07/02/2024",
-        Category: "Grocery",
-        Total: "50.00",
-      },
-      {
-        TransactionNo: "2465347",
-        Vender: "Walmart",
-        Date: "04/27/2024",
-        Category: "Food",
-        Total: "60.00",
-      },
-      {
-        TransactionNo: "2465348",
-        Vender: "CC Car Wash",
-        Date: "05/11/2024",
-        Category: "Car",
-        Total: "30.00",
-      },
-      {
-        TransactionNo: "2465349",
-        Vender: "Best Buy",
-        Date: "06/20/2024",
-        Category: "Electronics",
-        Total: "120.00",
-      },
-      {
-        TransactionNo: "2465350",
-        Vender: "Starbucks",
-        Date: "07/05/2024",
-        Category: "Food",
-        Total: "15.00",
-      },
-      {
-        TransactionNo: "2465351",
-        Vender: "Home Depot",
-        Date: "04/18/2024",
-        Category: "Home Improvement",
-        Total: "85.00",
-      },
-      {
-        TransactionNo: "2465352",
-        Vender: "Target",
-        Date: "05/25/2024",
-        Category: "Clothing",
-        Total: "90.00",
-      },
-      {
-        TransactionNo: "2465353",
-        Vender: "BP Gas Station",
-        Date: "06/29/2024",
-        Category: "Car",
-        Total: "40.00",
-      },
-    ];
+    const receiptData = transactionData;
 
     doc.text("Receipt Report", 10, 10);
     receiptData.forEach((receipt, index) => {
