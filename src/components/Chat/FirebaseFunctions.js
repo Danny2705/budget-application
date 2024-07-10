@@ -1,39 +1,27 @@
-import { getDoc, doc, addDoc, collection } from 'firebase/firestore';
 import { db } from './FirebaseConfig';
+import { addDoc, collection, doc, getDoc } from 'firebase/firestore';
 
 export const addPrompt = async (prompt) => {
-  try {
-    const docRef = await addDoc(collection(db, 'generate'), { prompt, status: { state: 'PROCESSING' } });
-    console.log('Prompt added with ID:', docRef.id);
-    return docRef.id;
-  } catch (error) {
-    console.error("Error adding prompt:", error);
-    throw error;
-  }
+  const docRef = await addDoc(collection(db, "generate"), {
+    prompt,
+    status: "pending",
+    createTime: new Date()
+  });
+  return docRef.id;
 };
 
-export const getPromptStatus = async (promptId) => {
-  try {
-    const promptDoc = await getDoc(doc(db, 'generate', promptId));
-    console.log('Prompt status:', promptDoc.data().status);
-    return promptDoc.data().status;
-  } catch (error) {
-    console.error("Error getting prompt status:", error);
-    throw error;
-  }
-};
+export const getResponse = async (docId) => {
+  const docRef = doc(db, "generate", docId);
+  let response = null;
 
-export const getResponse = async (promptId) => {
-  try {
-    const promptDoc = await getDoc(doc(db, 'generate', promptId));
-    if (promptDoc.exists()) {
-      console.log('Prompt response:', promptDoc.data().response);
-      return promptDoc.data().response || null;
+  while (!response) {
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists() && docSnap.data().response) {
+      response = docSnap.data().response;
     } else {
-      throw new Error('Prompt document not found');
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Polling delay
     }
-  } catch (error) {
-    console.error("Error getting response:", error);
-    throw error;
   }
+
+  return response;
 };

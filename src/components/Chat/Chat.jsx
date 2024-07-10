@@ -2,15 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Chat.css';
 import { addPrompt, getResponse } from './FirebaseFunctions';
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { db } from './FirebaseConfig'; 
 import { collection, getDocs } from 'firebase/firestore';
-
-const GeminiAPIKey = process.env.REACT_APP_GEMINI_API_KEY;
-
-const systemMessage = {
-  role: "system",
-  content: "You are a helpful assistant. Answer questions about transactions."
-};
+import { db } from './FirebaseConfig';
 
 const Chat = () => {
   const [messages, setMessages] = useState([
@@ -27,7 +20,7 @@ const Chat = () => {
 
   useEffect(() => {
     const initializeChat = async () => {
-      const genAI = new GoogleGenerativeAI(GeminiAPIKey);
+      const genAI = new GoogleGenerativeAI(process.env.REACT_APP_GEMINI_API_KEY);
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
       const initialChat = model.startChat({
@@ -77,8 +70,8 @@ const Chat = () => {
 
   const handleSubmitSend = async (e) => {
     e.preventDefault();
-    handleSend(e.target.elements.message.value);
-    setInput('');
+    handleSend(input); // Pass input value to handleSend
+    setInput(''); // Clear input after sending
   }
 
   const processMessage = async (chatMessages) => {
@@ -110,7 +103,7 @@ const Chat = () => {
           setMessages(newMessages);
 
           setIsTyping(false);
-        }, 1000); 
+        }, 1000); // Adjust delay as needed
       }
     } catch (error) {
       console.error("Error processing message:", error);
