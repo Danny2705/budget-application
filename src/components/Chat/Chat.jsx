@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Chat.css';
-import { addPrompt, getResponse } from './FirebaseFunctions';
+import { addPrompt, getResponse, getPromptStatus } from './FirebaseFunctions';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { db } from './FirebaseConfig'; 
 import { collection, getDocs } from 'firebase/firestore';
@@ -28,7 +28,7 @@ const Chat = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [chat, setChat] = useState(null);
   const messageContainerRef = useRef(null);
-  const [input, setInput] = useState('')
+  const [input, setInput] = useState('');
 
   useEffect(() => {
     const initializeChat = async () => {
@@ -83,8 +83,24 @@ const Chat = () => {
   const handleSubmitSend = async (e) => {
     e.preventDefault();
     handleSend(e.target.elements.message.value);
-    setInput('') 
-  }
+    setInput(''); 
+  };
+
+  const checkResponseStatus = async (promptId) => {
+    let status = await getPromptStatus(promptId);
+
+    while (status.state === "PROCESSING") {
+      await new Promise(res => setTimeout(res, 2000));
+      status = await getPromptStatus(promptId);
+    }
+
+    if (status.state === "COMPLETED") {
+      const geminiMessage = await getResponse(promptId);
+      return geminiMessage;
+    } else {
+      throw new Error('Error processing the response');
+    }
+  };
 
   const processMessage = async (chatMessages) => {
     let apiMessages = chatMessages.map((messageObject) => ({
@@ -97,25 +113,22 @@ const Chat = () => {
         const userMessage = apiMessages[apiMessages.length - 1].content;
         const promptId = await addPrompt(userMessage);
 
-        // Add delay to simulate processing time
-        setTimeout(async () => {
-          const geminiMessage = await getResponse(promptId);
+        const geminiMessage = await checkResponseStatus(promptId);
 
-          let responseMessage = geminiMessage;
+        let responseMessage = geminiMessage;
 
-          if (userMessage.toLowerCase().includes('transactions')) {
-            const transactionData = await fetchTransactionData();
-            responseMessage += `\n\nHere are some details from your transactions: ${JSON.stringify(transactionData)}`;
-          }
+        if (userMessage.toLowerCase().includes('transactions')) {
+          const transactionData = await fetchTransactionData();
+          responseMessage += `\n\nHere are some details from your transactions: ${JSON.stringify(transactionData)}`;
+        }
 
-          const newMessages = [...chatMessages, {
-            message: responseMessage,
-            sender: "ArthurBot"
-          }];
-          setMessages(newMessages);
+        const newMessages = [...chatMessages, {
+          message: responseMessage,
+          sender: "ArthurBot"
+        }];
+        setMessages(newMessages);
 
-          setIsTyping(false);
-        }, 2000); 
+        setIsTyping(false);
       }
     } catch (error) {
       console.error("Error processing message:", error);
@@ -149,11 +162,7 @@ const Chat = () => {
           )}
         </div>
         <div className="react-chatbot-kit-chat-input-container">
-          <form className="react-chatbot-kit-chat-input-form" 
-          onSubmit={(e) => {
-            handleSubmitSend(e)}
-            
-          }>
+          <form className="react-chatbot-kit-chat-input-form" onSubmit={(e) => handleSubmitSend(e)}>
             <input
               className="react-chatbot-kit-chat-input"
               type="text"
