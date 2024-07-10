@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import DateCalendar from "./DateCalendar";
-import { addDoc, collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, serverTimestamp, setDoc, getDoc } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { db } from "../../utils/firebase";
 import toast from "react-hot-toast";
@@ -29,6 +29,16 @@ export default function NewBudget({ getData, handleClick }) {
       budgetNo: budgetNo,
       createdAt: serverTimestamp(),
     };
+
+    // const budgetListRef = doc(db, `users/${user.uid}/budgetList/`, "");
+    // if (!budgetListRef.exists()) {
+    //   await setDoc(doc(db, `users/${user.uid}/budgetList/`, ""), {
+    //     budgetNo: budgetNo,
+    //   });}
+    // const budgetListSnap = await getDoc(budgetListRef);
+
+    // console.log(budgetListSnap);
+
 
     try {
       if (amount.trim() === "" || isNaN(Number(amount))) {
