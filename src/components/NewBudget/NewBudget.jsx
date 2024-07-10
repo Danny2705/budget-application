@@ -3,15 +3,7 @@
 import React, { useEffect, useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import DateCalendar from "./DateCalendar";
-import {
-  addDoc,
-  collection,
-  doc,
-  serverTimestamp,
-  setDoc,
-  getDoc,
-  Timestamp,
-} from "firebase/firestore";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { db } from "../../utils/firebase";
 import toast from "react-hot-toast";
@@ -28,52 +20,45 @@ const generateBudgetID = () => {
 
 // MODED from ChatGPT: { can you write me a calender i can use in that component? }
 export default function NewBudget({ getData, handleClick }) {
-  const [budgetNo, setBudgetNo] = useState("");
-  const [title, setTitle] = useState("");
+  const [budgetNoLocal, setBudgetNoLocal] = useState("");
+  const [titleLocal, setTitleLocal] = useState("");
   const [amount, setAmount] = useState("");
   const [selectedStartDate, setSelectedStartDate] = useState("");
   const [selectedEndDate, setSelectedEndDate] = useState("");
   const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
-    setBudgetNo(generateBudgetID());
-    console.log(budgetNo);
-  },[selectedEndDate]
-  );
+    const newBudgetNo = generateBudgetID();
+    setBudgetNoLocal(newBudgetNo);
+  }, [selectedEndDate]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const docData = {
-      title,
+      titleLocal,
       amount,
       startDate: selectedStartDate,
       endDate: selectedEndDate,
-      budgetNo: budgetNo,
+      budgetNo: budgetNoLocal,
       createdAt: serverTimestamp(),
     };
-
-    // const budgetListRef = doc(db, `users/${user.uid}/budgetList/`, "");
-    // if (!budgetListRef.exists()) {
-    //   await setDoc(doc(db, `users/${user.uid}/budgetList/`, ""), {
-    //     budgetNo: budgetNo,
-    //   });}
-    // const budgetListSnap = await getDoc(budgetListRef);
-
-    // console.log(budgetListSnap);
 
     try {
       if (amount.trim() === "" || isNaN(Number(amount))) {
         toast.error("Amount must be a valid number");
       } else if (
-        docData.title !== "" &&
+        docData.titleLocal !== "" &&
         docData.amount !== "" &&
         docData.startDate !== "" &&
         docData.endDate !== ""
       ) {
-        await addDoc(collection(db, `users/${user.uid}/budget`), docData);
-        await setDoc(doc(db, `users/${user.uid}/budget/`, budgetNo), docData);
+        await setDoc(
+          doc(db, `users/${user.uid}/budget/`, budgetNoLocal),
+          docData
+        );
 
-        setTitle("");
+        setTitleLocal("");
         setAmount("");
         setSelectedStartDate("");
         setSelectedEndDate("");
@@ -87,6 +72,11 @@ export default function NewBudget({ getData, handleClick }) {
       console.error("Error adding document: ", error);
     }
   };
+
+  const handleTitleLocal = (e) => {
+    setTitleLocal(e.target.value);
+  };
+
   return (
     <div className="flex items-center justify-center h-screen">
       <form
@@ -102,8 +92,8 @@ export default function NewBudget({ getData, handleClick }) {
             <input
               className="flex-auto bg-transparent outline-none"
               placeholder="Budget Title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              value={titleLocal}
+              onChange={handleTitleLocal}
             />
           </div>
           <div className="flex gap-2 p-2 mt-4 bg-purple-300 rounded-lg border border-solid border-fuchsia-800 border-opacity-0">

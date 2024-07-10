@@ -2,15 +2,20 @@ import React from "react";
 import Layout from "../Layout/Layout";
 import RecentBudgetTransTable from "../../components/TransactionTable/RecentBudgetTransTable";
 import PieChart from "../../components/Chart/PieChart";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Quotes from "../../components/Text/GenerateRandomQuote";
 import CreateNewTransactionButton from "../../components/CreateTransaction/CreateNewTransactionButton";
 
 export default function Transaction() {
-  const params = useParams();
+  const { id } = useParams();
   const budgets = useSelector((state) => state.budgets.budgets);
-  const budgetInfo = budgets.find((budget) => budget.id === params.id);
+  const budgetInfo = budgets.find((budget) => budget.id === id);
+
+  console.log("Budget ID:", budgetInfo.id);
+
+  console.log("Budgets:", budgets);
+  console.log("Budget Info:", budgetInfo);
 
   return (
     <Layout>
@@ -46,7 +51,7 @@ export default function Transaction() {
           </div>
         </div>
         <RecentBudgetTransTable />
-        <CreateNewTransactionButton/>
+          <CreateNewTransactionButton budgetIDNo={budgetInfo.id}/>
       </div>
     </Layout>
   );
