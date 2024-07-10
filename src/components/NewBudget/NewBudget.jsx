@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import DateCalendar from "./DateCalendar";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { db } from "../../utils/firebase";
 import toast from "react-hot-toast";
@@ -16,6 +16,8 @@ export default function NewBudget({ getData, handleClick }) {
   const [selectedEndDate, setSelectedEndDate] = useState("");
   const user = useSelector((state) => state.auth.user);
 
+  const budgetNo = "B"+Math.random().toString().slice(2, 8);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -24,6 +26,7 @@ export default function NewBudget({ getData, handleClick }) {
       amount,
       startDate: selectedStartDate,
       endDate: selectedEndDate,
+      budgetNo: budgetNo,
       createdAt: serverTimestamp(),
     };
 
@@ -37,6 +40,7 @@ export default function NewBudget({ getData, handleClick }) {
         docData.endDate !== ""
       ) {
         await addDoc(collection(db, `users/${user.uid}/budget`), docData);
+        await setDoc(doc(db, `users/${user.uid}/budget/`, budgetNo), docData);
 
         setTitle("");
         setAmount("");
