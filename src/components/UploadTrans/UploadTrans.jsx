@@ -36,6 +36,7 @@ const UploadTrans = ({
   const handleReceiptNoChange = (receiptNo) => {
     setReceiptNo(receiptNo);
     onSetTransactionNo(receiptNo);
+    console.log("receiptNoChange", receiptNo);
   };
 
   return (
