@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { IoSearch } from "react-icons/io5";
 import { algoliaConfig, searchClient } from "../../utils/algolia";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../utils/firebase";
 
+//algolia documentation
 const index = searchClient.initIndex(algoliaConfig.ALGOLIA_INDEX_NAME);
 
 export default function Search() {
   const [search, setSearch] = useState("");
   const [results, setResults] = useState([]);
+  const budgets = useSelector((state) => state.budgets.budgets);
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -50,45 +56,51 @@ export default function Search() {
               (result) => (
                 console.log(result),
                 (
-                  <ul
+                  <Link
+                    to={`budget/transaction/${result.id}`}
                     key={result.id}
                     className='flex mb-3 w-full gap-4 border-b pb-3'
                   >
                     <li>
                       <img
-                        src={result?.imageURLs}
-                        alt='vendor receipts'
+                        src={result.vendor.logo}
+                        alt='Vendor logo'
                         width={100}
+                        className='rounded-full'
                       />
                     </li>
-                    <li className='w-full'>
+                    <li className='w-full flex justify-between items-start'>
                       <div>
-                        <span className='large-h1-span'>Address:</span>{" "}
-                        {result?.vendor.address
-                          ? result?.vendor.address
-                          : "updating..."}
-                      </div>
-                      <div>
-                        <span className='large-h1-span'>Category:</span>{" "}
-                        {result?.category}
-                      </div>
-                      <div>
-                        <span className='large-h1-span'>Type:</span>{" "}
-                        {result?.vendor.type}
-                      </div>
-                      <div>
-                        <span className='large-h1-span'>Date:</span>{" "}
-                        {result?.date ? result?.date : "updating..."}
+                        <div>
+                          <span className='large-h1-span'>Address:</span>{" "}
+                          {result?.vendor.address
+                            ? result?.vendor.address
+                            : "updating..."}
+                        </div>
+                        <div>
+                          <span className='large-h1-span'>Category:</span>{" "}
+                          {result?.category}
+                        </div>
+                        <div>
+                          <span className='large-h1-span'>Type:</span>{" "}
+                          {result?.vendor.type
+                            ? result?.vendor.type
+                            : "updating..."}
+                        </div>
+                        <div>
+                          <span className='large-h1-span'>Date:</span>{" "}
+                          {result?.date ? result?.date : "updating..."}
+                        </div>
                       </div>
                       <div>
                         <img
-                          src={result.vendor.logo}
-                          alt='Vendor logo'
-                          width={100}
+                          src={result?.imageURLs}
+                          alt='vendor receipts'
+                          width={50}
                         />
                       </div>
                     </li>
-                  </ul>
+                  </Link>
                 )
               )
             )}

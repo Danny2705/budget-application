@@ -15,7 +15,6 @@ import Barchart from "../../components/Chart/BarChart";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 import { setBudgets } from "../../redux/budgetSlice";
-import AlgoliaSearch from "../../components/Search/AlgoliaSearching";
 
 export default function Dashboard() {
   const budgets = useSelector((state) => state.budgets.budgets);
@@ -70,7 +69,6 @@ export default function Dashboard() {
       <div className='mt-[90px]'>
         <div>
           <Search />
-          {/* <AlgoliaSearch /> */}
         </div>
 
         <div className='relative h-[300px] lg:h-[700px] md:h-[600px] sm:h-[500px] xl:h-[880px] w-full mt-[1rem] flex items-start justify-between px-4 xl:px-20'>
