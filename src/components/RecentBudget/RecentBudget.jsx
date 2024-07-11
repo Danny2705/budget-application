@@ -44,7 +44,7 @@ export default function RecentBudget({ budget }) {
   const period = calculatePeriod(startDate, endDate);
 
   // Sum the transaction amounts to get the total amount spent
-  const amountSpent =
+  const amountSpent = 
     budget?.transactions?.reduce(
       (total, transaction) => total + transaction.amount,
       0

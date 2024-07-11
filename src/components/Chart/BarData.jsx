@@ -22,7 +22,7 @@ export default function useExpenseData() {
         ...doc.data(),
       }));
       const month =  budgetData.map((data, index) => getMonthFromTimeStamp(data.endDate.seconds));
-
+console.log(month);
     };
 
     const getMonths = () => {
@@ -35,7 +35,7 @@ export default function useExpenseData() {
 
     const getMonthFromTimeStamp = (seconds) => {
         const date = new Date(seconds * 1000);
-        return format(date, 'MMMM');
+        return format(date, 'm yy');
     }
     const calculateMonthlyMoney = (data) => {
       const monthlyTotals = {};
@@ -57,8 +57,8 @@ export default function useExpenseData() {
     setTotalMoneySpent(calculateMonthlyMoney(transactionData));
     // setTotalBudgetLimit(calculateMonthlyMoney(FetchBudgetData()));
     FetchBudgetData();
-    console.log(totalBudgetLimit);
-    console.log(totalMoneySpent);
+    // console.log(totalBudgetLimit);
+    // console.log(totalMoneySpent);
   }, [user, dispatch]);
 
   return { labels, totalMoneySpent, totalBudgetLimit };
