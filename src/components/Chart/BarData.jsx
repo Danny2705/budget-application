@@ -16,8 +16,7 @@ export default function useExpenseData() {
     const getMonthFromTimeStamp = (seconds) => {
       if (seconds) {
         const date = new Date(seconds * 1000);
-      }'0.
-        '
+      }
       formatDate(date, "MMMM yyyy")
       return format(date, "MMMM yyyy");
     };
