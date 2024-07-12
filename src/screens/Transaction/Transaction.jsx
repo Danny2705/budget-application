@@ -27,7 +27,7 @@ export default function Transaction() {
           >
             {budgetInfo?.title}
           </div>{" "}
-          <div>Budget Transaction Summary</div>
+          <div>Budget {budgetInfo?.titleLocal} Transaction Summary</div>
         </h1>
         <div className="flex flex-col lg:flex-row items-center gap-8 text-white">
           <PieChart />

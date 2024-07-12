@@ -39,7 +39,7 @@ export default function CreateTransaction() {
     <Layout>
       <div className='mt-[90px] px-4 xl:px-20'>
         <h1 className='text-main-darkPink font-bold text-2xl md:text-4xl lg:text-4xl mt-16 mb-8 tracking-wider text-center lg:text-left'>
-          Budget{budgetInfo?.title}
+          Budget {budgetInfo?.titleLocal}
         </h1>
         <UploadTrans onSetReceiptData={setReceiptData} onSetImageURL={setImageURL} onSetTransactionNo={setReceiptNo}/>
         {!!receiptData && <NewTransVenderTable receiptInfo={receiptData} />}
