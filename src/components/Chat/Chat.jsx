@@ -1,9 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Chat.css';
-import { addPrompt, getResponse } from './FirebaseFunctions';
+import { addPrompt, getResponse, getTransactionById, getUserDetails, addMessage } from './FirebaseFunctions';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from './FirebaseConfig';
+
+//ref https://aistudio.google.com/app/prompts/new_data for chat structure
+//ref https://ai.google.dev/gemini-api/docs/ai-studio-quickstart
+//ref chat prompt: whats the best way to connect this to my transaction firebase database so it can answer user questions about transactions
+//ref https://www.youtube.com/watch?v=_HNMEGkjzsE
 
 const Chat = () => {
   const [messages, setMessages] = useState([
@@ -11,8 +16,13 @@ const Chat = () => {
       message: "Hello, I'm ArthurBot! Ask me anything!",
       sentTime: "just now",
       sender: "ArthurBot"
+    },
+    {
+      role: "system",
+      content: "Your name is Arthurbot and you are a helpful assistant. Answer questions about our application using the transactions collection in firebase."
     }
   ]);
+  
   const [isTyping, setIsTyping] = useState(false);
   const [chat, setChat] = useState(null);
   const messageContainerRef = useRef(null);
@@ -54,25 +64,16 @@ const Chat = () => {
 
     setIsTyping(true);
     await processMessage(newMessages);
-  };
-
-  const fetchTransactionData = async () => {
-    const transactionsRef = collection(db, "transactions");
-    const querySnapshot = await getDocs(transactionsRef);
-    let transactions = [];
-
-    querySnapshot.forEach((doc) => {
-      transactions.push(doc.data());
-    });
-
-    return transactions;
+    
+    // Add message to Firestore
+    await addMessage(newMessage);
   };
 
   const handleSubmitSend = async (e) => {
     e.preventDefault();
     handleSend(input); // Pass input value to handleSend
     setInput(''); // Clear input after sending
-  }
+  };
 
   const processMessage = async (chatMessages) => {
     let apiMessages = chatMessages.map((messageObject) => ({
@@ -87,13 +88,21 @@ const Chat = () => {
 
         // Add delay to simulate processing time
         setTimeout(async () => {
-          const geminiMessage = await getResponse(promptId);
+          let responseMessage;
 
-          let responseMessage = geminiMessage;
-
-          if (userMessage.toLowerCase().includes('transactions')) {
-            const transactionData = await fetchTransactionData();
-            responseMessage += `\n\nHere are some details from your transactions: ${JSON.stringify(transactionData)}`;
+          // Check if the user message contains a transaction ID pattern
+          const transactionIdMatch = userMessage.match(/U\d{6}B\d{6}T\d{6}/i);
+          console.log("Transaction ID match:", transactionIdMatch); 
+          if (transactionIdMatch) {
+            const transactionId = transactionIdMatch[0];
+            try {
+              const transactionData = await getTransactionById(transactionId);
+              responseMessage = `Here are the details for transaction ID ${transactionId}: ${JSON.stringify(transactionData)}`;
+            } catch (error) {
+              responseMessage = `Error: ${error.message}`;
+            }
+          } else {
+            responseMessage = await getResponse(promptId);
           }
 
           const newMessages = [...chatMessages, {
@@ -110,7 +119,7 @@ const Chat = () => {
       setIsTyping(false);
     }
   };
-
+//ref how do i add the css to my chatbot using this chat.css file
   return (
     <div className="react-chatbot-kit-chat-container">
       <div className="react-chatbot-kit-chat-inner-container">
