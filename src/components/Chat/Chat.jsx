@@ -1,32 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './Chat.css';
-import { addPrompt, getResponse, getTransactionById, getUserDetails, addMessage } from './FirebaseFunctions';
+import { addPrompt, getResponse, getTransactionById, addMessage } from './FirebaseFunctions';
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from './FirebaseConfig';
 
-//ref https://aistudio.google.com/app/prompts/new_data for chat structure
-//ref https://ai.google.dev/gemini-api/docs/ai-studio-quickstart
-//ref chat prompt: whats the best way to connect this to my transaction firebase database so it can answer user questions about transactions
-//ref https://www.youtube.com/watch?v=_HNMEGkjzsE
-
-const Chat = () => {
+const Chat = ({ userId }) => {
   const [messages, setMessages] = useState([
     {
       message: "Hello, I'm ArthurBot! Ask me anything!",
       sentTime: "just now",
       sender: "ArthurBot"
-    },
-    {
-      role: "system",
-      content: "Your name is Arthurbot and you are a helpful assistant. Answer questions about our application using the transactions collection in firebase."
     }
   ]);
-  
+
   const [isTyping, setIsTyping] = useState(false);
   const [chat, setChat] = useState(null);
   const messageContainerRef = useRef(null);
   const [input, setInput] = useState('');
+  const [showChat, setShowChat] = useState(false); // Define showChat state variable
 
   useEffect(() => {
     const initializeChat = async () => {
@@ -64,7 +55,7 @@ const Chat = () => {
 
     setIsTyping(true);
     await processMessage(newMessages);
-    
+
     // Add message to Firestore
     await addMessage(newMessage);
   };
@@ -76,6 +67,7 @@ const Chat = () => {
   };
 
   const processMessage = async (chatMessages) => {
+    console.log("Processing message:", chatMessages);
     let apiMessages = chatMessages.map((messageObject) => ({
       role: messageObject.sender === "ArthurBot" ? "assistant" : "user",
       content: messageObject.message
@@ -92,12 +84,28 @@ const Chat = () => {
 
           // Check if the user message contains a transaction ID pattern
           const transactionIdMatch = userMessage.match(/U\d{6}B\d{6}T\d{6}/i);
-          console.log("Transaction ID match:", transactionIdMatch); 
+          console.log("Transaction ID match:", transactionIdMatch);
           if (transactionIdMatch) {
             const transactionId = transactionIdMatch[0];
             try {
               const transactionData = await getTransactionById(transactionId);
-              responseMessage = `Here are the details for transaction ID ${transactionId}: ${JSON.stringify(transactionData)}`;
+
+              if (transactionData) {
+                // Extract and format the required fields
+                const { vendor, date, raw_address, line_items, subtotal } = transactionData;
+
+                // Format message for display
+                responseMessage = `Date: ${date}\nVendor: ${vendor.name}\nRaw address: ${raw_address}\n\n`;
+
+                // Format line items
+                const itemsDetails = line_items.map(item => (
+                  `Desc: ${item.description}\nQuantity: ${item.quantity}\nType: ${item.type}\nTotal: $${item.total.toFixed(2)}\n`
+                )).join('\n');
+
+                responseMessage += `Line items:\n${itemsDetails}\nSubtotal of transaction: $${subtotal.toFixed(2)}`;
+              } else {
+                responseMessage = `No line items available for transaction ID ${transactionId}.`;
+              }
             } catch (error) {
               responseMessage = `Error: ${error.message}`;
             }
@@ -119,47 +127,73 @@ const Chat = () => {
       setIsTyping(false);
     }
   };
-//ref how do i add the css to my chatbot using this chat.css file
+
   return (
-    <div className="react-chatbot-kit-chat-container">
-      <div className="react-chatbot-kit-chat-inner-container">
-        <div className="react-chatbot-kit-chat-header">
-          Chat
-        </div>
-        <div className="react-chatbot-kit-chat-message-container" ref={messageContainerRef}>
-          {messages.map((msg, index) => (
-            <div key={index} className={`react-chatbot-kit-${msg.sender}-chat-message-container`}>
-              <div className={`react-chatbot-kit-${msg.sender}-avatar-container`}>
-                <div className={`react-chatbot-kit-${msg.sender}-avatar-icon`} />
-              </div>
-              <div className={`react-chatbot-kit-${msg.sender}-chat-message`}>
-                {msg.message}
-                <div className={`react-chatbot-kit-${msg.sender}-chat-message-arrow`} />
-              </div>
+    <div className="fixed bottom-5 right-5">
+      <div className="relative">
+        {/* Chat button */}
+        <button
+          className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center shadow-lg z-50 hover:bg-gray-800 transition duration-300"
+          onClick={() => setShowChat(!showChat)}
+        >
+          <img src="/chaticon.png" alt="Chat" className="w-8 h-8 object-cover" />
+        </button>
+
+        {/* Chat component */}
+        {showChat && (
+          <div className="w-96 bg-white rounded-lg shadow-lg overflow-hidden">
+            <header className="bg-gray-100 text-gray-800 font-bold px-4 py-2 flex justify-between items-center rounded-t-lg">
+              <h2>Chat</h2>
+              <button
+                className="text-gray-500 hover:text-gray-800 focus:outline-none"
+                onClick={() => setShowChat(false)}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </header>
+            <div className="chatbox overflow-y-auto h-80 px-4 py-2" ref={messageContainerRef}>
+              {messages.map((msg, index) => (
+                <div key={index} className={`flex ${msg.sender === 'ArthurBot' ? 'justify-start' : 'justify-end'} mb-4`}>
+                  <div className={`bg-${msg.sender === 'ArthurBot' ? 'gray' : 'indigo'}-300 w-10 h-10 rounded-full flex justify-center items-center mr-2`}>
+                    {msg.sender === 'ArthurBot' ? (
+                      <div className="text-gray-800 text-xl">A</div>
+                    ) : (
+                      <div className="text-white text-xl">U</div>
+                    )}
+                  </div>
+                  <div className={`bg-${msg.sender === 'ArthurBot' ? 'gray' : 'indigo'}-200 text-sm text-gray-800 rounded-lg py-2 px-4 relative`}>
+                    {msg.message}
+                    <div className={`absolute ${msg.sender === 'ArthurBot' ? 'left-0' : 'right-0'} -top-2 w-0 h-0 border-t-4 border-transparent border-${msg.sender === 'ArthurBot' ? 'gray' : 'indigo'}-200`} />
+                  </div>
+                </div>
+              ))}
+              {isTyping && (
+                <div className="flex items-center mb-4">
+                  <div className="w-10 h-10 bg-gray-300 rounded-full animate-pulse" />
+                  <div className="bg-indigo-200 text-sm text-gray-800 rounded-lg py-2 px-4 ml-2 relative">
+                    <div className="typing-indicator-message">...</div>
+                  </div>
+                </div>
+              )}
             </div>
-          ))}
-          {isTyping && (
-            <div className="typing-indicator-container">
-              <div className="typing-indicator-avatar" />
-              <div className="typing-indicator-message" />
+            <div className="chat-input px-4 py-2">
+              <form onSubmit={handleSubmitSend} className="flex">
+                <input
+                  type="text"
+                  className="flex-1 py-2 px-4 border border-gray-300 rounded-l-lg focus:outline-none"
+                  placeholder="Type your message here..."
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                />
+                <button type="submit" className="bg-indigo-300 text-white py-2 px-4 rounded-r-lg focus:outline-none">
+                  Send
+                </button>
+              </form>
             </div>
-          )}
-        </div>
-        <div className="react-chatbot-kit-chat-input-container">
-          <form className="react-chatbot-kit-chat-input-form" onSubmit={handleSubmitSend}>
-            <input
-              className="react-chatbot-kit-chat-input"
-              type="text"
-              value={input}
-              name="message"
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Type your message here..."
-            />
-            <button type="submit" className="react-chatbot-kit-chat-btn-send">
-              Send
-            </button>
-          </form>
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
