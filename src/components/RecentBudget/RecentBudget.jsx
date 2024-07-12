@@ -43,6 +43,8 @@ export default function RecentBudget({ budget }) {
   const endDate = new Date(budget?.endDate?.seconds * 1000);
   const period = calculatePeriod(startDate, endDate);
 
+  console.log("Budget title:", budget.title);
+
   // Sum the transaction amounts to get the total amount spent
   const amountSpent =
     budget?.transactions?.reduce(
@@ -56,7 +58,7 @@ export default function RecentBudget({ budget }) {
     <div className='w-80 mb-5 p-4 bg-[#18001d] hover:bg-[#2c0b31] rounded-lg border border-main-neonPink shadow-lg hover:shadow-2xl transition-shadow duration-300'>
       <Link to={`/budget/transaction/${budget.id}`} className='flex-grow-0'>
         <div className='flex justify-between text-white mb-4'>
-          <div className='text-lg font-bold leading-5'>{budget?.title}</div>
+          <div className='text-lg font-bold leading-5'>{budget?.titleLocal}</div>
           <div className='text-sm text-right'>
             <div className='font-medium mt-6'>{period}</div>
           </div>
