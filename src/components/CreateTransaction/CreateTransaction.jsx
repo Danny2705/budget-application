@@ -23,6 +23,7 @@ export default function CreateTransaction() {
   const [receiptData, setReceiptData] = useState();
   const [imageURL, setImageURL] = useState(null);
   const [receiptNo, setReceiptNo] = useState("");
+  const [receiptWAllInfo, setReceiptWAllInfo] = useState([{}]);
 
   const handleOnClickSaveButton = () => {
     console.log("save****", receiptNo);
@@ -41,7 +42,7 @@ export default function CreateTransaction() {
         <h1 className='text-main-darkPink font-bold text-2xl md:text-4xl lg:text-4xl mt-16 mb-8 tracking-wider text-center lg:text-left'>
           Budget {budgetInfo?.titleLocal}
         </h1>
-        <UploadTrans onSetReceiptData={setReceiptData} onSetImageURL={setImageURL} onSetTransactionNo={setReceiptNo}/>
+        <UploadTrans onSetReceiptData={setReceiptData} onSetImageURL={setImageURL} onSetTransactionNo={setReceiptNo} budgetID={budgetInfo.id} onSetReceipWAllInfo={setReceiptWAllInfo}/>
         {!!receiptData && <NewTransVenderTable receiptInfo={receiptData} />}
         {!!receiptData && <NewTransLineItemsTable receiptInfo={receiptData}/>}
         <SaveButton onClick={handleOnClickSaveButton} />

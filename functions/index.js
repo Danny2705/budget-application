@@ -71,7 +71,7 @@ const apiKey = functions.config().openai.apikey;
 
 exports.getOpenAIResponse = functions.https.onCall(async (data) => {
   try {
-    const { conversation } = data;
+    const {conversation} = data;
 
     if (!conversation || !apiKey) {
       throw new functions.https.HttpsError("invalid-arg", "API Error");
@@ -90,10 +90,10 @@ exports.getOpenAIResponse = functions.https.onCall(async (data) => {
       "model": "gpt-3.5-turbo",
     };
 
-    const response = await axios.post(url, body, { headers });
+    const response = await axios.post(url, body, {headers});
 
     if (response.status === 200) {
-      return { response: response.data.choices[0].message.content };
+      return {response: response.data.choices[0].message.content};
     } else {
       throw new functions.https.HttpsError("internal", "Request failed.");
     }
