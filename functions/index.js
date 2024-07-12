@@ -67,8 +67,8 @@ exports.performOcr = functions.https.onRequest(async (request, response) => {
   }
 });
 
-const apiKey = functions.config().openai.apikey;
 
+<<<<<<< HEAD
 exports.getOpenAIResponse = functions.https.onCall(async (data) => {
   try {
     const {conversation} = data;
@@ -101,3 +101,5 @@ exports.getOpenAIResponse = functions.https.onCall(async (data) => {
     throw new functions.https.HttpsError("internal", error.message);
   }
 });
+=======
+>>>>>>> master
