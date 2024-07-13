@@ -89,13 +89,15 @@ const Chat = ({ userId }) => {
               console.log("Fetched transaction data:", transactionData);
 
               if (transactionData) {
-                const { name, date, raw_address, line_items, total } = transactionData;
+                const { date, line_items, total } = transactionData;
+                const vendorName = transactionData.vendor?.name || 'N/A';
+                const vendorAddress = transactionData.vendor?.address || 'N/A'; // Accessing vendor address
 
                 responseMessage = `
                   <ul>
                     <li><strong>Date:</strong> ${date || 'N/A'}</li>
-                    <li><strong>Vendor:</strong> ${name || 'N/A'}</li>
-                    <li><strong>Address:</strong> ${raw_address || 'N/A'}</li>
+                    <li><strong>Vendor:</strong> ${vendorName}</li>
+                    <li><strong>Address:</strong> ${vendorAddress}</li>
                     <li><strong>Line items:</strong>
                       <ul>
                         ${line_items.map(item => `
