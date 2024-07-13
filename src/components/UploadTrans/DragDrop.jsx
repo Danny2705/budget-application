@@ -16,6 +16,7 @@ const DragDrop = ({
   onSetJsonData,
   onSetTransactionNo,
   budgetID,
+  onSetReceipWAllInfo,
 }) => {
   const [receiptJsonData, setReceiptJsonData] = useState({});
   const [fireImageURL, setFireImageURL] = useState(null);
@@ -112,6 +113,7 @@ const DragDrop = ({
 
   useEffect(() => {
     setReceiptWAllInfo(receiptWFirebaseURL);
+    onSetReceipWAllInfo(receiptWAllInfo);
     console.log("receipt with all info", receiptWAllInfo);
   },[receiptWAllInfo,receiptWFirebaseURL
   ]);

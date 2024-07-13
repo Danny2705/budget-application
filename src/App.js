@@ -14,13 +14,9 @@ import Overview from "./screens/Overview/Overview";
 import "../src/App.scss";
 import CreateTransaction from "./components/CreateTransaction/CreateTransaction";
 import { SkeletonTheme } from "react-loading-skeleton";
-<<<<<<< HEAD
-import Chat from "./components/Chat/Chat";
-=======
 import Chat from './components/Chat/Chat';
 
 
->>>>>>> master
 
 function App() {
   const user = useSelector((state) => state.auth.user);
