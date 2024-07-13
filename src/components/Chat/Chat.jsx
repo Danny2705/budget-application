@@ -5,14 +5,15 @@ import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from './FirebaseConfig';
 
 const Chat = ({ userId }) => {
-  const [messages, setMessages] = useState([
+  const initialMessages = [
     {
       message: "Hello, I'm ArthurBot! Ask me anything!",
       sentTime: "just now",
       sender: "ArthurBot"
     }
-  ]);
+  ];
 
+  const [messages, setMessages] = useState(initialMessages);
   const [isTyping, setIsTyping] = useState(false);
   const [chat, setChat] = useState(null);
   const messageContainerRef = useRef(null);
@@ -85,17 +86,31 @@ const Chat = ({ userId }) => {
             try {
               const transactionData = await getTransactionById(transactionId);
 
+              console.log("Fetched transaction data:", transactionData);
+
               if (transactionData) {
-                const { vendor, date, address, line_items, subtotal } = transactionData;
+                const { name, date, raw_address, line_items, total } = transactionData;
 
-                // Construct response message
-                responseMessage = `Date: ${date || 'N/A'}\nVendor: ${vendor.name || 'N/A'}\nAddress: ${address || 'N/A'}\n\n`;
-
-                const itemsDetails = line_items.map(item => (
-                  `Desc: ${item.description}\nQuantity: ${item.quantity}\nType: ${item.type}\nTotal: $${item.total.toFixed(2)}\n`
-                )).join('\n');
-
-                responseMessage += `Line items:\n${itemsDetails}\nSubtotal of transaction: $${subtotal.toFixed(2)}`;
+                responseMessage = `
+                  <ul>
+                    <li><strong>Date:</strong> ${date || 'N/A'}</li>
+                    <li><strong>Vendor:</strong> ${name || 'N/A'}</li>
+                    <li><strong>Address:</strong> ${raw_address || 'N/A'}</li>
+                    <li><strong>Line items:</strong>
+                      <ul>
+                        ${line_items.map(item => `
+                          <li>
+                            <strong>Description:</strong> ${item.description || 'N/A'}<br/>
+                            <strong>Quantity:</strong> ${item.quantity || 'N/A'}<br/>
+                            <strong>Type:</strong> ${item.type || 'N/A'}<br/>
+                            <strong>Total:</strong> $${item.total ? item.total.toFixed(2) : 'N/A'}
+                          </li>
+                        `).join('')}
+                      </ul>
+                    </li>
+                    <li><strong>Total of Entire Transaction:</strong> $${total ? total.toFixed(2) : 'N/A'}</li>
+                  </ul>
+                `;
               } else {
                 responseMessage = `No line items available for transaction ID ${transactionId}.`;
               }
@@ -121,6 +136,11 @@ const Chat = ({ userId }) => {
     }
   };
 
+  const handleCloseChat = () => {
+    setShowChat(false);
+    setMessages(initialMessages);
+  };
+
   return (
     <div className="fixed bottom-5 right-5">
       <div className="relative">
@@ -132,12 +152,12 @@ const Chat = ({ userId }) => {
         </button>
 
         {showChat && (
-          <div className="w-[400px] h-[600px] bg-white rounded-lg shadow-lg overflow-hidden">
-            <header className="bg-gray-100 text-gray-800 font-bold px-4 py-2 flex justify-between items-center rounded-t-lg">
+          <div className="w-[500px] h-[600px] bg-white rounded-lg shadow-lg overflow-hidden">
+            <header className="bg-gray-300 text-gray-800 font-bold px-4 py-2 flex justify-between items-center rounded-t-lg">
               <h2>Chat</h2>
               <button
                 className="text-gray-500 hover:text-gray-800 focus:outline-none"
-                onClick={() => setShowChat(false)}
+                onClick={handleCloseChat}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -153,7 +173,7 @@ const Chat = ({ userId }) => {
                         <div className="text-gray-800 text-xl">A</div>
                       </div>
                       <div className="bg-gray-200 text-sm text-gray-800 rounded-lg py-2 px-4 relative">
-                        {msg.message}
+                        <div dangerouslySetInnerHTML={{ __html: msg.message }} />
                         <div className="absolute left-0 -top-2 w-0 h-0 border-t-4 border-transparent border-gray-200" />
                       </div>
                     </>
