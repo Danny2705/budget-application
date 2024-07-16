@@ -28,7 +28,7 @@ export default function Budget() {
                 Let's keep track of Budget Goal
               </h2>
               <p className='mt-4 text-lg leading-8'>
-                <Quotes/>
+                <Quotes />
               </p>
               <div className='mt-6 flex flex-col items-center lg:items-start'>
                 <button className='px-6 py-3 bg-main-neonPink text-white font-semibold rounded-lg shadow-md hover:bg-neon-pink transition duration-300'>
@@ -81,6 +81,8 @@ export default function Budget() {
                           Managing budgets daily
                         </p>
                       </div>
+                      {/* TODO: remove from this page */}
+                      <div>{/* <LineGraph/> */}</div>
                     </div>
                   </div>
                 </section>
