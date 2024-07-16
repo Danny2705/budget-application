@@ -7,6 +7,7 @@ import {
   ref as storageRef,
   uploadBytes,
 } from "firebase/storage";
+import { getHours, getMinutes } from "date-fns";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAtA55wstINLnhPcN5v4KVV5tmBr4Ryuaw",
@@ -23,6 +24,15 @@ export const db = getFirestore(app);
 export const provider = new GithubAuthProvider();
 export const storage = getStorage();
 
+const generateTransactionNo = () => {
+  const currentDate = new Date().toISOString().slice(2, 10).replace(/-/g, "");
+  const currentHrs = getHours(new Date());
+  const currentMins = getMinutes(new Date());
+  return `T-${currentDate}${currentHrs}${currentMins}-${crypto
+    .getRandomValues(new Uint32Array(3))
+    .join("-")}`;
+};
+
 //Refers from Demo
 const generateRandomString = (length) => {
   let result = "";
@@ -36,7 +46,7 @@ const generateRandomString = (length) => {
 
 export const uploadImageToFirestore = async (localImage) => {
   // const transactionNumber = generateRandomString(21);
-  const transactionNumber = "U000001B000001T000001";
+  const transactionNumber = generateTransactionNo();
   try {
     const imageRef = storageRef(
       storage,

@@ -20,33 +20,33 @@ import Chat from "./components/Chat/Chat";
 function App() {
   const user = useSelector((state) => state.auth.user);
   return (
-    <SkeletonTheme baseColor='#313131' highlightColor='#525252'>
+    <SkeletonTheme baseColor="#313131" highlightColor="#525252">
       <BrowserRouter>
-        <Toaster position='top-right' />
+        <Toaster position="top-right" />
         <Routes>
           <Route
-            path='/login'
-            element={!user ? <Login /> : <Navigate to='/' />}
+            path="/login"
+            element={!user ? <Login /> : <Navigate to="/" />}
           />
           <Route
-            path='/signup'
-            element={!user ? <Signup /> : <Navigate to='/' />}
+            path="/signup"
+            element={!user ? <Signup /> : <Navigate to="/" />}
           />
           <Route
-            path='/'
-            element={user ? <Dashboard /> : <Navigate to='/login' />}
+            path="/"
+            element={user ? <Dashboard /> : <Navigate to="/login" />}
           />
           <Route
-            path='/transaction'
-            element={user ? <Transaction /> : <Navigate to='/login' />}
+            path="/transaction"
+            element={user ? <Transaction /> : <Navigate to="/login" />}
           />
           <Route
-            path='/budget'
-            element={user ? <Budget /> : <Navigate to='/login' />}
+            path="/budget"
+            element={user ? <Budget /> : <Navigate to="/login" />}
           />
           <Route
-            path='/overview'
-            element={user ? <Overview /> : <Navigate to='/login' />}
+            path="/overview"
+            element={user ? <Overview /> : <Navigate to="/login" />}
           />
           <Route
             path='/transaction/:transaction'
@@ -56,10 +56,11 @@ function App() {
             path='/profile'
             element={user ? <Profile /> : <Navigate to='/login' />}
           />
-          <Route path='/nomatch' element={<NoMatch />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/budget/transaction/:id' element={<Transaction />} />
-          <Route path='/create' element={<CreateTransaction />} />
+          <Route path="/nomatch" element={<NoMatch />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/budget/transaction/:id" element={<Transaction />} />
+          {/* <Route path="/create" element={<CreateTransaction />} /> */}
+          <Route path="/budget/transaction/create/:id" element={<CreateTransaction />} />
           <Route
             path='/chat'
             element={
