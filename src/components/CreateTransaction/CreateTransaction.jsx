@@ -26,10 +26,10 @@ export default function CreateTransaction() {
   const [receiptWAllInfo, setReceiptWAllInfo] = useState([{}]);
 
   const handleOnClickSaveButton = () => {
-    console.log("save****", receiptNo);
+    console.log("save****", receiptWAllInfo.transactionNo);
     saveReceiptToFirestore(
-      receiptNo,
-      receiptData,
+      receiptWAllInfo.transactionNo,
+      receiptWAllInfo,
       imageURL
       //userEmail,
     );
