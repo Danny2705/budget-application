@@ -169,7 +169,7 @@ const Chat = ({ userId }) => {
     <div className="fixed bottom-5 right-5">
       <div className="relative">
         <button
-          className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center shadow-lg z-50 hover:bg-gray-800 transition duration-300 fixed bottom-5 right-5"
+          className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center shadow-lg z-50 hover:bg-gray-800 transition fixed bottom-5 right-5"
           onClick={() => setShowChat(!showChat)}
         >
           <img src="/chaticon.png" alt="Chat" className="w-8 h-8 object-cover" />
