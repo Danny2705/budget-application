@@ -16,9 +16,9 @@ export default function useExpenseData() {
     const getMonthFromTimeStamp = (seconds) => {
       if (seconds) {
         const date = new Date(seconds * 1000);
+        return format(date, "MMMM yyyy");
       }
-      formatDate(date, "MMMM yyyy")
-      return format(date, "MMMM yyyy");
+      return format(seconds, "MMMM yyyy")
     };
 
     const FetchBudgetData = async () => {
@@ -59,6 +59,7 @@ export default function useExpenseData() {
       getMonths();
 
       const totalMoneySpentResult = calculateMonthlyMoney(transactionData);
+      console.log(totalMoneySpentResult.Date);
       setTotalMoneySpent(totalMoneySpentResult);
 
       const budgetData = await FetchBudgetData();
