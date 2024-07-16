@@ -22,7 +22,6 @@ export default function TransactionItem() {
           id: doc.id,
           ...doc.data(),
         }));
-        console.log(budgets);
         const budgetsWithTransactions = await Promise.all(
           budgets.map(async (budget) => {
             const transactionsSnapshot = await getDocs(
@@ -49,6 +48,18 @@ export default function TransactionItem() {
     };
     getBudgetWithTransactions();
   }, [params, user]);
+
+  const handleInputChange = (e, field, index) => {
+    const updatedTransactions = { ...results.relatedTransactions };
+    if (field.includes("line_items")) {
+      const [_, key] = field.split(".");
+      updatedTransactions.line_items[index][key] = e.target.value;
+    } else {
+      updatedTransactions[field] = e.target.value;
+    }
+    setResults({ ...results, relatedTransactions: updatedTransactions });
+  };
+
   return (
     <Layout>
       <div className='mt-[90px] relative'>
@@ -74,7 +85,7 @@ export default function TransactionItem() {
                   <img
                     src={results.relatedTransactions?.imageURLs}
                     alt='Receipt Scanning'
-                    width={300}
+                    className='max-h-screen max-w-full object-contain p-4'
                   />
                   <button
                     className='absolute right-4 top-10 bg-gray-600 w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-pink-600 transition duration-300'
@@ -84,6 +95,93 @@ export default function TransactionItem() {
                   </button>
                 </div>
               )}
+            </div>
+          </div>
+
+          <div className='mt-10'>
+            <div className='overflow-y-scroll h-[700px] border border-gray-300 relative'>
+              <table className='min-w-full bg-white border border-gray-300  h-[500px] overflow-y-scroll'>
+                <thead className='sticky top-0 w-full'>
+                  <tr className='bg-gray-200 text-gray-600 uppercase text-sm leading-normal'>
+                    <th className='py-3 px-2 text-center'>No.</th>
+                    <th className='py-3 px-4 text-left'>Item</th>
+                    <th className='py-3 px-2 text-left'>Category</th>
+                    <th className='py-3 px-2 text-left'>Price($CAD)</th>
+                    <th className='py-3 px-2 text-left'>Quantity</th>
+                    <th className='py-3 px-2 text-left'>Total($CAD)</th>
+                  </tr>
+                </thead>
+                <tbody className='text-gray-600 text-sm font-light'>
+                  {results.relatedTransactions?.line_items?.map(
+                    (item, index) => (
+                      <tr
+                        key={index}
+                        className='border-b border-gray-200 hover:bg-gray-100'
+                      >
+                        <td className='py-3 px-2 text-center'>{index + 1}</td>
+                        <td className='py-3 px-4 text-left'>
+                          <input
+                            type='text'
+                            value={item.description || ""}
+                            onChange={(e) =>
+                              handleInputChange(
+                                e,
+                                `line_items.description`,
+                                index
+                              )
+                            }
+                            className='w-full border border-gray-300 rounded px-2 py-1'
+                          />
+                        </td>
+                        <td className='py-3 px-2 text-left'>
+                          <input
+                            type='text'
+                            value={item.type || ""}
+                            onChange={(e) =>
+                              handleInputChange(e, `line_items.type`, index)
+                            }
+                            className='w-full border border-gray-300 rounded px-2 py-1'
+                          />
+                        </td>
+                        <td className='py-3 px-2 text-left'>
+                          <input
+                            type='text'
+                            value={
+                              (item.total / item.quantity).toFixed(2) || ""
+                            }
+                            onChange={(e) =>
+                              handleInputChange(e, `line_items.price`, index)
+                            }
+                            className='w-full border border-gray-300 rounded px-2 py-1'
+                          />
+                        </td>
+                        <td className='py-3 px-2 text-left'>
+                          <input
+                            type='text'
+                            value={
+                              item.unit_of_measure
+                                ? `${item.quantity}/${item.unit_of_measure}`
+                                : `${item.quantity}/unit`
+                            }
+                            onChange={(e) =>
+                              handleInputChange(e, `line_items.quantity`, index)
+                            }
+                            className='w-full border border-gray-300 rounded px-2 py-1'
+                          />
+                        </td>
+                        <td className='py-3 px-2 text-left'>
+                          <input
+                            type='text'
+                            value={item.total || ""}
+                            readOnly
+                            className='w-full border border-gray-300 rounded px-2 py-1'
+                          />
+                        </td>
+                      </tr>
+                    )
+                  )}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
