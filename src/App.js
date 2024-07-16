@@ -15,13 +15,7 @@ import TransactionItem from "./screens/TransactionItem/TransactionItem";
 import "../src/App.scss";
 import CreateTransaction from "./components/CreateTransaction/CreateTransaction";
 import { SkeletonTheme } from "react-loading-skeleton";
-<<<<<<< HEAD
 import Chat from "./components/Chat/Chat";
-=======
-import Chat from './components/Chat/Chat';
-
-
->>>>>>> 6b2b90c3e4b3c7a1afa5101cc2b8d3454443ecf1
 
 function App() {
   const user = useSelector((state) => state.auth.user);
