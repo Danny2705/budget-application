@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { addPrompt, getResponse, getTransactionById, addMessage } from './FirebaseFunctions';
+import { addPrompt, getResponse, getTransactionById, addMessage, getUserBudgetInfo } from './FirebaseFunctions'; // Import the correct function
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { db } from './FirebaseConfig';
 
 const Chat = ({ userId }) => {
@@ -19,6 +19,7 @@ const Chat = ({ userId }) => {
   const messageContainerRef = useRef(null);
   const [input, setInput] = useState('');
   const [showChat, setShowChat] = useState(false);
+  const [userBudgetInfo, setUserBudgetInfo] = useState(null); // State to store user budget information
 
   useEffect(() => {
     const initializeChat = async () => {
@@ -44,9 +45,28 @@ const Chat = ({ userId }) => {
     }
   }, [messages, isTyping]);
 
+  // Function to fetch user's budget information
+  useEffect(() => {
+    const fetchBudgetInfo = async () => {
+      try {
+        const budgetData = await getUserBudgetInfo(userId, 'Bd5lhgA8vRdvX8SzGmkV'); // Replace 'Bd5lhgA8vRdvX8SzGmkV' with the actual budget ID
+        setUserBudgetInfo(budgetData);
+      } catch (error) {
+        console.error('Error fetching budget information:', error);
+      }
+    };
+
+    fetchBudgetInfo();
+  }, [userId]);
+
+  const capitalizeFirstLetterOfSentences = (text) => {
+    return text.replace(/(^\s*\w|[.!?]\s*\w)/g, (c) => c.toUpperCase());
+  };
+
   const handleSend = async (message) => {
+    const capitalizedMessage = capitalizeFirstLetterOfSentences(message);
     const newMessage = {
-      message,
+      message: capitalizedMessage,
       direction: 'outgoing',
       sender: "user"
     };
@@ -62,8 +82,10 @@ const Chat = ({ userId }) => {
 
   const handleSubmitSend = async (e) => {
     e.preventDefault();
-    handleSend(input);
-    setInput('');
+    if (input.trim() !== '') {
+      handleSend(input);
+      setInput('');
+    }
   };
 
   const processMessage = async (chatMessages) => {
@@ -89,13 +111,15 @@ const Chat = ({ userId }) => {
               console.log("Fetched transaction data:", transactionData);
 
               if (transactionData) {
-                const { name, date, raw_address, line_items, total } = transactionData;
+                const { date, line_items, total, vendor } = transactionData;
+                const vendorName = vendor?.name || 'N/A';
+                const vendorAddress = vendor?.address || 'N/A'; // Accessing vendor address
 
                 responseMessage = `
                   <ul>
                     <li><strong>Date:</strong> ${date || 'N/A'}</li>
-                    <li><strong>Vendor:</strong> ${name || 'N/A'}</li>
-                    <li><strong>Address:</strong> ${raw_address || 'N/A'}</li>
+                    <li><strong>Vendor:</strong> ${vendorName}</li>
+                    <li><strong>Address:</strong> ${vendorAddress}</li>
                     <li><strong>Line items:</strong>
                       <ul>
                         ${line_items.map(item => `
@@ -145,14 +169,14 @@ const Chat = ({ userId }) => {
     <div className="fixed bottom-5 right-5">
       <div className="relative">
         <button
-          className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center shadow-lg z-50 hover:bg-gray-800 transition duration-300"
+          className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center shadow-lg z-50 hover:bg-gray-800 transition duration-300 fixed bottom-5 right-5"
           onClick={() => setShowChat(!showChat)}
         >
           <img src="/chaticon.png" alt="Chat" className="w-8 h-8 object-cover" />
         </button>
 
         {showChat && (
-          <div className="w-[500px] h-[600px] bg-white rounded-lg shadow-lg overflow-hidden">
+          <div className="w-[500px] h-[600px] bg-white rounded-lg shadow-lg overflow-hidden fixed bottom-16 right-5">
             <header className="bg-gray-300 text-gray-800 font-bold px-4 py-2 flex justify-between items-center rounded-t-lg">
               <h2>Chat</h2>
               <button
@@ -191,28 +215,39 @@ const Chat = ({ userId }) => {
                 </div>
               ))}
               {isTyping && (
-                <div className="flex items-center mb-4">
-                  <div className="w-10 h-10 bg-gray-300 rounded-full animate-pulse" />
-                  <div className="bg-indigo-200 text-sm text-gray-800 rounded-lg py-2 px-4 ml-2 relative">
-                    <div className="typing-indicator-message">...</div>
+                <div className="flex justify-start mb-4">
+                  <div className="bg-gray-200 text-sm text-gray-800 rounded-lg py-2 px-4 ml-2 relative">
+                    <div className="animate-pulse">ArthurBot is typing...</div>
+                    <div className="absolute left-0 -top-2 w-0 h-0 border-t-4 border-transparent border-gray-200" />
                   </div>
                 </div>
               )}
+              {userBudgetInfo && (
+                <div className="bg-indigo-100 text-sm text-gray-800 rounded-lg py-2 px-4 mt-4">
+                  <h3 className="font-bold">Budget Information:</h3>
+                  <p><strong>Title:</strong> {userBudgetInfo.title}</p>
+                  <p><strong>Amount:</strong> {userBudgetInfo.amount}</p>
+                  <p><strong>Start Date:</strong> {userBudgetInfo.startDate?.toDate().toLocaleDateString()}</p>
+                  <p><strong>End Date:</strong> {userBudgetInfo.endDate?.toDate().toLocaleDateString()}</p>
+                  <p><strong>Created At:</strong> {userBudgetInfo.createdAt?.toDate().toLocaleDateString()}</p>
+                </div>
+              )}
             </div>
-            <div className="chat-input px-4 py-2">
-              <form onSubmit={handleSubmitSend} className="flex">
-                <input
-                  type="text"
-                  className="flex-1 py-2 px-4 border border-gray-300 rounded-l-lg focus:outline-none"
-                  placeholder="Type your message here..."
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                />
-                <button type="submit" className="bg-indigo-300 text-white py-2 px-4 rounded-r-lg focus:outline-none">
-                  Send
-                </button>
-              </form>
-            </div>
+            <form className="px-4 py-2 bg-gray-200 flex" onSubmit={handleSubmitSend}>
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(capitalizeFirstLetterOfSentences(e.target.value))} // Capitalize the first letter of each sentence while typing
+                placeholder="Type a message..."
+                className="flex-grow px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+              <button
+                type="submit"
+                className="ml-2 px-4 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              >
+                Send
+              </button>
+            </form>
           </div>
         )}
       </div>
