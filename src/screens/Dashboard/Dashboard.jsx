@@ -162,7 +162,8 @@ export default function Dashboard() {
               <Skeleton height={450} />
             ) : (
               <div className="flex py-10">
-                <Barchart /> <Insights/>
+                <Barchart /> 
+                {/* <Insights/> */}
               </div>
             )}
           </div>
