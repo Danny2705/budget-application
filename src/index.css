@@ -115,6 +115,24 @@ body {
   background-clip: text;
   color: transparent;
 }
+.css-15n4jlm-MuiDataGrid-root .MuiDataGrid-container--top [role="row"],
+.css-15n4jlm-MuiDataGrid-root .MuiDataGrid-container--bottom [role="row"] {
+  background: linear-gradient(
+    to right top,
+    #801ae5,
+    #c500be,
+    #e90095,
+    #f9006e,
+    #fc094d,
+    #fd1c4d,
+    #fe274e,
+    #ff304e,
+    #ff0070,
+    #ff0098,
+    #ff00c7,
+    #f910f9
+  );
+}
 
 .main-span {
   background: -webkit-linear-gradient(

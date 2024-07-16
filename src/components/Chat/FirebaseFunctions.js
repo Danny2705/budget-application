@@ -43,3 +43,29 @@ export const getTransactionById = async (transactionId) => {
     throw new Error("No such transaction!");
   }
 };
+
+// Function to fetch user's budget information
+export const getUserBudgetInfo = async (userId) => {
+  const userDocRef = doc(db, "users", userId);
+  const userDocSnap = await getDoc(userDocRef);
+
+  if (userDocSnap.exists()) {
+    const userData = userDocSnap.data();
+    const budgetId = userData?.budgetId; // Assuming you have a field like budgetId in users collection
+
+    if (budgetId) {
+      const budgetDocRef = doc(db, `users/${userId}/budgets`, budgetId);
+      const budgetDocSnap = await getDoc(budgetDocRef);
+
+      if (budgetDocSnap.exists()) {
+        return budgetDocSnap.data();
+      } else {
+        throw new Error(`Budget document with ID ${budgetId} not found.`);
+      }
+    } else {
+      throw new Error(`Budget ID not found for user ${userId}.`);
+    }
+  } else {
+    throw new Error(`User document with ID ${userId} not found.`);
+  }
+};

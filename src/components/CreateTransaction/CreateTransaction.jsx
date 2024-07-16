@@ -42,9 +42,16 @@ export default function CreateTransaction() {
         <h1 className='text-main-darkPink font-bold text-2xl md:text-4xl lg:text-4xl mt-16 mb-8 tracking-wider text-center lg:text-left'>
           Budget {budgetInfo?.titleLocal}
         </h1>
-        <UploadTrans onSetReceiptData={setReceiptData} onSetImageURL={setImageURL} onSetTransactionNo={setReceiptNo} budgetID={budgetInfo.id} onSetReceipWAllInfo={setReceiptWAllInfo}/>
-        {!!receiptData && <NewTransVenderTable receiptInfo={receiptData} />}
-        {!!receiptData && <NewTransLineItemsTable receiptInfo={receiptData}/>}
+        <UploadTrans
+          onSetReceiptData={setReceiptData}
+          onSetImageURL={setImageURL}
+          onSetTransactionNo={setReceiptNo}
+          onSetReceipWAllInfo={setReceiptWAllInfo}
+          budgetID={budgetInfo.id}
+        />
+        {/* {!!receiptData && <NewTransVenderTable receiptInfo={receiptData} />} */}
+        {<NewTransVenderTable receiptInfo={receiptData} />}
+        {!!receiptData && <NewTransLineItemsTable receiptInfo={receiptData} />}
         <SaveButton onClick={handleOnClickSaveButton} />
       </div>
     </Layout>

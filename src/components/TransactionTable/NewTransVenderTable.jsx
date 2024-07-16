@@ -180,7 +180,8 @@ export default function NewTransVenderTable({ receiptInfo }) {
           height: 500,
           width: "100%",
           "& .MuiDataGrid-columnHeaders": {
-            background: "linear-gradient(to right, #7F00FF, #E100FF, #FF0080)",
+            background:
+              "linear-gradient(to right, #7F00FF, #E100FF, #FF0080) !important",
             color: "black",
           },
           "& .MuiDataGrid-row:nth-of-type(odd)": {
