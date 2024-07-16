@@ -1,33 +1,45 @@
-//ref chatprompt: how do i configure firebase for my gemini chatbot
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, addDoc, doc, getDoc } from 'firebase/firestore';
+import { db } from './FirebaseConfig';
+import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore';
 
-// Initialize Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyAtA55wstINLnhPcN5v4KVV5tmBr4Ryuaw",
-  authDomain: "budget-app-bf80c.firebaseapp.com",
-  projectId: "budget-app-bf80c",
-  storageBucket: "budget-app-bf80c.appspot.com",
-  messagingSenderId: "83066329020",
-  appId: "1:83066329020:web:ace769ecad724618effdb9"
-};
-
-const app = initializeApp(firebaseConfig);
-const firestore = getFirestore(app);
-
-// Function to add prompt to Firestore
-export const addPrompt = async (prompt) => {
-  const docRef = await addDoc(collection(firestore, 'generate'), { prompt });
+export const addMessage = async (message) => {
+  const docRef = await addDoc(collection(db, "messages"), {
+    ...message,
+    timestamp: new Date()
+  });
   return docRef.id;
 };
 
-// Function to get response from Gemini based on prompt ID
-export const getResponse = async (promptId) => {
-  const promptDoc = await getDoc(doc(firestore, 'generate', promptId));
-  console.log(promptDoc.data())
-  if (promptDoc.exists()) {
-    return promptDoc.data().response || null;
+export const addPrompt = async (prompt) => {
+  const docRef = await addDoc(collection(db, "generate"), {
+    prompt,
+    status: "pending",
+    createTime: new Date()
+  });
+  return docRef.id;
+};
+
+export const getResponse = async (docId) => {
+  const docRef = doc(db, "generate", docId);
+  let response = null;
+
+  while (!response) {
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists() && docSnap.data().response) {
+      response = docSnap.data().response;
+    } else {
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Polling delay
+    }
+  }
+
+  return response;
+};
+
+export const getTransactionById = async (transactionId) => {
+  const docRef = doc(db, "transactions", transactionId);
+  const docSnap = await getDoc(docRef);
+  if (docSnap.exists()) {
+    return docSnap.data();
   } else {
-    throw new Error('Prompt document not found');
+    throw new Error("No such transaction!");
   }
 };
