@@ -15,9 +15,7 @@ import TransactionItem from "./screens/TransactionItem/TransactionItem";
 import "../src/App.scss";
 import CreateTransaction from "./components/CreateTransaction/CreateTransaction";
 import { SkeletonTheme } from "react-loading-skeleton";
-import Chat from './components/Chat/Chat';
-
-
+import Chat from "./components/Chat/Chat";
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -51,7 +49,7 @@ function App() {
             element={user ? <Overview /> : <Navigate to='/login' />}
           />
           <Route
-            path='/budget/transaction/:transaction'
+            path='/transaction/:transaction'
             element={user ? <TransactionItem /> : <Navigate to='/login' />}
           />
           <Route
@@ -64,7 +62,9 @@ function App() {
           <Route path='/create' element={<CreateTransaction />} />
           <Route
             path='/chat'
-            element={user ? <Chat userId={user.uid} /> : <Navigate to='/login' />}
+            element={
+              user ? <Chat userId={user.uid} /> : <Navigate to='/login' />
+            }
           />
           {/* <Route
             path='*'

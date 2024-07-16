@@ -57,7 +57,7 @@ export default function Search() {
                 console.log(result),
                 (
                   <Link
-                    to={`budget/transaction/${result.id}`}
+                    to={`transaction/${result.id}`}
                     key={result.id}
                     className='flex mb-3 w-full gap-4 border-b pb-3'
                   >
