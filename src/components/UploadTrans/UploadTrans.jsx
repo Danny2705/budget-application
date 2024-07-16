@@ -60,7 +60,7 @@ const UploadTrans = ({
       />
       <div className="flex flex-row py-[16px] px-[32px] space-x-20">
         <FileDisplay imageSrc={imageURL} />
-        <JsonDisplay json={receiptData} loading={!!imageURL && !receiptData}/>
+        <JsonDisplay json={receiptWAllInfo} loading={!!imageURL && !receiptWAllInfo}/>
       </div>
     </div>
   );
