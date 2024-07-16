@@ -14,6 +14,7 @@ import Barchart from "../../components/Chart/BarChart";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 import { setBudgets } from "../../redux/budgetSlice";
+import Insights from "../../components/BudgetAnalysis/Insights";
 
 export default function Dashboard() {
   const budgets = useSelector((state) => state.budgets.budgets);
