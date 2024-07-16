@@ -27,7 +27,6 @@
     "algoliasearch": "^4.24.0",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
-    "chart.js": "^4.4.3",
     "chartjs-plugin-datalabels": "^2.2.0",
     "date-fns": "^3.6.0",
     "firebase": "^10.11.1",
@@ -50,6 +49,7 @@
     "react-router-dom": "^6.23.0",
     "react-scripts": "^5.0.1",
     "redux-persist": "^6.0.0",
+    "reselect": "^5.1.1",
     "sass": "^1.77.1",
     "web-vitals": "^2.1.4"
   },
