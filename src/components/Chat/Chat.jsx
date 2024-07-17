@@ -89,76 +89,77 @@ const Chat = ({ userId }) => {
   };
 
   const processMessage = async (chatMessages) => {
-    let apiMessages = chatMessages.map((messageObject) => ({
-      role: messageObject.sender === "ArthurBot" ? "assistant" : "user",
-      content: messageObject.message
-    }));
+  let apiMessages = chatMessages.map((messageObject) => ({
+    role: messageObject.sender === "ArthurBot" ? "assistant" : "user",
+    content: messageObject.message
+  }));
 
-    try {
-      if (chat) {
-        const userMessage = apiMessages[apiMessages.length - 1].content;
-        const promptId = await addPrompt(userMessage);
+  try {
+    if (chat) {
+      const userMessage = apiMessages[apiMessages.length - 1].content;
+      const promptId = await addPrompt(userMessage);
 
-        setTimeout(async () => {
-          let responseMessage;
+      setTimeout(async () => {
+        let responseMessage;
 
-          const transactionIdMatch = userMessage.match(/U\d{6}B\d{6}T\d{6}/i);
-          if (transactionIdMatch) {
-            const transactionId = transactionIdMatch[0];
-            try {
-              const transactionData = await getTransactionById(transactionId);
+        const transactionIdMatch = userMessage.match(/T-\d+-\d+-\d+-\d+/i);
+        if (transactionIdMatch) {
+          const transactionId = transactionIdMatch[0];
+          try {
+            const transactionData = await getTransactionById(transactionId);
 
-              console.log("Fetched transaction data:", transactionData);
+            console.log("Fetched transaction data:", transactionData);
 
-              if (transactionData) {
-                const { date, line_items, total, vendor } = transactionData;
-                const vendorName = vendor?.name || 'N/A';
-                const vendorAddress = vendor?.address || 'N/A'; // Accessing vendor address
+            if (transactionData) {
+              const { date, line_items, total, vendor } = transactionData;
+              const vendorName = vendor?.name || 'N/A';
+              const vendorAddress = vendor?.address || 'N/A';
 
-                responseMessage = `
-                  <ul>
-                    <li><strong>Date:</strong> ${date || 'N/A'}</li>
-                    <li><strong>Vendor:</strong> ${vendorName}</li>
-                    <li><strong>Address:</strong> ${vendorAddress}</li>
-                    <li><strong>Line items:</strong>
-                      <ul>
-                        ${line_items.map(item => `
-                          <li>
-                            <strong>Description:</strong> ${item.description || 'N/A'}<br/>
-                            <strong>Quantity:</strong> ${item.quantity || 'N/A'}<br/>
-                            <strong>Type:</strong> ${item.type || 'N/A'}<br/>
-                            <strong>Total:</strong> $${item.total ? item.total.toFixed(2) : 'N/A'}
-                          </li>
-                        `).join('')}
-                      </ul>
-                    </li>
-                    <li><strong>Total of Entire Transaction:</strong> $${total ? total.toFixed(2) : 'N/A'}</li>
-                  </ul>
-                `;
-              } else {
-                responseMessage = `No line items available for transaction ID ${transactionId}.`;
-              }
-            } catch (error) {
-              responseMessage = `Error: ${error.message}`;
+              responseMessage = `
+                <ul>
+                  <li><strong>Date:</strong> ${date || 'N/A'}</li>
+                  <li><strong>Vendor:</strong> ${vendorName}</li>
+                  <li><strong>Address:</strong> ${vendorAddress}</li>
+                  <li><strong>Line items:</strong>
+                    <ul>
+                      ${line_items.map(item => `
+                        <li>
+                          <strong>Description:</strong> ${item.description || 'N/A'}<br/>
+                          <strong>Quantity:</strong> ${item.quantity || 'N/A'}<br/>
+                          <strong>Type:</strong> ${item.type || 'N/A'}<br/>
+                          <strong>Total:</strong> $${item.total ? item.total.toFixed(2) : 'N/A'}
+                        </li>
+                      `).join('')}
+                    </ul>
+                  </li>
+                  <li><strong>Total of Entire Transaction:</strong> $${total ? total.toFixed(2) : 'N/A'}</li>
+                </ul>
+              `;
+            } else {
+              responseMessage = `No line items available for transaction ID ${transactionId}.`;
             }
-          } else {
-            responseMessage = await getResponse(promptId);
+          } catch (error) {
+            responseMessage = `Error: ${error.message}`;
           }
+        } else {
+          responseMessage = await getResponse(promptId);
+        }
 
-          const newMessages = [...chatMessages, {
-            message: responseMessage,
-            sender: "ArthurBot"
-          }];
-          setMessages(newMessages);
+        const newMessages = [...chatMessages, {
+          message: responseMessage,
+          sender: "ArthurBot"
+        }];
+        setMessages(newMessages);
 
-          setIsTyping(false);
-        }, 1000);
-      }
-    } catch (error) {
-      console.error("Error processing message:", error);
-      setIsTyping(false);
+        setIsTyping(false);
+      }, 1000);
     }
-  };
+  } catch (error) {
+    console.error("Error processing message:", error);
+    setIsTyping(false);
+  }
+};
+
 
   const handleCloseChat = () => {
     setShowChat(false);
