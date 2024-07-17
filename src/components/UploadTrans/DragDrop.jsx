@@ -6,14 +6,23 @@ import { useDropzone } from "react-dropzone";
 import { performOcr } from "../../utils/ocrVeryfi";
 import { Public } from "@mui/icons-material";
 import mergeImages from "merge-images";
+import { set } from "date-fns";
 
 const fileTypes = ["png", "jpeg", "jpg", "pdf"];
 
 //Refers DragDrop from https://sandydev.medium.com/how-to-create-drag-and-drop-upload-in-reactjs-d2f2c2b2048d
-const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
-  const [file, setFile] = useState("");
+const DragDrop = ({
+  onSetImageURL,
+  onSetJsonData,
+  onSetTransactionNo,
+  budgetID,
+  onSetReceipWAllInfo,
+}) => {
   const [receiptJsonData, setReceiptJsonData] = useState({});
   const [fireImageURL, setFireImageURL] = useState(null);
+  const [receiptWBgtTransNo, setReceiptWBgtTransNo] = useState([{}]);
+  const [receiptWFirebaseURL, setReceiptWFirebaseURL] = useState([{}]);
+  const [receiptWAllInfo, setReceiptWAllInfo] = useState([{}]);
   const [transactionNo, setTransactionNo] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [imageB64, setImageB64] = useState("");
@@ -47,11 +56,12 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
         src: url,
         y: imageHeights.slice(0, index).reduce((a, b) => a + b, 0),
       }));
-      const mergedImage = await mergeImages(imagesForMerge, {
+      const mergedImageDataURLB64 = await mergeImages(imagesForMerge, {
         height: imageHeights.reduce((a, b) => a + b, 0),
       });
 
-      setImageB64(mergedImage);
+      setImageB64(mergedImageDataURLB64);
+      console.log("mergedImageDataURLB64", mergedImageDataURLB64);
     } catch (error) {
       console.error("error merging images", error);
     } finally {
@@ -87,6 +97,28 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
     }
   }, [imageB64]);
 
+  useEffect(() => {
+    if (transactionNo) {
+      setReceiptWBgtTransNo({ ...receiptJsonData, transactionNo, budgetID });
+      console.log("receipt with trans no", receiptWBgtTransNo);
+    }
+  }, [transactionNo, receiptJsonData]);
+
+  useEffect(() => {
+    if (fireImageURL) {
+      setReceiptWFirebaseURL({ ...receiptWBgtTransNo, fireImageURL });
+      console.log("receipt with firebase url", receiptWFirebaseURL);
+    }
+  }, [fireImageURL, receiptWBgtTransNo]);
+
+  useEffect(() => {
+    setReceiptWAllInfo(receiptWFirebaseURL);
+    onSetReceipWAllInfo(receiptWAllInfo);
+    console.log("receipt with all info", receiptWAllInfo);
+  },[receiptWAllInfo,receiptWFirebaseURL
+  ]);
+
+
   // Refers from Demo
   const storeAndConvertReceiptImage = async (droppedfile) => {
     // uploadImageToFirestore(localImage) return { transactionNumber, imageURL }
@@ -99,12 +131,12 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
     onSetTransactionNo(transactionNo);
     console.log("Image uploaded to storage", imageURL);
     console.log("Transaction no from Firebase", transactionNumber);
+    console.log("Budget ID", budgetID);
 
     //Calling OCR Perform Function
     if (imageURL) {
       setReceiptJsonData(await performOcr(imageURL));
       onSetJsonData(await performOcr(imageURL));
-
     }
   };
 
@@ -139,4 +171,4 @@ const DragDrop = ({ onSetImageURL, onSetJsonData, onSetTransactionNo }) => {
   );
 };
 
-export default DragDrop ;
+export default DragDrop;

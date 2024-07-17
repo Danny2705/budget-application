@@ -3,7 +3,7 @@ import axios from "axios";
 export const performOcr = async (imageUrl) => {
   try {
     const requestBody = {
-      "imageURL": imageUrl,
+      "imageURL": imageUrl
     };
     const config = {
       method: "post",

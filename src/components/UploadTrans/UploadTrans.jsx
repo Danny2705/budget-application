@@ -6,11 +6,14 @@ import JsonDisplay from "./JsonDisplay";
 import SaveButton from "./SaveButton";
 import { saveReceiptToFirestore } from "../../utils/firebase";
 import items from "./items.json";
+import { set } from "date-fns";
 
 const UploadTrans = ({
   onSetReceiptData,
   onSetImageURL,
   onSetTransactionNo,
+  onSetReceipWAllInfo,
+  budgetID,
 }) => {
   //Avoiding using OCR API useState([]) -> useState(items)
   // const [receiptData, setReceiptData] = useState(items);
@@ -18,6 +21,7 @@ const UploadTrans = ({
   const [receiptData, setReceiptData] = useState();
   const [imageURL, setImageURL] = useState(null);
   const [receiptNo, setReceiptNo] = useState("");
+  const [receiptWAllInfo, setReceiptWAllInfo] = useState([{}]);
 
 
   const handleImageURLChange = (url) => {
@@ -36,7 +40,14 @@ const UploadTrans = ({
   const handleReceiptNoChange = (receiptNo) => {
     setReceiptNo(receiptNo);
     onSetTransactionNo(receiptNo);
+    console.log("receiptNoChange", receiptNo);
   };
+
+  const handleReceiptWAllInfo = (receiptWAllInfo) => {
+    setReceiptWAllInfo(receiptWAllInfo);
+    onSetReceipWAllInfo(receiptWAllInfo);
+    console.log("receiptWAllInfo from uploadTrans comp", receiptWAllInfo);
+  }
 
   return (
     <div className="p-(32px) bg-[#2c0b31] md:flex flex-col rounded-[24px] border border-main-neonPink">
@@ -44,10 +55,12 @@ const UploadTrans = ({
         onSetImageURL={handleImageURLChange}
         onSetJsonData={handleJsonDataChange}
         onSetTransactionNo={handleReceiptNoChange}
+        onSetReceipWAllInfo={handleReceiptWAllInfo}
+        budgetID = {budgetID}
       />
       <div className="flex flex-row py-[16px] px-[32px] space-x-20">
         <FileDisplay imageSrc={imageURL} />
-        <JsonDisplay json={receiptData} loading={!!imageURL && !receiptData}/>
+        <JsonDisplay json={receiptWAllInfo} loading={!!imageURL && !receiptWAllInfo}/>
       </div>
     </div>
   );
