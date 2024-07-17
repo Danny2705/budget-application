@@ -96,7 +96,7 @@ export default function Budget() {
           </div>
 
           <div>
-            <ParticleRing />
+            {/* <ParticleRing />/s */}
           </div>
         </div>
       </div>
