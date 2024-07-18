@@ -70,7 +70,7 @@ export default function useExpenseData() {
       const latestFiveMonths = allMonths.slice(-5);
       setLabelState(latestFiveMonths);
     };
-
+    
     fetchAndCalculate();
   }, [user, dispatch]);
 
