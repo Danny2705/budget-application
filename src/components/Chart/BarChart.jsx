@@ -1,3 +1,4 @@
+import React, { useRef } from "react";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -10,6 +11,7 @@ import {
   Filler,
 } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import zoomPlugin from "chartjs-plugin-zoom";
 import useExpenseData from "./BarData";
 
 ChartJS.register(
@@ -20,13 +22,16 @@ ChartJS.register(
   Tooltip,
   Legend,
   ChartDataLabels,
-  Filler
+  Filler,
+  zoomPlugin
 );
 
 export default function Barchart() {
-  const { labels, totalMoneySpent, totalBudgetLimit } = useExpenseData();
-  const moneySpent = labels.map((month) => totalMoneySpent[month]);
-  const budgetLimit = labels.map((month) => totalBudgetLimit[month]);
+  const { labelState, totalMoneySpent, totalBudgetLimit, allLabels, setLabelState } = useExpenseData();
+  const moneySpent = labelState.map((month) => totalMoneySpent[month] || 0);
+  const budgetLimit = labelState.map((month) => totalBudgetLimit[month] || 0);
+
+  const chartRef = useRef(null);
 
   const options = {
     responsive: true,
@@ -47,6 +52,21 @@ export default function Barchart() {
         anchor: "end",
         align: "top",
         formatter: (value) => `${value}`,
+      },
+      zoom: {
+        pan: {
+          enabled: true,
+          mode: "x",
+        },
+        zoom: {
+          wheel: {
+            enabled: true,
+          },
+          pinch: {
+            enabled: true,
+          },
+          mode: "x",
+        },
       },
     },
     scales: {
@@ -78,7 +98,7 @@ export default function Barchart() {
   };
 
   const BarData = {
-    labels: labels,
+    labels: labelState,
     datasets: [
       {
         label: "Money Spent",
@@ -95,9 +115,38 @@ export default function Barchart() {
     ],
   };
 
+  const handleScroll = (direction) => {
+    const currentIndex = allLabels.indexOf(labelState[0]);
+    let newLabels;
+
+    if (direction === "left") {
+      newLabels = allLabels.slice(Math.max(currentIndex - 5, 0), currentIndex);
+    } else {
+      newLabels = allLabels.slice(currentIndex + 5, currentIndex + 10);
+    }
+
+    if (newLabels.length > 0) {
+      setLabelState(newLabels);
+    }
+  };
+
   return (
     <div className="w-2/3">
-      <Bar options={options} data={BarData} />
+      <div className="flex justify-between mb-4">
+        <button
+          onClick={() => handleScroll("left")}
+          className="bg-blue-500 text-white px-4 py-2 rounded shadow"
+        >
+          Previous
+        </button>
+        <button
+          onClick={() => handleScroll("right")}
+          className="bg-blue-500 text-white px-4 py-2 rounded shadow"
+        >
+          Current
+        </button>
+      </div>
+      <Bar ref={chartRef} options={options} data={BarData} />
     </div>
   );
 }
