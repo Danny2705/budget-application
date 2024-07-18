@@ -163,7 +163,7 @@ export default function Dashboard() {
             ) : (
               <div className="flex py-10">
                 <Barchart /> 
-                {/* <Insights/> */}
+                <Insights/>
               </div>
             )}
           </div>

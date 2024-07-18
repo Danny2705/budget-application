@@ -14,13 +14,17 @@ export default function useExpenseData() {
 
   useEffect(() => {
     const getMonthFromTimeStamp = (seconds) => {
-      if (seconds) {
-        const date = new Date(seconds * 1000);
-        return format(date, "MMMM yyyy");
-      }
-      return format(seconds, "MMMM yyyy")
+      const date = new Date(seconds * 1000);
+      return format(date, "MMMM yyyy");
+      return date;
     };
 
+    const formatTransactionData = (data) => {
+      return data.map((obj) => ({
+        Date: format((obj.Date), "MMMM yyyy"),
+        Total: parseFloat(obj.Total),
+      }));
+    };
     const FetchBudgetData = async () => {
       const docRef = await getDocs(collection(db, `users/${user.uid}/budget`));
       const budgetData = docRef.docs.map((doc) => ({
@@ -31,7 +35,6 @@ export default function useExpenseData() {
         Date: getMonthFromTimeStamp(data.endDate.seconds),
         Total: parseFloat(data.amount),
       }));
-      console.log('Budget Data:', monthAmounts);
       return monthAmounts;
     };
 
@@ -52,13 +55,15 @@ export default function useExpenseData() {
         }
         monthlyTotals[month] += transaction.Total;
       });
-      return (monthlyTotals);
+      return monthlyTotals;
     };
 
     const fetchAndCalculate = async () => {
       getMonths();
 
-      const totalMoneySpentResult = calculateMonthlyMoney(transactionData);
+      const totalMoneySpentResult = calculateMonthlyMoney(
+        formatTransactionData(transactionData)
+      );
       console.log(totalMoneySpentResult.Date);
       setTotalMoneySpent(totalMoneySpentResult);
 
@@ -66,8 +71,8 @@ export default function useExpenseData() {
       const totalBudgetLimitResult = calculateMonthlyMoney(budgetData);
       setTotalBudgetLimit(totalBudgetLimitResult);
 
-      console.log('Budget Limit:', totalBudgetLimitResult);
-      console.log('Money Spent:', totalMoneySpentResult);
+      console.log("Budget Limit:", totalBudgetLimitResult);
+      console.log("Money Spent:", totalMoneySpentResult);
     };
 
     fetchAndCalculate();

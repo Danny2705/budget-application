@@ -79,7 +79,70 @@ export const transactionData = [
     Category: "Car",
     Total: "40.00",
   },
-];
+  {
+    TransactionNo: "2465354",
+    Vender: "Apple Store",
+    Date: "07/01/2024",
+    Category: "Electronics",
+    Total: "150.00",
+  },
+  {
+    TransactionNo: "2465355",
+    Vender: "Costco",
+    Date: "03/17/2024",
+    Category: "Grocery",
+    Total: "200.00",
+  },
+  {
+    TransactionNo: "2465356",
+    Vender: "Safeway",
+    Date: "02/10/2024",
+    Category: "Grocery",
+    Total: "75.00",
+  },
+  {
+    TransactionNo: "2465357",
+    Vender: "McDonald's",
+    Date: "01/22/2024",
+    Category: "Food",
+    Total: "20.00",
+  },
+  {
+    TransactionNo: "2465358",
+    Vender: "Amazon",
+    Date: "12/15/2023",
+    Category: "Electronics",
+    Total: "110.00",
+  },
+  {
+    TransactionNo: "2465359",
+    Vender: "Walgreens",
+    Date: "11/03/2023",
+    Category: "Health",
+    Total: "30.00",
+  },
+  {
+    TransactionNo: "2465360",
+    Vender: "Walmart",
+    Date: "10/19/2023",
+    Category: "Food",
+    Total: "55.00",
+  },
+  {
+    TransactionNo: "2465361",
+    Vender: "Target",
+    Date: "11/27/2023",
+    Category: "Clothing",
+    Total: "80.00",
+  },
+  {
+    TransactionNo: "2465362",
+    Vender: "BP Gas Station",
+    Date: "02/25/2024",
+    Category: "Transport",
+    Total: "50.00",
+  }
+];  
 
   
 //NewTransLineItemsTable Import

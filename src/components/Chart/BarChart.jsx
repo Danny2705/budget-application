@@ -25,7 +25,8 @@ ChartJS.register(
 
 export default function Barchart() {
   const { labels, totalMoneySpent, totalBudgetLimit } = useExpenseData();
-  const spentData = labels.map((month) => totalMoneySpent[month]);
+  const moneySpent = labels.map((month) => totalMoneySpent[month]);
+  const budgetLimit = labels.map((month) => totalBudgetLimit[month]);
 
   const options = {
     responsive: true,
@@ -81,13 +82,13 @@ export default function Barchart() {
     datasets: [
       {
         label: "Money Spent",
-        data: spentData,
+        data: moneySpent,
         borderColor: "rgba(255, 0, 0, 1)",
         backgroundColor: "rgba(255, 0, 0, 0.5)",
       },
       {
         label: "Budget Limit",
-        data: [200, 1500, 500, 2000, 500],
+        data: budgetLimit,
         borderColor: "rgba(0, 255, 0, 1)",
         backgroundColor: "rgba(0, 255, 0, 0.5)",
       },
