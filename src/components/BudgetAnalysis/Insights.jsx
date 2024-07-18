@@ -96,7 +96,7 @@ export default function Insights() {
         <View style={styles.summary}>
           <View style={styles.summaryItem}>
             <Text style={styles.summaryTitle}>Amount Saved</Text>
-            <Text style={styles.summaryValue}>${totalSavings}</Text>
+            <Text style={styles.summaryValue}>$1456</Text>
           </View>
           <View style={styles.summaryItem}>
             <Text style={styles.summaryTitle}>Date</Text>
@@ -152,7 +152,7 @@ export default function Insights() {
               const spent = totalMoneySpent[month] || 0;
               const budgetLimit = totalBudgetLimit[month] || 0;
               const savings = budgetLimit - spent;
-              setTotalSavings(savings += savings);
+              // setTotalSavings(savings += savings);
               return (
                 <div key={month} className="w-full min-w-full p-4 bg-main-darkPurple shadow-md mb-4">
                   {savings >= 0 ? (
