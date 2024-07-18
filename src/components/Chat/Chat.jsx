@@ -102,7 +102,7 @@ const Chat = ({ userId }) => {
         setTimeout(async () => {
           let responseMessage;
 
-          const transactionIdMatch = userMessage.match(/U\d{6}B\d{6}T\d{6}/i);
+          const transactionIdMatch = userMessage.match(/T-\d+-\d+-\d+-\d+/i);
           if (transactionIdMatch) {
             const transactionId = transactionIdMatch[0];
             try {
@@ -111,16 +111,18 @@ const Chat = ({ userId }) => {
               console.log("Fetched transaction data:", transactionData);
 
               if (transactionData) {
-                const { date, line_items, total, vendor } = transactionData;
+                const { date, line_items, total, vendor, category } = transactionData;
                 const vendorName = vendor?.name || 'N/A';
-                const vendorAddress = vendor?.address || 'N/A'; // Accessing vendor address
+                const vendorAddress = vendor?.address || 'N/A';
+                const transactionCategory = category || 'N/A';
 
                 responseMessage = `
                   <ul>
                     <li><strong>Date:</strong> ${date || 'N/A'}</li>
                     <li><strong>Vendor:</strong> ${vendorName}</li>
                     <li><strong>Address:</strong> ${vendorAddress}</li>
-                    <li><strong>Line items:</strong>
+                    <li><strong>Category:</strong> ${transactionCategory}</li>
+              
                       <ul>
                         ${line_items.map(item => `
                           <li>
@@ -169,7 +171,7 @@ const Chat = ({ userId }) => {
     <div className="fixed bottom-5 right-5">
       <div className="relative">
         <button
-          className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center shadow-lg z-50 hover:bg-gray-800 transition duration-300 fixed bottom-5 right-5"
+          className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center shadow-lg z-50 hover:bg-gray-800 transition fixed bottom-5 right-5"
           onClick={() => setShowChat(!showChat)}
         >
           <img src="/chaticon.png" alt="Chat" className="w-8 h-8 object-cover" />
