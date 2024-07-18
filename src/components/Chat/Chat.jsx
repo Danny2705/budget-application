@@ -4,6 +4,9 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from './FirebaseConfig';
 
+//ref https://ai.google.dev/gemini-api/docs/ai-studio-quickstart
+//ref chat prompt: help me add the transaction details for transaction id with the format T-1234-5678-9101-1121
+
 const Chat = ({ userId }) => {
   const initialMessages = [
     {
