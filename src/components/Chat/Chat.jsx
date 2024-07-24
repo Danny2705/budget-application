@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { addPrompt, getResponse, getTransactionById, addMessage, getUserBudgetInfo } from './FirebaseFunctions'; // Import the correct function
+import { addPrompt, getResponse, getTransactionById, addMessage, getUserBudgetInfo } from './FirebaseFunctions';
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from './FirebaseConfig';
+import './Chat.css';
 
 const Chat = ({ userId }) => {
   const initialMessages = [
@@ -18,8 +17,8 @@ const Chat = ({ userId }) => {
   const [chat, setChat] = useState(null);
   const messageContainerRef = useRef(null);
   const [input, setInput] = useState('');
-  const [showChat, setShowChat] = useState(false);
-  const [userBudgetInfo, setUserBudgetInfo] = useState(null); // State to store user budget information
+  const [showChat, setShowChat] = useState(true);
+  const [userBudgetInfo, setUserBudgetInfo] = useState(null);
 
   useEffect(() => {
     const initializeChat = async () => {
@@ -45,11 +44,10 @@ const Chat = ({ userId }) => {
     }
   }, [messages, isTyping]);
 
-  // Function to fetch user's budget information
   useEffect(() => {
     const fetchBudgetInfo = async () => {
       try {
-        const budgetData = await getUserBudgetInfo(userId, 'Bd5lhgA8vRdvX8SzGmkV'); // Replace 'Bd5lhgA8vRdvX8SzGmkV' with the actual budget ID
+        const budgetData = await getUserBudgetInfo(userId, 'Bd5lhgA8vRdvX8SzGmkV'); // Replace with the actual budget ID
         setUserBudgetInfo(budgetData);
       } catch (error) {
         console.error('Error fetching budget information:', error);
@@ -102,7 +100,7 @@ const Chat = ({ userId }) => {
         setTimeout(async () => {
           let responseMessage;
 
-          const transactionIdMatch = userMessage.match(/U\d{6}B\d{6}T\d{6}/i);
+          const transactionIdMatch = userMessage.match(/T-\d+-\d+-\d+-\d+/i);
           if (transactionIdMatch) {
             const transactionId = transactionIdMatch[0];
             try {
@@ -111,27 +109,27 @@ const Chat = ({ userId }) => {
               console.log("Fetched transaction data:", transactionData);
 
               if (transactionData) {
-                const { date, line_items, total, vendor } = transactionData;
+                const { date, line_items, total, vendor, category } = transactionData;
                 const vendorName = vendor?.name || 'N/A';
-                const vendorAddress = vendor?.address || 'N/A'; // Accessing vendor address
+                const vendorAddress = vendor?.address || 'N/A';
+                const transactionCategory = category || 'N/A';
 
                 responseMessage = `
                   <ul>
                     <li><strong>Date:</strong> ${date || 'N/A'}</li>
                     <li><strong>Vendor:</strong> ${vendorName}</li>
                     <li><strong>Address:</strong> ${vendorAddress}</li>
-                    <li><strong>Line items:</strong>
-                      <ul>
-                        ${line_items.map(item => `
-                          <li>
-                            <strong>Description:</strong> ${item.description || 'N/A'}<br/>
-                            <strong>Quantity:</strong> ${item.quantity || 'N/A'}<br/>
-                            <strong>Type:</strong> ${item.type || 'N/A'}<br/>
-                            <strong>Total:</strong> $${item.total ? item.total.toFixed(2) : 'N/A'}
-                          </li>
-                        `).join('')}
-                      </ul>
-                    </li>
+                    <li><strong>Category:</strong> ${transactionCategory}</li>
+                    <ul>
+                      ${line_items.map(item => `
+                        <li>
+                          <strong>Description:</strong> ${item.description || 'N/A'}<br/>
+                          <strong>Quantity:</strong> ${item.quantity || 'N/A'}<br/>
+                          <strong>Type:</strong> ${item.type || 'N/A'}<br/>
+                          <strong>Total:</strong> $${item.total ? item.total.toFixed(2) : 'N/A'}
+                        </li>
+                      `).join('')}
+                    </ul>
                     <li><strong>Total of Entire Transaction:</strong> $${total ? total.toFixed(2) : 'N/A'}</li>
                   </ul>
                 `;
@@ -162,95 +160,72 @@ const Chat = ({ userId }) => {
 
   const handleCloseChat = () => {
     setShowChat(false);
-    setMessages(initialMessages);
   };
 
   return (
-    <div className="fixed bottom-5 right-5">
-      <div className="relative">
-        <button
-          className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center shadow-lg z-50 hover:bg-gray-800 transition duration-300 fixed bottom-5 right-5"
-          onClick={() => setShowChat(!showChat)}
-        >
-          <img src="/chaticon.png" alt="Chat" className="w-8 h-8 object-cover" />
-        </button>
-
-        {showChat && (
-          <div className="w-[500px] h-[600px] bg-white rounded-lg shadow-lg overflow-hidden fixed bottom-16 right-5">
-            <header className="bg-gray-300 text-gray-800 font-bold px-4 py-2 flex justify-between items-center rounded-t-lg">
-              <h2>Chat</h2>
-              <button
-                className="text-gray-500 hover:text-gray-800 focus:outline-none"
-                onClick={handleCloseChat}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </header>
-            <div className="chatbox overflow-y-auto h-[500px] px-4 py-2" ref={messageContainerRef}>
-              {messages.map((msg, index) => (
-                <div key={index} className={`flex ${msg.sender === 'ArthurBot' ? 'justify-start' : 'justify-end'} mb-4`}>
-                  {msg.sender === 'ArthurBot' ? (
-                    <>
-                      <div className="w-10 h-10 bg-gray-300 rounded-full flex justify-center items-center mr-2">
-                        <div className="text-gray-800 text-xl">A</div>
-                      </div>
-                      <div className="bg-gray-200 text-sm text-gray-800 rounded-lg py-2 px-4 relative">
-                        <div dangerouslySetInnerHTML={{ __html: msg.message }} />
-                        <div className="absolute left-0 -top-2 w-0 h-0 border-t-4 border-transparent border-gray-200" />
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="bg-indigo-200 text-sm text-gray-800 rounded-lg py-2 px-4 relative">
-                        {msg.message}
-                        <div className="absolute right-0 -top-2 w-0 h-0 border-t-4 border-transparent border-indigo-200" />
-                      </div>
-                      <div className="w-10 h-10 bg-indigo-300 rounded-full flex justify-center items-center ml-2">
-                        <div className="text-white text-xl">U</div>
-                      </div>
-                    </>
-                  )}
-                </div>
-              ))}
-              {isTyping && (
-                <div className="flex justify-start mb-4">
-                  <div className="bg-gray-200 text-sm text-gray-800 rounded-lg py-2 px-4 ml-2 relative">
-                    <div className="animate-pulse">ArthurBot is typing...</div>
-                    <div className="absolute left-0 -top-2 w-0 h-0 border-t-4 border-transparent border-gray-200" />
+    <div className="chat-container">
+      {showChat && (
+        <div className="chatbox-container">
+          <header className="chatbox-header">
+            <h2>ArthurBot</h2>
+            <button onClick={handleCloseChat} className="close-button">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </header>
+          <div className="chatbox-content" ref={messageContainerRef}>
+            {messages.map((msg, index) => (
+              <div key={index} className={`chatbox-message ${msg.sender === 'ArthurBot' ? 'assistant' : 'user'}`}>
+                <div className={`chatbox-avatar ${msg.sender === 'ArthurBot' ? '' : 'user'}`}>
+                  <div className={msg.sender === 'ArthurBot' ? 'text-gray-800 text-xl' : 'text-white text-xl'}>
+                    {msg.sender === 'ArthurBot' ? 'A' : 'U'}
                   </div>
                 </div>
-              )}
-              {userBudgetInfo && (
-                <div className="bg-indigo-100 text-sm text-gray-800 rounded-lg py-2 px-4 mt-4">
-                  <h3 className="font-bold">Budget Information:</h3>
-                  <p><strong>Title:</strong> {userBudgetInfo.title}</p>
-                  <p><strong>Amount:</strong> {userBudgetInfo.amount}</p>
-                  <p><strong>Start Date:</strong> {userBudgetInfo.startDate?.toDate().toLocaleDateString()}</p>
-                  <p><strong>End Date:</strong> {userBudgetInfo.endDate?.toDate().toLocaleDateString()}</p>
-                  <p><strong>Created At:</strong> {userBudgetInfo.createdAt?.toDate().toLocaleDateString()}</p>
+                <div className={`chatbox-message-content ${msg.sender === 'ArthurBot' ? '' : 'user'}`}>
+                  {msg.sender === 'ArthurBot' ? (
+                    <div dangerouslySetInnerHTML={{ __html: msg.message }} />
+                  ) : (
+                    msg.message
+                  )}
                 </div>
-              )}
-            </div>
-            <form className="px-4 py-2 bg-gray-200 flex" onSubmit={handleSubmitSend}>
-              <input
-                type="text"
-                value={input}
-                onChange={(e) => setInput(capitalizeFirstLetterOfSentences(e.target.value))} // Capitalize the first letter of each sentence while typing
-                placeholder="Type a message..."
-                className="flex-grow px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              />
-              <button
-                type="submit"
-                className="ml-2 px-4 py-2 bg-indigo-500 text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              >
-                Send
-              </button>
-            </form>
+              </div>
+            ))}
+            {isTyping && (
+              <div className="chatbox-typing">
+                <div className="chatbox-message-content">
+                  <div className="animate-pulse">ArthurBot is typing...</div>
+                </div>
+              </div>
+            )}
+            {userBudgetInfo && (
+              <div className="chatbox-budget-info">
+                <h3 className="font-bold">Budget Information:</h3>
+                <p><strong>Title:</strong> {userBudgetInfo.title}</p>
+                <p><strong>Amount:</strong> {userBudgetInfo.amount}</p>
+                <p><strong>Start Date:</strong> {userBudgetInfo.startDate?.toDate().toLocaleDateString()}</p>
+                <p><strong>End Date:</strong> {userBudgetInfo.endDate?.toDate().toLocaleDateString()}</p>
+                <p><strong>Created At:</strong> {userBudgetInfo.createdAt?.toDate().toLocaleDateString()}</p>
+              </div>
+            )}
           </div>
-        )}
-      </div>
+          <form className="chatbox-footer" onSubmit={handleSubmitSend}>
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(capitalizeFirstLetterOfSentences(e.target.value))}
+              placeholder="Type a message..."
+              className="chatbox-input"
+            />
+            <button
+              type="submit"
+              className="chatbox-send-button"
+            >
+              Send
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };
