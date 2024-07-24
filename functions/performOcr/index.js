@@ -1,6 +1,7 @@
 const {onRequest} = require("firebase-functions/v2/https");
 const axios = require("axios");
 
+// Update key***
 const allowedOrigins = [
   "http://localhost:3000",
   "https://budget-application-chi.vercel.app",
