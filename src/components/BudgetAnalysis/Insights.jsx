@@ -9,6 +9,7 @@ import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import { format } from "date-fns";
 
+
 export default function Insights() {
   const user = useSelector((state) => state.auth.user);
   const { labelState, totalMoneySpent, totalBudgetLimit } = useExpenseData();
