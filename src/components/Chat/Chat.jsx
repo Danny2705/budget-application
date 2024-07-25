@@ -179,15 +179,15 @@ const Chat = ({ userId }) => {
               </svg>
             </button> 
           </header>
-          <div className="chatbox-content" ref={messageContainerRef}> // Add chatbox-content class
+          <div className="chatbox-content" ref={messageContainerRef}> 
             {messages.map((msg, index) => (
               <div key={index} className={`chatbox-message ${msg.sender === 'ArthurBot' ? 'assistant' : 'user'}`}>
                 <div className={`chatbox-avatar ${msg.sender === 'ArthurBot' ? '' : 'user'}`}>
                   <div className={msg.sender === 'ArthurBot' ? 'text-gray-800 text-xl' : 'text-white text-xl'}>
-                    {msg.sender === 'ArthurBot' ? 'A' : 'U'} /* Display 'A' for ArthurBot and 'U' for user */
+                    {msg.sender === 'ArthurBot' ? 'A' : 'U'} 
                   </div> 
                 </div>
-                <div className={`chatbox-message-content ${msg.sender === 'ArthurBot' ? '' : 'user'}`}> // Add user class
+                <div className={`chatbox-message-content ${msg.sender === 'ArthurBot' ? '' : 'user'}`}>
                   {msg.sender === 'ArthurBot' ? (
                     <div dangerouslySetInnerHTML={{ __html: msg.message }} /> // Display the message as HTML
                   ) : (
@@ -199,7 +199,7 @@ const Chat = ({ userId }) => {
             {isTyping && (
               <div className="chatbox-typing">
                 <div className="chatbox-message-content">
-                  <div className="animate-pulse">ArthurBot is typing...</div> // Typing indicator
+                  <div className="animate-pulse">ArthurBot is typing...</div> 
                 </div>
               </div>
             )}
@@ -214,7 +214,7 @@ const Chat = ({ userId }) => {
               </div>
             )}
           </div>
-          <form className="chatbox-footer" onSubmit={handleSubmitSend}> // Add chatbox-footer class
+          <form className="chatbox-footer" onSubmit={handleSubmitSend}> 
             <input
               type="text"
               value={input}
