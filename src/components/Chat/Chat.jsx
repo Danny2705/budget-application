@@ -65,7 +65,7 @@ const Chat = ({ userId }) => {
   }; // Function to capitalize the first letter of sentences
 
   const handleSend = async (message) => {
-    const capitalizedMessage = capitalizeFirstLetterOfSentences(message);
+    const capitalizedMessage = capitalizeFirstLetterOfSentences(message); // Capitalize the first letter of sentences
     const newMessage = {
       message: capitalizedMessage,
       direction: 'outgoing',
@@ -109,7 +109,7 @@ const Chat = ({ userId }) => {
             try {
               const transactionData = await getTransactionById(transactionId); // Fetch transaction data
 
-              console.log("Fetched transaction data:", transactionData);
+              console.log("Fetched transaction data:", transactionData); // Log transaction data
 
               if (transactionData) {
                 const { date, line_items, total, vendor, category } = transactionData;
@@ -129,15 +129,15 @@ const Chat = ({ userId }) => {
                           <strong>Description:</strong> ${item.description || 'N/A'}<br/>
                           <strong>Quantity:</strong> ${item.quantity || 'N/A'}<br/>
                           <strong>Type:</strong> ${item.type || 'N/A'}<br/>
-                          <strong>Total:</strong> $${item.total ? item.total.toFixed(2) : 'N/A'}
+                          <strong>Total:</strong> $${item.total ? item.total.toFixed(2) : 'N/A'} /* Display total amount */
                         </li>
                       `).join('')}
                     </ul>
-                    <li><strong>Total of Entire Transaction:</strong> $${total ? total.toFixed(2) : 'N/A'}</li>
+                    // <li><strong>Total of Entire Transaction:</strong> $${total ? total.toFixed(2) : 'N/A'}</li> /* Display total amount */
                   </ul>
                 `;
               } else {
-                responseMessage = `No line items available for transaction ID ${transactionId}.`;
+                responseMessage = `No line items available for transaction ID ${transactionId}.`; // Error message
               }
             } catch (error) {
               responseMessage = `Error: ${error.message}`; // Error message
@@ -179,7 +179,7 @@ const Chat = ({ userId }) => {
               </svg>
             </button> 
           </header>
-          <div className="chatbox-content" ref={messageContainerRef}>
+          <div className="chatbox-content" ref={messageContainerRef}> // Add chatbox-content class
             {messages.map((msg, index) => (
               <div key={index} className={`chatbox-message ${msg.sender === 'ArthurBot' ? 'assistant' : 'user'}`}>
                 <div className={`chatbox-avatar ${msg.sender === 'ArthurBot' ? '' : 'user'}`}>
@@ -214,7 +214,7 @@ const Chat = ({ userId }) => {
               </div>
             )}
           </div>
-          <form className="chatbox-footer" onSubmit={handleSubmitSend}>
+          <form className="chatbox-footer" onSubmit={handleSubmitSend}> // Add chatbox-footer class
             <input
               type="text"
               value={input}
