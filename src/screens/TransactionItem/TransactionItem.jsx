@@ -50,6 +50,7 @@ export default function TransactionItem() {
     getBudgetWithTransactions();
   }, [params, user]);
 
+  //ask chatgpt how to handle input change clean code
   const handleInputChange = (e, field, index) => {
     const updatedTransactions = { ...results.relatedTransactions };
     if (field.includes("line_items")) {
