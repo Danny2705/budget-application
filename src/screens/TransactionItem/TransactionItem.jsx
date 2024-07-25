@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../Layout/Layout";
 import { db } from "../../utils/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { IoMdClose } from "react-icons/io";
+import toast from "react-hot-toast";
 
 export default function TransactionItem() {
   const [results, setResults] = useState([]);
@@ -60,6 +61,20 @@ export default function TransactionItem() {
     setResults({ ...results, relatedTransactions: updatedTransactions });
   };
 
+  const handleSave = async () => {
+    try {
+      const transactionId = params.transaction;
+      await setDoc(
+        doc(db, "transactions", transactionId),
+        results.relatedTransactions
+      );
+      toast.success("Transaction updated successfully!");
+    } catch (error) {
+      console.error("Error updating transaction: ", error);
+      toast.error("Failed to update transaction.");
+    }
+  };
+
   return (
     <Layout>
       <div className='mt-[90px] relative'>
@@ -70,7 +85,7 @@ export default function TransactionItem() {
         <div className='mt-4 px-4 xl:px-20'>
           <div className='flex justify-between items-center'>
             <h1 className='large-h1-span border border-pink-400 hover:border-main-darkPink duration-200 cursor-pointer font-bold p-3 rounded-lg'>
-              {results.title} / {results.relatedTransactions?.id}
+              {results.titleLocal} / {results?.id}
             </h1>
 
             <div>
@@ -99,8 +114,8 @@ export default function TransactionItem() {
           </div>
 
           <div className='mt-10'>
-            <div className='overflow-y-scroll h-[700px] border border-gray-300 relative'>
-              <table className='min-w-full bg-white border border-gray-300  h-[500px] overflow-y-scroll'>
+            <div className='overflow-y-scroll max-h-[650px] border border-gray-300 relative'>
+              <table className='min-w-full bg-white border border-gray-300'>
                 <thead className='sticky top-0 w-full'>
                   <tr className='bg-gray-200 text-gray-600 uppercase text-sm leading-normal'>
                     <th className='py-3 px-2 text-center'>No.</th>
@@ -183,6 +198,14 @@ export default function TransactionItem() {
                 </tbody>
               </table>
             </div>
+          </div>
+          <div className='mt-4 w-full'>
+            <button
+              onClick={handleSave}
+              className='text-white w-full p-3 bg-main-neonPink hover:bg-main-darkPink duration-200 rounded-lg'
+            >
+              Save Changes
+            </button>
           </div>
         </div>
       </div>
