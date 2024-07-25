@@ -38,12 +38,12 @@ const Chat = ({ userId }) => {
       setChat(initialChat);
     }; // Initialize chat
 
-    initializeChat();
+    initializeChat(); // Initialize chat when the component mounts
   }, []);
 
   useEffect(() => {
     if (messageContainerRef.current) {
-      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight; // Scroll to the bottom of the chat container
     }
   }, [messages, isTyping]); // Scroll to the bottom of the chat container when messages change
 
@@ -58,7 +58,7 @@ const Chat = ({ userId }) => {
     }; // Function to fetch user's budget information
 
     fetchBudgetInfo();
-  }, [userId]);
+  }, [userId]); // Fetch user's budget information when the user ID changes
 
   const capitalizeFirstLetterOfSentences = (text) => {
     return text.replace(/(^\s*\w|[.!?]\s*\w)/g, (c) => c.toUpperCase());
@@ -72,18 +72,18 @@ const Chat = ({ userId }) => {
       sender: "user"
     }; // New message object
 
-    const newMessages = [...messages, newMessage];
+    const newMessages = [...messages, newMessage]; // Add the new message to the messages array
     setMessages(newMessages);
 
     setIsTyping(true);
-    await processMessage(newMessages);
+    await processMessage(newMessages); // Process the message
 
     await addMessage(newMessage);
   }; // Function to handle sending messages
 
   const handleSubmitSend = async (e) => {
     e.preventDefault();
-    if (input.trim() !== '') {
+    if (input.trim() !== '') { // Check if the input is not empty
       handleSend(input);
       setInput('');
     }
