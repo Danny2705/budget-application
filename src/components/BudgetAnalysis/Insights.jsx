@@ -5,6 +5,7 @@ import { CSVLink } from "react-csv";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import { transactionData } from "../TransactionTable/Data";
+import useExpenseData from "../../components/Chart/BarData";
 
 const styles = StyleSheet.create({
   page: {
@@ -70,6 +71,33 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+export const ReportSection = ({ title, amount, color }) => (
+  <div>
+    <h2>{title}</h2>
+    <h1 style={{ color }}>{amount}</h1>
+  </div>
+);
+
+export const ProgressBar = ({ value, max, color }) => (
+  <div style={{ backgroundColor: '#ddd', height: '20px', width: '100%', marginBottom: '10px' }}>
+    <div style={{ backgroundColor: color, width: `${(value / max) * 100}%`, height: '100%' }}></div>
+  </div>
+);
+
+export const Report = ({ data }) => (
+  <div>
+    {data.map((monthData, index) => (
+      <div key={index} style={{ backgroundColor: '#001f3f', padding: '20px', margin: '10px 0', color: '#fff' }}>
+        <h1>{monthData.month} {monthData.year}</h1>
+        <ReportSection title="Total Income" amount={`$${monthData.totalIncome}`} color="green" />
+        <ReportSection title="Total Expenses" amount={`$${monthData.totalExpenses}`} color="red" />
+        <ReportSection title="Total Savings" amount={`$${monthData.totalSavings}`} color="yellow" />
+        <ProgressBar value={monthData.totalSavings} max={monthData.totalIncome} color="yellow" />
+      </div>
+    ))}
+  </div>
+);
 
 export const ReportDocument = () => (
   <Document>
