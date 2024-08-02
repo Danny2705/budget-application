@@ -30,8 +30,8 @@ export default function CreateTransaction() {
     saveReceiptToFirestore(
       receiptWAllInfo.transactionNo,
       receiptWAllInfo,
-      imageURL
-      //userEmail,
+      imageURL,
+      budgetInfo.id,
     );
   };
 
