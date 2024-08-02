@@ -34,7 +34,6 @@ const generateTransactionNo = () => {
 };
 
 export const uploadImageToFirestore = async (localImage) => {
-  // const transactionNumber = generateRandomString(21);
   const transactionNumber = generateTransactionNo();
   try {
     const imageRef = storageRef(
@@ -66,7 +65,7 @@ export const saveReceiptToFirestore = async (
     console.log(receiptWithImageURLs);
     console.log("Receipt with image URLs", receiptWithImageURLs);
     await setDoc(doc(db, "transactions", receiptNo), receiptWithImageURLs);
-    const receiptRef = doc(db, `budgets/${budgetID}/receipts/${receiptNo}`);
+    const receiptRef = doc(db, `budgets/${budgetID}/transactions/${receiptNo}`);
     await setDoc(receiptRef, receiptWithImageURLs);
     console.log("Submitted to Firestore");
     alert("Receipt saved successfully!");
