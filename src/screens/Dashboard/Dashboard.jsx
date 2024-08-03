@@ -154,12 +154,6 @@ export default function Dashboard() {
           </div>
           <div>{isLoading ? <Skeleton height={450} /> : <BudgetImage />}</div>
 
-          <div className="">
-            <h1 className="text-main-darkPink font-bold text-2xl md:text-4xl lg:text-4xl mt-16 mb-8 tracking-wider text-center lg:text-left">
-              How much are your Savings?
-            </h1>
-          </div>
-
           <div className="mt-5">
             <h2 className="large-h1-span text-lg md:text-2xl font-bold tracking-wide">
               Recent Transactions

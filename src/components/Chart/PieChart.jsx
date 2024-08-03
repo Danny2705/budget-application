@@ -15,7 +15,6 @@ ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 export default function PieChart() {
   const [transactionLabels, setTransactionLabels] = useState([]);
   const [transactionAmount, setTransactionAmount] = useState([]);
-  // TODO: change if needed
   const [randomColor, setRandomColor] = useState([]);
 
   const options = {
@@ -23,9 +22,7 @@ export default function PieChart() {
     plugins: {
       datalabels: {
         color: "black",
-        
         display: true,
-        // reference from chatGPT: code was not modified
         formatter: (value, context) => {
           let sum = 0;
           const dataArr = context.chart.data.datasets[0].data;
@@ -50,24 +47,26 @@ export default function PieChart() {
         label: "Money spent",
         data: transactionAmount,
         borderColor: "none",
-        backgroundColor: ["rgb(255, 0, 0)",
-        "rgb(0, 255, 0)",
-        "rgb(0, 140, 255)",
-        "rgb(255, 255, 0)",
-        "rgb(0, 255, 255)",
-        "rgb(255, 0, 255)",
-        "rgb(255, 165, 0)",
-        "rgb(255, 192, 203)",
-        "rgb(0, 255, 255)",
-        "rgb(238, 130, 238)"],
+        backgroundColor: randomColor,
         hoverOffset: 4,
       },
     ],
   };
 
-  // Reference from ChatGPT: { i want to be able to iterate through transactions and sum the prices}
+  // Generate shades of dark pink
+  const generateDarkPinkShades = (numShades) => {
+    const shades = [];
+    for (let i = 0; i < numShades; i++) {
+      // Generate shades by varying the red and blue values while keeping the green value low
+      const r = 231 - i * 5;
+      const g = 84 - i * 2;
+      const b = 128 + i * 5;
+      shades.push(`rgb(${r}, ${g}, ${b})`);
+    }
+    return shades;
+  };
+
   useEffect(() => {
-    // Create a map to hold the total amount for each category
     const categoryAmountMap = new Map();
     transactionData.forEach((transaction) => {
       const category = transaction.Category;
@@ -82,21 +81,10 @@ export default function PieChart() {
       }
     });
 
-    // Extract the unique categories and their corresponding total amounts
     const transCategories = Array.from(categoryAmountMap.keys());
     const transAmounts = Array.from(categoryAmountMap.values());
 
-    // TODO: change if needed
-    const generateRandomColor = () => {
-      const letters = "0123456789ABCDEF";
-      let color = "#";
-      for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
-    };
-
-    const colors = transCategories.map(() => generateRandomColor());
+    const colors = generateDarkPinkShades(transCategories.length);
 
     setTransactionLabels(transCategories);
     setTransactionAmount(transAmounts);
@@ -105,7 +93,7 @@ export default function PieChart() {
 
   return (
     <div>
-      <div className="w-[700px] h-[500px]">
+      <div className="w-3/4">
         <Pie options={options} data={pieChartData} />
       </div>
     </div>

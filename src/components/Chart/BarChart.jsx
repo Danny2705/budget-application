@@ -132,7 +132,7 @@ export default function Barchart() {
   };
 
   return (
-    <div className="w-2/3">
+    <div className="w-full">
       <div className="flex justify-between mb-4">
         <button
           onClick={() => handleScroll("left")}
