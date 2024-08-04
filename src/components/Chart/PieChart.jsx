@@ -1,11 +1,6 @@
 import { Pie } from "react-chartjs-2";
 import { useState, useEffect } from "react";
-import {
-  Chart as ChartJS,
-  ArcElement,
-  Tooltip,
-  Legend,
-} from "chart.js";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { transactionData } from "../TransactionTable/Data";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 
@@ -34,7 +29,7 @@ export default function PieChart() {
         },
       },
       legend: {
-        position: "left",
+        position: "bottom",
       },
     },
   };
@@ -46,7 +41,18 @@ export default function PieChart() {
         label: "Money spent",
         data: transactionAmount,
         borderColor: "none",
-        backgroundColor: randomColor,
+        backgroundColor: [
+          "#ffe6f2",
+          "#ffccdd",
+          "#ffb3c9",
+          "#ff99b5",
+          "#ff80a0",
+          "#ff668c",
+          "#ff4d78",
+          "#ff3363",
+          "#ff1a4f",
+          "#ff003b",
+        ],
         hoverOffset: 4,
       },
     ],
@@ -57,9 +63,9 @@ export default function PieChart() {
     const shades = [];
     for (let i = 0; i < numShades; i++) {
       const ratio = i / (numShades - 1);
-      const r = 200;
-      const g = Math.floor(182 * (1 - ratio));
-      const b = Math.floor(193 * (1 - ratio));
+      const r = 255;
+      const g = Math.floor(192 * (1 - ratio)); // Adjust green component
+      const b = Math.floor(203 * (1 - ratio)); // Adjust blue component
       shades.push(`rgb(${r}, ${g}, ${b})`);
     }
     return shades;
@@ -91,8 +97,8 @@ export default function PieChart() {
   }, []);
 
   return (
-    <div>
-      <div className="w-3/4">
+    <div className="flex justify-center align-middle"> 
+      <div className="w-1/2">
         <Pie options={options} data={pieChartData} />
       </div>
     </div>

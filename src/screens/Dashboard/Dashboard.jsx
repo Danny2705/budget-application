@@ -22,7 +22,6 @@ export default function Dashboard() {
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [dataLoaded, setDataLoaded] = useState(false); // New state to track data load
 
   const getData = async () => {
     if (user) {
@@ -32,7 +31,6 @@ export default function Dashboard() {
         ...doc.data(),
       }));
       dispatch(setBudgets(budgetData));
-      setDataLoaded(true); // Set dataLoaded to true once data is fetched
     }
   };
 
@@ -42,15 +40,11 @@ export default function Dashboard() {
       setIsLoading(false);
     };
 
-    // Ensure that the loading state is shown for at least 2 seconds
-    const timer = setTimeout(() => {
-      fetchData();
-    }, 1000);
+    const timer = setTimeout(fetchData, 1000);
 
     return () => {
       clearTimeout(timer);
-      setIsLoading(true); // Reset loading state on unmount
-      setDataLoaded(false); // Reset dataLoaded state on unmount
+      setIsLoading(true);
     };
   }, [user, dispatch]);
 
@@ -67,9 +61,7 @@ export default function Dashboard() {
   return (
     <Layout>
       <div className="mt-[90px]">
-        <div>
-          <Search />
-        </div>
+        <Search />
 
         <div className="relative h-[300px] lg:h-[700px] md:h-[600px] sm:h-[500px] xl:h-[880px] w-full mt-[1rem] flex items-start justify-between px-4 xl:px-20">
           <h1 className="main-span font-bold mt-4 tracking-wider z-10 w-full text-[12vw] lg:w-[70%] xl:text-[6.5rem] xl:mt-[9rem] lg:text-[6rem] md:text-[5.5rem] sm:text-[4rem] right-0 text-right px-4 xl:px-20">
@@ -77,15 +69,17 @@ export default function Dashboard() {
           </h1>
           <div className="w-full flex flex-col justify-end items-end mt-[250px]">
             <div className="flex gap-4 mt-[8rem] mb-[2rem]">
-              <button className="text-white border border-main-neonPink px-[25px] py-[9px] z-10 duration-700 transition-all hover:bg-gradient-to-br hover:from-pink-600 hover:via-red-500 hover:to-purple-700 text-lg">
-                Dive into our Technology
-              </button>
-
-              <button className="text-white bg-main-neonPink px-[25px] py-[9px] z-10 hover:bg-gradient-to-br hover:from-pink-600 hover:via-red-500 hover:to-purple-700 duration-500 transition-all text-lg">
-                Learn about our Mission
-              </button>
+              <Link to="/about">
+                <button className="text-white border border-main-neonPink px-[25px] py-[9px] z-10 duration-700 transition-all hover:bg-gradient-to-br hover:from-pink-600 hover:via-red-500 hover:to-purple-700 text-lg">
+                  Dive into our Technology
+                </button>
+              </Link>
+              <Link to="/about">
+                <button className="text-white bg-main-neonPink px-[25px] py-[9px] z-10 hover:bg-gradient-to-br hover:from-pink-600 hover:via-red-500 hover:to-purple-700 duration-500 transition-all text-lg">
+                  Learn about our Mission
+                </button>
+              </Link>
             </div>
-
             <h2 className="text-white max-w-[19ch] text-2xl font-bold mb-4">
               Welcome to VioVault
             </h2>
@@ -166,7 +160,7 @@ export default function Dashboard() {
           </div>
 
           <div className="mt-5">
-            <h2 className="large-h1-span text-lg md:text-2xl font-bold tracking-wider text-center ">
+            <h2 className="large-h1-span text-lg md:text-2xl font-bold tracking-wider text-center">
               Intelligent OCR Technology
             </h2>
             {isLoading ? <Skeleton height={300} /> : <Scan />}

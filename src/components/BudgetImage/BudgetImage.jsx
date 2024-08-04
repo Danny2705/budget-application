@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function BudgetImage() {
   return (
@@ -14,9 +15,11 @@ export default function BudgetImage() {
             />
           </span>
         </span>
-        <button className='px-6 py-3 bg-secondary-pink text-white font-semibold rounded-lg shadow-md hover:bg-neon-pink transition duration-300'>
-          Set Budget Goal
-        </button>
+        <Link to='/budget'>
+          <button className='px-6 py-3 bg-secondary-pink text-white font-semibold rounded-lg shadow-md hover:bg-neon-pink transition duration-300'>
+            Set Budget Goal
+          </button>
+        </Link>
       </div>
 
       <div className='w-full lg:w-1/2 overflow-hidden'>

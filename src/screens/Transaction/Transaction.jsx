@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "../Layout/Layout";
 import RecentBudgetTransTable from "../../components/TransactionTable/RecentBudgetTransTable";
 import PieChart from "../../components/Chart/PieChart";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Quotes from "../../components/Text/GenerateRandomQuote";
 import CreateNewTransactionButton from "../../components/CreateTransaction/CreateNewTransactionButton";
@@ -12,22 +12,12 @@ export default function Transaction() {
   const budgets = useSelector((state) => state.budgets.budgets);
   const budgetInfo = budgets.find((budget) => budget.id === id);
 
-  console.log("Budget ID:", budgetInfo.id);
-
-  console.log("Budgets:", budgets);
-  console.log("Budget Info:", budgetInfo);
-
   return (
     <Layout>
       <div className="mt-[90px] px-4 xl:px-20">
         <h1 className="text-main-darkPink text-2xl md:text-4xl lg:text-4xl mt-20 tracking-wider text-center lg:text-left capitalize flex gap-3">
-          <div
-            className="text-white font-bold 
-          "
-          >
-            {budgetInfo?.title}
-          </div>{" "}
-          <div>Budget {budgetInfo?.titleLocal} Transaction Summary</div>
+          <span className="text-white font-bold">{budgetInfo?.title}</span>
+          Budget {budgetInfo?.titleLocal} Transaction Summary
         </h1>
         <div className="flex flex-col lg:flex-row items-center gap-8">
           <div className="w-full lg:w-1/2">
@@ -47,9 +37,10 @@ export default function Transaction() {
           </div>
         </div>
 
-        <PieChart />
+        <div className="">
+          <PieChart />
+        </div>
 
-        <div></div>
         <div className="flex items-center w-full justify-between">
           <h2 className="text-lg mt-12 text-main-neonPink neon-text-shadow">
             Recent Transactions

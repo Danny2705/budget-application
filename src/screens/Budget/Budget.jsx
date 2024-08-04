@@ -1,7 +1,6 @@
 import React from "react";
 import Layout from "../Layout/Layout";
 import SetBudgetGoal from "../../components/SetBudgetGoal/SetBudgetGoal";
-import ParticleRing from "../../components/ParticleRing/ParticleRing";
 import CountUp from "react-countup";
 import { Bar } from "react-chartjs-2";
 import Quotes from "../../components/Text/GenerateRandomQuote";
@@ -81,8 +80,6 @@ export default function Budget() {
                           Managing budgets daily
                         </p>
                       </div>
-                      {/* TODO: remove from this page */}
-                      <div>{/* <LineGraph/> */}</div>
                     </div>
                   </div>
                 </section>
@@ -95,7 +92,6 @@ export default function Budget() {
           </div>
 
           <div>
-            {/* <ParticleRing />/s */}
           </div>
         </div>
       </div>
