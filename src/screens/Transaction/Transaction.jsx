@@ -29,17 +29,25 @@ export default function Transaction() {
           </div>{" "}
           <div>Budget {budgetInfo?.titleLocal} Transaction Summary</div>
         </h1>
+        <div className="flex flex-col lg:flex-row items-center gap-8">
+          <div className="w-full lg:w-1/2">
+            <img
+              src="/lap.png"
+              alt="Setting Budget Goal"
+              className="w-full rounded-lg shadow-lg object-cover"
+            />
+          </div>
           <div className="w-full lg:w-1/2 text-center lg:text-left text-white">
-            <h2 className="large-h1-span text-xl lg:text-5xl font-semibold text-main-darkPink py-4">
+            <h2 className="large-h1-span text-xl lg:text-5xl font-semibold text-main-darkPink py-2">
               Master the Principles of Budget Saving
             </h2>
             <p className="mt-4 text-lg leading-8">
               <Quotes />
             </p>
           </div>
+        </div>
 
-          <PieChart />
-
+        <PieChart />
 
         <div></div>
         <div className="flex items-center w-full justify-between">
@@ -51,7 +59,7 @@ export default function Transaction() {
           </div>
         </div>
         <RecentBudgetTransTable />
-          <CreateNewTransactionButton budgetIDNo={budgetInfo.id}/>
+        <CreateNewTransactionButton budgetIDNo={budgetInfo.id} />
       </div>
     </Layout>
   );

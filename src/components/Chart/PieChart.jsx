@@ -5,7 +5,6 @@ import {
   ArcElement,
   Tooltip,
   Legend,
-  plugins,
 } from "chart.js";
 import { transactionData } from "../TransactionTable/Data";
 import ChartDataLabels from "chartjs-plugin-datalabels";
@@ -53,14 +52,14 @@ export default function PieChart() {
     ],
   };
 
-  // Generate shades of dark pink
-  const generateDarkPinkShades = (numShades) => {
+  // Generate a range of pink shades from light to dark
+  const generatePinkShades = (numShades) => {
     const shades = [];
     for (let i = 0; i < numShades; i++) {
-      // Generate shades by varying the red and blue values while keeping the green value low
-      const r = 231 - i * 5;
-      const g = 84 - i * 2;
-      const b = 128 + i * 5;
+      const ratio = i / (numShades - 1);
+      const r = 200;
+      const g = Math.floor(182 * (1 - ratio));
+      const b = Math.floor(193 * (1 - ratio));
       shades.push(`rgb(${r}, ${g}, ${b})`);
     }
     return shades;
@@ -84,7 +83,7 @@ export default function PieChart() {
     const transCategories = Array.from(categoryAmountMap.keys());
     const transAmounts = Array.from(categoryAmountMap.values());
 
-    const colors = generateDarkPinkShades(transCategories.length);
+    const colors = generatePinkShades(transCategories.length);
 
     setTransactionLabels(transCategories);
     setTransactionAmount(transAmounts);
