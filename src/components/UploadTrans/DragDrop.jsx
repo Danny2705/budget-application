@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { FileUploader } from "react-drag-drop-files";
 import "../../App.scss";
 import { uploadImageToFirestore } from "../../utils/firebase";
 import { useDropzone } from "react-dropzone";
 import { performOcr } from "../../utils/ocrVeryfi";
-import { Public } from "@mui/icons-material";
 import mergeImages from "merge-images";
-import { set } from "date-fns";
+import { auth } from "../../utils/firebase";
 
 const fileTypes = ["png", "jpeg", "jpg", "pdf"];
 
@@ -83,6 +81,7 @@ const DragDrop = ({
     }
     return new File([u8arr], fileName, { type: mime });
   };
+
   useEffect(() => {
     if (uploadedFiles.length > 0) {
       runMergeImages(uploadedFiles);
@@ -98,11 +97,17 @@ const DragDrop = ({
   }, [imageB64]);
 
   useEffect(() => {
-    if (transactionNo) {
-      setReceiptWBgtTransNo({ ...receiptJsonData, transactionNo, budgetID });
-      console.log("receipt with trans no", receiptWBgtTransNo);
+    const currentUser = auth.currentUser;
+    if (transactionNo && currentUser) {
+      setReceiptWBgtTransNo({
+        ...receiptJsonData,
+        transactionNo,
+        budgetID,
+        uid: currentUser.uid,
+      });
     }
   }, [transactionNo, receiptJsonData]);
+
 
   useEffect(() => {
     if (fireImageURL) {
