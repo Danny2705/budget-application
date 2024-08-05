@@ -1,6 +1,4 @@
 import * as React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
 // code referenced from figma and edited by Emon//
 
@@ -67,7 +65,7 @@ export default function RecentTransaction() {
     // chatgpt used to add overflow. Prompt: "How to add overflow to the parent div to make the table scrollable horizontally."
     <div className='wrapper mx-auto gap-1 py-4 w-full overflow-x-auto md:overflow-x-visible'>
       <div className=''>
-        <div className='grid grid-cols-10 gap-2  rounded-t-xl p-4 text-sm font-bold text-white bg-gradient-to-r from-purple-500 via-pink-500 to-red-500'>
+        <div className='grid grid-cols-9 gap-2  rounded-t-xl p-4 text-sm font-bold text-white bg-gradient-to-r from-purple-500 via-pink-500 to-red-500'>
           <div className='text-center'>Transaction No.</div>
           <div className='text-center'>Budget No.</div>
           <div className='text-center'>Budget Name</div>
@@ -77,12 +75,12 @@ export default function RecentTransaction() {
           <div className='text-center'>Subtotal</div>
           <div className='text-center'>Tax</div>
           <div className='text-center'>Total</div>
-          <div className='text-center'>Action</div>
+          {/* <div className='text-center'>Action</div> */}
         </div>
         {transactions.map((transaction, index) => (
           <div
             key={transaction.id}
-            className={`grid grid-cols-10 gap-2 p-4 ${
+            className={`grid grid-cols-9 gap-2 p-4 ${
               index % 2 === 0 ? "bg-gray-800" : "bg-gray-700"
             } text-white`}
           >
@@ -99,7 +97,7 @@ export default function RecentTransaction() {
             <div className='text-center'>{transaction.subtotal}</div>
             <div className='text-center'>{transaction.tax}</div>
             <div className='text-center'>{transaction.total}</div>
-            <div className='flex justify-center gap-2'>
+            {/* <div className='flex justify-center gap-2'>
               <button className='pr-[16px]'>
                 <FontAwesomeIcon
                   icon={faPenToSquare}
@@ -112,7 +110,7 @@ export default function RecentTransaction() {
                   style={{ color: "#DD5250" }}
                 />
               </button>
-            </div>
+            </div> */}
           </div>
         ))}
       </div>
