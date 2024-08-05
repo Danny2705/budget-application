@@ -33,17 +33,6 @@ const generateTransactionNo = () => {
     .join("-")}`;
 };
 
-//Refers from Demo
-const generateRandomString = (length) => {
-  let result = "";
-  const characters = "0123456789";
-  const charactersLength = characters.length;
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-  return result;
-};
-
 export const uploadImageToFirestore = async (localImage) => {
   // const transactionNumber = generateRandomString(21);
   const transactionNumber = generateTransactionNo();
@@ -66,19 +55,19 @@ export const uploadImageToFirestore = async (localImage) => {
 export const saveReceiptToFirestore = async (
   receiptNo,
   receiptData,
-  imageUrl
-  //userEmail
+  imageUrl,
+  budgetID
 ) => {
   try {
-    //cannot add user email to receipt object
     const receiptWithImageURLs = {
       ...receiptData,
       imageURLs: [imageUrl],
-      //userEmail,
     };
     console.log(receiptWithImageURLs);
     console.log("Receipt with image URLs", receiptWithImageURLs);
     await setDoc(doc(db, "transactions", receiptNo), receiptWithImageURLs);
+    const receiptRef = doc(db, `budgets/${budgetID}/receipts/${receiptNo}`);
+    await setDoc(receiptRef, receiptWithImageURLs);
     console.log("Submitted to Firestore");
     alert("Receipt saved successfully!");
   } catch (error) {
@@ -90,22 +79,23 @@ export const saveBudgetToFireDB = async (
   budgetTitle,
   budgetAmount,
   budgetStartDate,
-  budgetEndtDate,
-  //budgetNumber,
-  //userEmail
+  budgetEndtDate
 ) => {
-  if(budgetTitle === "" || budgetAmount === "" || budgetStartDate === "" || budgetEndtDate === ""){
+  if (
+    budgetTitle === "" ||
+    budgetAmount === "" ||
+    budgetStartDate === "" ||
+    budgetEndtDate === ""
+  ) {
     alert("Please enter all the fields");
     return;
   }
   try {
-    //cannot add user email to receipt object
     const userBudget = {
       Title: budgetTitle,
       Amount: budgetAmount,
       StartDate: budgetStartDate,
       EndDate: budgetEndtDate,
-      //userEmail,
     };
     console.log(userBudget);
     console.log("saveBudgetToFireDB: userBudget", userBudget);
