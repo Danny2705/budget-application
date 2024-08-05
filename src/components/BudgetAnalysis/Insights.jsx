@@ -1,6 +1,13 @@
 import React from "react";
 import { FiDownload } from "react-icons/fi";
-import { Document, Page, Text, View, StyleSheet, PDFDownloadLink } from "@react-pdf/renderer";
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  PDFDownloadLink,
+} from "@react-pdf/renderer";
 import { CSVLink } from "react-csv";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
@@ -11,64 +18,64 @@ const styles = StyleSheet.create({
   page: {
     padding: 30,
     fontSize: 12,
-    fontFamily: 'Helvetica',
-    color: '#333',
+    fontFamily: "Helvetica",
+    color: "#333",
   },
   header: {
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 20,
   },
   title: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 10,
   },
   subTitle: {
     fontSize: 12,
     marginBottom: 5,
-    color: 'gray',
+    color: "gray",
   },
   summary: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginVertical: 10,
   },
   summaryItem: {
     flex: 1,
     padding: 10,
     margin: 5,
-    border: '1px solid #ccc',
+    border: "1px solid #ccc",
     borderRadius: 5,
-    textAlign: 'center',
+    textAlign: "center",
   },
   summaryTitle: {
     fontSize: 10,
     marginBottom: 5,
-    fontWeight: 'bold',
-    color: 'gray',
+    fontWeight: "bold",
+    color: "gray",
   },
   summaryValue: {
     fontSize: 12,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   receiptList: {
     marginTop: 20,
-    borderTop: '1px solid #ccc',
+    borderTop: "1px solid #ccc",
     paddingTop: 10,
   },
   receiptItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 5,
   },
   footer: {
     marginTop: 20,
-    borderTop: '1px solid #ccc',
+    borderTop: "1px solid #ccc",
     paddingTop: 10,
     fontSize: 10,
-    color: 'gray',
-    textAlign: 'center',
+    color: "gray",
+    textAlign: "center",
   },
 });
 
@@ -80,20 +87,59 @@ export const ReportSection = ({ title, amount, color }) => (
 );
 
 export const ProgressBar = ({ value, max, color }) => (
-  <div style={{ backgroundColor: '#ddd', height: '20px', width: '100%', marginBottom: '10px' }}>
-    <div style={{ backgroundColor: color, width: `${(value / max) * 100}%`, height: '100%' }}></div>
+  <div
+    style={{
+      backgroundColor: "#ddd",
+      height: "20px",
+      width: "100%",
+      marginBottom: "10px",
+    }}
+  >
+    <div
+      style={{
+        backgroundColor: color,
+        width: `${(value / max) * 100}%`,
+        height: "100%",
+      }}
+    ></div>
   </div>
 );
 
 export const Report = ({ data }) => (
   <div>
     {data.map((monthData, index) => (
-      <div key={index} style={{ backgroundColor: '#001f3f', padding: '20px', margin: '10px 0', color: '#fff' }}>
-        <h1>{monthData.month} {monthData.year}</h1>
-        <ReportSection title="Total Income" amount={`$${monthData.totalIncome}`} color="green" />
-        <ReportSection title="Total Expenses" amount={`$${monthData.totalExpenses}`} color="red" />
-        <ReportSection title="Total Savings" amount={`$${monthData.totalSavings}`} color="yellow" />
-        <ProgressBar value={monthData.totalSavings} max={monthData.totalIncome} color="yellow" />
+      <div
+        key={index}
+        style={{
+          backgroundColor: "#001f3f",
+          padding: "20px",
+          margin: "10px 0",
+          color: "#fff",
+        }}
+      >
+        <h1>
+          {monthData.month} {monthData.year}
+        </h1>
+        <ReportSection
+          title="Total Income"
+          amount={`$${monthData.totalIncome}`}
+          color="green"
+        />
+        <ReportSection
+          title="Total Expenses"
+          amount={`$${monthData.totalExpenses}`}
+          color="red"
+        />
+        <ReportSection
+          title="Total Savings"
+          amount={`$${monthData.totalSavings}`}
+          color="yellow"
+        />
+        <ProgressBar
+          value={monthData.totalSavings}
+          max={monthData.totalIncome}
+          color="yellow"
+        />
       </div>
     ))}
   </div>
@@ -113,7 +159,9 @@ export const ReportDocument = () => (
         </View>
         <View style={styles.summaryItem}>
           <Text style={styles.summaryTitle}>Date</Text>
-          <Text style={styles.summaryValue}>{new Date().toLocaleDateString()}</Text>
+          <Text style={styles.summaryValue}>
+            {new Date().toLocaleDateString()}
+          </Text>
         </View>
         <View style={styles.summaryItem}>
           <Text style={styles.summaryTitle}>Type</Text>
@@ -133,7 +181,10 @@ export const ReportDocument = () => (
       </View>
       <View style={styles.footer}>
         <Text>
-          Viovault simplifies saving by analyzing your spending and automatically setting aside money for your goals. Effortlessly build your savings with personalized suggestions and automated transfers. Achieve financial security with ease using Viovault.
+          Viovault simplifies saving by analyzing your spending and
+          automatically setting aside money for your goals. Effortlessly build
+          your savings with personalized suggestions and automated transfers.
+          Achieve financial security with ease using Viovault.
         </Text>
       </View>
     </Page>
@@ -152,9 +203,12 @@ export const ExportButtons = () => {
 
   return (
     <div className="mt-6 text-center flex gap-1 justify-center">
-      <PDFDownloadLink document={<ReportDocument />} fileName="Vio Vault report.pdf">
+      <PDFDownloadLink
+        document={<ReportDocument />}
+        fileName="Vio Vault report.pdf"
+      >
         {({ loading }) => (
-          <button className="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow inline-flex items-center">
+          <button className="text-white border border-main-neonPink px-[25px] py-[9px] z-10 hover:bg-gradient-to-br hover:from-pink-600 hover:via-red-500 hover:to-purple-700 text-lg">
             <FiDownload className="mr-2 text-xl" />
             {loading ? "Generating PDF..." : "Download PDF report"}
           </button>
@@ -170,14 +224,14 @@ export const ExportButtons = () => {
           { label: "Total", key: "Total" },
         ]}
         filename="Vio Vault report.csv"
-        className="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg shadow inline-flex items-center"
+        className="text-white border border-main-neonPink px-[25px] py-[9px] z-10 hover:bg-gradient-to-br hover:from-pink-600 hover:via-red-500 hover:to-purple-700 text-lg"
       >
         <FiDownload className="mr-2 text-xl" />
         Download CSV
       </CSVLink>
       <button
         onClick={exportToExcel}
-        className="bg-green-400 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-lg shadow inline-flex items-center"
+        className="text-white border border-main-neonPink px-[25px] py-[9px] z-10 hover:bg-gradient-to-br hover:from-pink-600 hover:via-red-500 hover:to-purple-700 text-lg"
       >
         <FiDownload className="mr-2 text-xl" />
         Download Excel

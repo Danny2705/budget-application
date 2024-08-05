@@ -70,7 +70,7 @@ export default function Dashboard() {
           <div className="w-full flex flex-col justify-end items-end mt-[250px]">
             <div className="flex gap-4 mt-[8rem] mb-[2rem]">
               <Link to="/about">
-                <button className="text-white border border-main-neonPink px-[25px] py-[9px] z-10 duration-700 transition-all hover:bg-gradient-to-br hover:from-pink-600 hover:via-red-500 hover:to-purple-700 text-lg">
+                <button className="text-white border border-main-neonPink px-[25px] py-[9px] z-10 hover:bg-gradient-to-br hover:from-pink-600 hover:via-red-500 hover:to-purple-700 text-lg">
                   Dive into our Technology
                 </button>
               </Link>
