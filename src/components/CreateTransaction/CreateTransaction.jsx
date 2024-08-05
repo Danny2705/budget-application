@@ -34,6 +34,7 @@ export default function CreateTransaction() {
       imageURL,
       budgetInfo.id
     );
+    console.log(receiptWAllInfo.line_items);
   };
 
   return (
@@ -56,8 +57,14 @@ export default function CreateTransaction() {
         ) : (
           receiptData && (
             <>
-              <NewTransVenderTable receiptInfo={receiptData} />
-              <NewTransLineItemsTable receiptInfo={receiptData} />
+              <NewTransVenderTable
+                receiptInfo={receiptWAllInfo}
+                setReceiptData={setReceiptWAllInfo}
+              />
+              <NewTransLineItemsTable
+                receiptInfo={receiptWAllInfo}
+                setReceiptData={setReceiptWAllInfo}
+              />
             </>
           )
         )}

@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-export default function RecentBudgetTransTable({ receiptInfo }) {
-  const user = useSelector((state) => state.auth.user);
+export default function RecentBudgetTransTable({
+  receiptInfo,
+  setReceiptData,
+}) {
   const navigate = useNavigate();
+
+  const handleInputChange = (e, field) => {
+    const { value } = e.target;
+    setReceiptData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+  };
 
   return (
     <div className='flex justify-center items-center'>
@@ -42,36 +52,71 @@ export default function RecentBudgetTransTable({ receiptInfo }) {
                   </span>
                 </td>
                 <td className='p-4 text-center break-words'>
-                  {receiptInfo?.vendor?.name || "N/A"}
+                  <input
+                    type='text'
+                    value={receiptInfo?.vendor?.name || ""}
+                    onChange={(e) => handleInputChange(e, "vendorName")}
+                    className='w-full bg-transparent border-gray-600 rounded px-2 py-1 text-center'
+                  />
                 </td>
                 <td className='p-4 text-center break-words'>
-                  {receiptInfo?.date || "N/A"}
+                  <input
+                    type='text'
+                    value={receiptInfo?.date || ""}
+                    onChange={(e) => handleInputChange(e, "date")}
+                    className='w-full bg-transparent border-gray-600 rounded px-2 py-1 text-center'
+                  />
                 </td>
-                <td className='p-4 text-center  text-ellipsis'>
-                  {receiptInfo?.vendor?.address || "N/A"}
+                <td className='p-4 text-center text-ellipsis'>
+                  <input
+                    type='text'
+                    value={receiptInfo?.vendor?.address || "N/A"}
+                    onChange={(e) => handleInputChange(e, "vendorAddress")}
+                    className='w-full bg-transparent border-gray-600 rounded px-2 py-1 text-center'
+                  />
                 </td>
                 <td className='p-4 text-center break-words'>
-                  {receiptInfo?.category || "N/A"}
+                  <input
+                    type='text'
+                    value={receiptInfo?.category || ""}
+                    onChange={(e) => handleInputChange(e, "category")}
+                    className='w-full bg-transparent border-gray-600 rounded px-2 py-1 text-center'
+                  />
                 </td>
                 <td className='p-4 text-center break-words'>
-                  {receiptInfo?.subtotal || "0"}
+                  <input
+                    type='text'
+                    value={receiptInfo?.subtotal || 0}
+                    onChange={(e) => handleInputChange(e, "subtotal")}
+                    className='w-full bg-transparent border-gray-600 rounded px-2 py-1 text-center'
+                  />
                 </td>
                 <td className='p-4 text-center break-words'>
-                  {receiptInfo?.tax || "0"}
+                  <input
+                    type='text'
+                    value={receiptInfo?.tax || 0}
+                    onChange={(e) => handleInputChange(e, "tax")}
+                    className='w-full bg-transparent border-gray-600 rounded px-2 py-1 text-center'
+                  />
                 </td>
                 <td className='p-4 text-center break-words'>
-                  {receiptInfo?.tip || "0"}
+                  <input
+                    type='text'
+                    value={receiptInfo?.tip || 0}
+                    onChange={(e) => handleInputChange(e, "tip")}
+                    className='w-full bg-transparent border-gray-600 rounded px-2 py-1 text-center'
+                  />
                 </td>
                 <td className='p-4 py-2 break-words text-center'>
-                  {receiptInfo?.total || "0"}
+                  <input
+                    type='text'
+                    value={receiptInfo?.total || 0}
+                    onChange={(e) => handleInputChange(e, "total")}
+                    className='w-full bg-transparent border-gray-600 rounded px-2 py-1 text-center'
+                  />
                 </td>
               </tr>
             </tbody>
-            <tfoot>
-              <tr className='bg-gradient-to-r from-purple-500 via-pink-500 to-red-500'>
-                <td colSpan='9' className='rounded-b-lg'></td>
-              </tr>
-            </tfoot>
           </table>
         </div>
       </div>

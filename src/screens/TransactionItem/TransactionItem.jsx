@@ -75,7 +75,7 @@ export default function TransactionItem() {
       toast.error("Failed to update transaction.");
     }
   };
-
+  console.log(results.relatedTransactions?.line_items);
   return (
     <Layout>
       <div className='mt-[90px] relative'>
@@ -163,7 +163,9 @@ export default function TransactionItem() {
                           <input
                             type='text'
                             value={
-                              (item.total / item.quantity).toFixed(2) || ""
+                              item.price ||
+                              (item.total / item.quantity).toFixed(2) ||
+                              0
                             }
                             onChange={(e) =>
                               handleInputChange(e, `line_items.price`, index)
