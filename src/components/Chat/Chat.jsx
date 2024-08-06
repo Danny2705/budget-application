@@ -129,11 +129,11 @@ const Chat = ({ userId }) => {
                           <strong>Description:</strong> ${item.description || 'N/A'}<br/>
                           <strong>Quantity:</strong> ${item.quantity || 'N/A'}<br/>
                           <strong>Type:</strong> ${item.type || 'N/A'}<br/>
-                          <strong>Total:</strong> $${item.total ? item.total.toFixed(2) : 'N/A'}
+                          <strong>Total:</strong> $${item.total ? item.total.toFixed(2) : 'N/A'} 
                         </li>
                       `).join('')}
                     </ul>
-                   <li><strong>Total of Entire Transaction:</strong> $${total ? total.toFixed(2) : 'N/A'}</li> 
+                    <li><strong>Total of Entire Transaction:</strong> $${total ? total.toFixed(2) : 'N/A'}</li> 
                   </ul>
                 `;
               } else {
