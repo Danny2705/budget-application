@@ -13,6 +13,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 import { setBudgets } from "../../redux/budgetSlice";
+import PieChart from "../../components/Chart/PieChart";
 
 export default function Dashboard() {
   const budgets = useSelector((state) => state.budgets.budgets);
@@ -162,7 +163,6 @@ export default function Dashboard() {
               <RecentTransaction />
             )}
           </div>
-
           <div className='mt-5'>
             <h2 className='large-h1-span text-lg md:text-2xl font-bold tracking-wider text-center'>
               Intelligent OCR Technology

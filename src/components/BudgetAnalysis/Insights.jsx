@@ -1,4 +1,3 @@
-import React from "react";
 import { FiDownload } from "react-icons/fi";
 import {
   Document,
@@ -12,9 +11,11 @@ import { CSVLink } from "react-csv";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import { transactionData } from "../TransactionTable/Data";
-import useExpenseData from "../../components/Chart/BarData";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import React, { useState, useEffect } from "react";
 
-const styles = StyleSheet.create({
+
+styles = StyleSheet.create({
   page: {
     padding: 30,
     fontSize: 12,

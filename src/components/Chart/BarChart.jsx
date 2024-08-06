@@ -47,7 +47,7 @@ export default function Barchart() {
       },
       legend: {
         position: "top",
-        labels: { padding : 10}
+        labels: { padding: 10 }
       },
       datalabels: {
         anchor: "end",

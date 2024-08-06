@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Quotes from "../../components/Text/GenerateRandomQuote";
 import CreateNewTransactionButton from "../../components/CreateTransaction/CreateNewTransactionButton";
+import Barchart from "../../components/Chart/BarChart";
 
 export default function Transaction() {
   const { id } = useParams();
@@ -20,27 +21,22 @@ export default function Transaction() {
             className="text-white font-bold 
           "
           >
-            {budgetInfo?.title}
+            {budgetInfo?.titleLocal}
           </div>{" "}
-          <div>Budget {budgetInfo?.titleLocal} Transaction Summary</div>
+          <div>Transaction Summary</div>
         </h1>
-        <div className="flex flex-col lg:flex-row items-center gap-8 text-white">
-          <PieChart />
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-8 py-3 text-white">
           <div className="w-full lg:w-1/2 text-center lg:text-left">
             <h2 className="large-h1-span text-xl lg:text-5xl font-semibold text-main-darkPink py-4">
               Master the Principles of Budget Saving
             </h2>
-            <p className='mt-4 text-lg leading-8'>
+            <p className="mt-4 text-lg leading-8">
               <Quotes />
             </p>
           </div>
         </div>
 
-        <div className="">
-          <PieChart />
-        </div>
-
-
+        <PieChart />
         <RecentBudgetTransTable />
         <CreateNewTransactionButton budgetIDNo={budgetInfo.id} />
       </div>

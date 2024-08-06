@@ -85,8 +85,7 @@ const Overview = () => {
                 ${expenses}
               </div>
               <div className="w-full mt-3">
-                <p className="text-center text-sm">Total Monthly Expenses</p>
-                <div className="bar w-full bg-[#f75486] h-3 my-2"></div>
+                <p className="text-center text-2xl">Total Monthly Expenses</p>
               </div>
               <div className="flex w-full items-center justify-between text-sm text-[#f75486]">
                 <p>
