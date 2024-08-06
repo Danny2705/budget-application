@@ -8,6 +8,7 @@ import {
   uploadBytes,
 } from "firebase/storage";
 import { getHours, getMinutes } from "date-fns";
+import toast from "react-hot-toast";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAtA55wstINLnhPcN5v4KVV5tmBr4Ryuaw",
@@ -68,7 +69,7 @@ export const saveReceiptToFirestore = async (
     const receiptRef = doc(db, `budgets/${budgetID}/transactions/${receiptNo}`);
     await setDoc(receiptRef, receiptWithImageURLs);
     console.log("Submitted to Firestore");
-    alert("Receipt saved successfully!");
+    toast.success("Receipt saved successfully!");
   } catch (error) {
     console.error("Error adding item to Firestore:", error);
   }

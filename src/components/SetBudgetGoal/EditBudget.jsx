@@ -6,14 +6,14 @@ import { useSelector } from "react-redux";
 import DateCalendar from "../NewBudget/DateCalendar";
 
 export default function EditBudget({ data, onClose, getData }) {
-  const [title, setTitle] = useState(data.title);
+  const [title, setTitle] = useState(data.titleLocal);
   const [amount, setAmount] = useState(data.amount);
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
   const user = useSelector((state) => state.auth.user);
 
   useEffect(() => {
-    setTitle(data.title);
+    setTitle(data.titleLocal);
     setAmount(data.amount);
     if (data.startDate && data.startDate.seconds) {
       setSelectedStartDate(new Date(data.startDate.seconds * 1000));
@@ -37,7 +37,7 @@ export default function EditBudget({ data, onClose, getData }) {
     }
 
     const docData = {
-      title,
+      titleLocal: title,
       amount,
       startDate: selectedStartDate,
       endDate: selectedEndDate,
