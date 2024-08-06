@@ -115,7 +115,6 @@ const Overview = () => {
           <Barchart />
         </div>
 
-        {/* Add ExportButtons component here */}
         <div className="mt-10">
           <ExportButtons />
         </div>
