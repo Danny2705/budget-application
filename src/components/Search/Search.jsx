@@ -55,13 +55,13 @@ export default function Search() {
                 console.log(result),
                 (
                   <Link
-                    to={`transaction/${result.id}`}
-                    key={result.id}
+                    to={`transaction/${result?.id}`}
+                    key={result?.id}
                     className='flex mb-3 w-full gap-4 border-b pb-3'
                   >
                     <li>
                       <img
-                        src={result.vendor.logo}
+                        src={result?.vendor?.logo}
                         alt='Vendor logo'
                         width={100}
                         className='rounded-full'
@@ -71,8 +71,8 @@ export default function Search() {
                       <div>
                         <div>
                           <span className='large-h1-span'>Address:</span>{" "}
-                          {result?.vendor.address
-                            ? result?.vendor.address
+                          {result?.vendor?.address
+                            ? result?.vendor?.address
                             : "updating..."}
                         </div>
                         <div>
@@ -81,8 +81,8 @@ export default function Search() {
                         </div>
                         <div>
                           <span className='large-h1-span'>Type:</span>{" "}
-                          {result?.vendor.type
-                            ? result?.vendor.type
+                          {result?.vendor?.type
+                            ? result?.vendor?.type
                             : "updating..."}
                         </div>
                         <div>

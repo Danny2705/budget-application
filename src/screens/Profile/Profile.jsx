@@ -25,6 +25,7 @@ import { motion } from "framer-motion";
 const Profile = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -125,8 +126,18 @@ const Profile = () => {
     }
   };
 
+  const validateEmail = (email) => {
+    const emailRegex = /\S+@\S+\.\S+/;
+    return emailRegex.test(email);
+  };
+
   const onSubmit = async (event) => {
     event.preventDefault();
+
+    if (!validateEmail(email)) {
+      setEmailError("Invalid email format");
+      return;
+    }
 
     const isNameEmailChanged =
       name !== user.displayName || email !== user.email;
@@ -231,10 +242,12 @@ const Profile = () => {
               <input
                 id='name'
                 type='text'
+                maxLength={15}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:border-main-neonPink  caret-main-neonPink focus:outline-none focus:shadow-outline'
+                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:border-main-neonPink caret-main-neonPink focus:outline-none focus:shadow-outline'
               />
+              <p className='text-gray-500 text-sm mt-1'>{name.length}/15</p>
             </div>
             <div className='mb-6'>
               <label
@@ -247,120 +260,95 @@ const Profile = () => {
                 id='user-email'
                 type='text'
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:border-main-neonPink  caret-main-neonPink focus:outline-none focus:shadow-outline'
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setEmailError(""); // Clear error message on change
+                }}
+                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:border-main-neonPink caret-main-neonPink focus:outline-none focus:shadow-outline'
               />
+              {emailError && (
+                <p className='text-red-500 text-xs mt-1'>{emailError}</p>
+              )}
             </div>
-            <div className='mb-3'>
-              <label
-                className='block text-gray-700 text-sm font-bold mb-2'
-                htmlFor='old-password'
-              >
+            <div className='mb-6'>
+              <label className='block text-gray-700 text-sm font-bold mb-2'>
                 Old Password
               </label>
               <div className='relative'>
                 <input
-                  id='old-password'
                   type={showOldPassword ? "text" : "password"}
                   value={oldPassword}
                   onChange={(e) => setOldPassword(e.target.value)}
-                  className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10 focus:border-main-neonPink  caret-main-neonPink'
+                  className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:border-main-neonPink caret-main-neonPink focus:outline-none focus:shadow-outline'
                 />
                 <button
                   type='button'
-                  className='absolute inset-y-0 right-0 flex items-center px-3 py-2 bg-transparent text-gray-500 hover:text-gray-700'
                   onClick={() => setShowOldPassword(!showOldPassword)}
+                  className='absolute inset-y-0 right-0 pr-3 flex items-center text-gray-600'
                 >
-                  {showOldPassword ? (
-                    <FiEyeOff size={20} color='#d91c5c' />
-                  ) : (
-                    <FiEye size={20} color='#f910f9' />
-                  )}
+                  {showOldPassword ? <FiEyeOff /> : <FiEye />}
                 </button>
               </div>
             </div>
-
-            <p
-              className='text-white text-[0.75rem] text-right cursor-pointer duration-200 hover:text-main-neonPink mb-3'
-              onClick={() => setShowChangePassword(!showChangePassword)}
-            >
-              Change password
-            </p>
             {showChangePassword && (
-              <motion.div
-                className='overflow-hidden'
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-              >
+              <>
                 <div className='mb-6'>
-                  <label
-                    className='block text-gray-700 text-sm font-bold mb-2'
-                    htmlFor='new-password'
-                  >
+                  <label className='block text-gray-700 text-sm font-bold mb-2'>
                     New Password
                   </label>
                   <div className='relative'>
                     <input
-                      id='new-password'
                       type={showNewPassword ? "text" : "password"}
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
-                      className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10 focus:border-main-neonPink caret-main-neonPink'
+                      className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:border-main-neonPink caret-main-neonPink focus:outline-none focus:shadow-outline'
                     />
                     <button
                       type='button'
-                      className='absolute inset-y-0 right-0 flex items-center px-3 py-2 bg-transparent text-gray-500 hover:text-gray-700'
                       onClick={() => setShowNewPassword(!showNewPassword)}
+                      className='absolute inset-y-0 right-0 pr-3 flex items-center text-gray-600'
                     >
-                      {showNewPassword ? (
-                        <FiEyeOff size={20} color='#d91c5c' />
-                      ) : (
-                        <FiEye size={20} color='#f910f9' />
-                      )}
+                      {showNewPassword ? <FiEyeOff /> : <FiEye />}
                     </button>
                   </div>
                 </div>
                 <div className='mb-6'>
-                  <label
-                    className='block text-gray-700 text-sm font-bold mb-2'
-                    htmlFor='confirm-password'
-                  >
-                    Confirm New Password
+                  <label className='block text-gray-700 text-sm font-bold mb-2'>
+                    Confirm Password
                   </label>
                   <div className='relative'>
                     <input
-                      id='confirm-password'
                       type={showConfirmPassword ? "text" : "password"}
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline pr-10 focus:border-main-neonPink caret-main-neonPink'
+                      className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:border-main-neonPink caret-main-neonPink focus:outline-none focus:shadow-outline'
                     />
                     <button
                       type='button'
-                      className='absolute inset-y-0 right-0 flex items-center px-3 py-2 bg-transparent text-gray-500 hover:text-gray-700'
-                      onClick={() =>
-                        setShowConfirmPassword(!showConfirmPassword)
-                      }
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      className='absolute inset-y-0 right-0 pr-3 flex items-center text-gray-600'
                     >
-                      {showConfirmPassword ? (
-                        <FiEyeOff size={20} color='#d91c5c' />
-                      ) : (
-                        <FiEye size={20} color='#f910f9' />
-                      )}
+                      {showConfirmPassword ? <FiEyeOff /> : <FiEye />}
                     </button>
                   </div>
                 </div>
-              </motion.div>
+              </>
             )}
-            <button
-              type='submit'
-              className='bg-main-neonPink w-full hover:bg-main-darkPink text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
-              disabled={imagePercent > 0 && imagePercent < 100}
-            >
-              Save
-            </button>
+            <div className='flex items-center justify-between'>
+              <button
+                className='bg-main-neonPink hover:bg-main-blue text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+                type='submit'
+              >
+                Update Profile
+              </button>
+              <button
+                type='button'
+                onClick={() => setShowChangePassword(!showChangePassword)}
+                className='bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+              >
+                {showChangePassword ? "Cancel" : "Change Password"}
+              </button>
+            </div>
           </form>
         </div>
       </div>
