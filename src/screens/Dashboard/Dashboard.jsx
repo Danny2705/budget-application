@@ -10,11 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaEye } from "react-icons/fa";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import Barchart from "../../components/Chart/BarChart";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 import { setBudgets } from "../../redux/budgetSlice";
-import Insights from "../../components/BudgetAnalysis/Insights";
 
 export default function Dashboard() {
   const budgets = useSelector((state) => state.budgets.budgets);
