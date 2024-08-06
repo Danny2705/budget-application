@@ -15,6 +15,7 @@ const DragDrop = ({
   onSetTransactionNo,
   budgetID,
   onSetReceipWAllInfo,
+  onSetPDFFiles,
 }) => {
   const [receiptJsonData, setReceiptJsonData] = useState({});
   const [fireImageURL, setFireImageURL] = useState(null);
@@ -145,10 +146,10 @@ const DragDrop = ({
     console.log("Budget ID", budgetID);
 
     //Calling OCR Perform Function
-    if (imageURL) {
-      setReceiptJsonData(await performOcr(imageURL));
-      onSetJsonData(await performOcr(imageURL));
-    }
+    // if (imageURL) {
+    //   setReceiptJsonData(await performOcr(imageURL));
+    //   onSetJsonData(await performOcr(imageURL));
+    // }
   };
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -165,6 +166,8 @@ const DragDrop = ({
       
       setUploadedFiles(imageFiles);
       setPdfFiles(pdfFiles);
+      onSetPDFFiles(pdfFiles);
+      console.log("pdfFiles in DragDrop", pdfFiles);
       console.log("acceptedFiles", acceptedFiles);
     },
   });
