@@ -1,201 +1,123 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../Layout/Layout";
-import { Pie } from "react-chartjs-2";
+import Barchart from "../../components/Chart/BarChart";
+import useExpenseData from "../../components/Chart/BarData";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-const data = {
-  labels: ["Salary", "Bonus", "Freelance", "Investment"],
-  datasets: [
-    {
-      label: "Income Breakdown",
-      data: [2500, 1000, 1500, 2000],
-      backgroundColor: [
-        "#34D399", // green-500
-        "#A7F3D0", // lighter green
-        "#D1FAE5", // even lighter green
-        "#10B981", // another shade of green
-      ],
-      borderColor: "#ffffff",
-      borderWidth: 1,
-    },
-  ],
-};
+const Overview = () => {
+  const { labelState, totalMoneySpent, totalBudgetLimit } = useExpenseData();
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "right",
-    },
-    tooltip: {
-      callbacks: {
-        label: function (context) {
-          let label = context.label || "";
+  const handleNext = () => {
+    if (currentIndex < labelState.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
 
-          if (label) {
-            label += ": ";
-          }
-          if (context.parsed !== null) {
-            label += new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: "USD",
-            }).format(context.parsed);
-          }
-          return label;
-        },
-      },
-    },
-  },
-};
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
 
-export default function Overview() {
+  const calculateSavings = (income, expenses) => {
+    return income - expenses;
+  };
+
+  const calculateSavingsPercentage = (income, savings) => {
+    return income > 0 ? (savings / income) * 100 : 0;
+  };
+
+  const income = totalBudgetLimit[labelState[currentIndex]] || 0;
+  const expenses = totalMoneySpent[labelState[currentIndex]] || 0;
+  const savings = calculateSavings(income, expenses);
+  const savingsPercentage = calculateSavingsPercentage(income, savings);
+
   return (
     <Layout>
-      <div className='mt-[90px] px-4 xl:px-20'>
-        <div className='overview-header text-white flex items-center justify-between gap-2'>
-          <div className='month flex-1'>
-            <h1 className=' text-5xl bg-[#142038] py-[2.85rem] p-8 text-center font-bold  rounded-md'>
-              January
+      <div className="mt-[90px] px-4 xl:px-20">
+        <div className="overview-header text-white flex items-center justify-between gap-2">
+          <button
+            onClick={handlePrev}
+            disabled={currentIndex === 0}
+            className="hover:bg-blue-500 text-white font-bold py-2 px-4 shadow inline-flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <FaArrowLeft className="mr-2 text-xl" /> Previous Month
+          </button>
+          <div className="month flex-1">
+            <h1 className="text-5xl bg-[#142038] py-[2.85rem] p-8 text-center font-bold rounded-md">
+              {labelState[currentIndex]}
             </h1>
           </div>
-
-          <div className='stats flex-[1.5]'>
-            <ul className='flex items-center gap-2 w-full'>
-              <li className='flex flex-col items-center justify-center p-3 flex-1 bg-[#142038] w-full  rounded-md'>
-                <div className='income text-3xl text-green-500 font-bold'>
-                  $6,175
-                </div>
-                <div className='w-full mt-3'>
-                  <p className='text-center text-sm'>Total Income</p>
-                  <div className='bar w-full bg-green-500 h-3 my-2'></div>
-                </div>
-                <div className='flex w-full items-center justify-between text-sm text-green-500'>
-                  <p>101%</p>
-                  <p>$50 over goal</p>
-                </div>
-              </li>
-              <li className='flex flex-col items-center justify-center p-3 flex-1 bg-[#142038] w-full  rounded-md'>
-                <div className='income text-3xl font-bold text-[#f75486]'>
-                  $2,765
-                </div>
-                <div className='w-full mt-3'>
-                  <p className='text-center text-sm'>Total Expenses</p>
-                  <div className='bar w-full bg-[#f75486] h-3 my-2'></div>
-                </div>
-                <div className='flex w-full items-center justify-between text-sm text-[#f75486]'>
-                  <p>100%</p>
-                  <p>On goal</p>
-                </div>
-              </li>
-              <li className='flex flex-col items-center justify-center p-3 flex-1 bg-[#142038] w-full  rounded-md'>
-                <div className='income text-3xl font-bold text-[yellow]'>
-                  $2,510
-                </div>
-                <div className='w-full mt-3'>
-                  <p className='text-center text-sm'>Total Savings</p>
-                  <div className='bar w-full bg-[yellow] h-3 my-2'></div>
-                </div>
-                <div className='flex w-full items-center justify-between text-sm text-[yellow]'>
-                  <p>93%</p>
-                  <p>$175 under goal</p>
-                </div>
-              </li>
-            </ul>
-          </div>
+          <button
+            onClick={handleNext}
+            disabled={currentIndex === labelState.length - 1}
+            className="hover:bg-blue-500 text-white font-bold py-2 px-4 shadow inline-flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Next Month <FaArrowRight className="ml-2 text-xl" />
+          </button>
         </div>
 
-        <div className='income-category flex flex-col gap-2 text-white'>
-          <h1 className=' uppercase text-green-500 text-4xl mt-8 font-bold'>
-            Income
-          </h1>
-          <div className='flex gap-2'>
-            <div className='income-table flex-1 flex gap-2 flex-col'>
-              <div className='income-data-table bg-[#142038] p-4 rounded-md'>
-                <table className='w-full'>
-                  <thead className='w-full border-b-2 border-green-500'>
-                    <tr className='flex w-full'>
-                      <th className='flex-[3] text-left p-2 font-medium'>
-                        Category
-                      </th>
-                      <th className='flex-1 text-left p-2 font-medium'>Goal</th>
-                      <th className='flex-1 text-center p-2 font-medium bg-[#245e36]'>
-                        Actual
-                      </th>
-                      <th className='flex-1 text-left p-2 font-medium'>
-                        Diff.
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className='border-b border-[grey] flex w-full'>
-                      <td className='flex-[3] p-2'>Salary</td>
-                      <td className='flex-1 p-2'>$2500</td>
-                      <td className='flex-1 p-2 text-center bg-[#245e36]'>
-                        $2500
-                      </td>
-                      <td className='flex-1 p-2'>$0</td>
-                    </tr>
-                    <tr className='border-b border-[grey] flex w-full'>
-                      <td className='flex-[3] p-2'>Bonus</td>
-                      <td className='flex-1 p-2'>$1000</td>
-                      <td className='flex-1 p-2 text-center bg-[#245e36]'>
-                        $800
-                      </td>
-                      <td className='flex-1 p-2'>$200</td>
-                    </tr>
-                    <tr className='border-b border-[grey] flex w-full'>
-                      <td className='flex-[3] p-2'>Freelance</td>
-                      <td className='flex-1 p-2'>$1500</td>
-                      <td className='flex-1 p-2 text-center bg-[#245e36]'>
-                        $1400
-                      </td>
-                      <td className='flex-1 p-2'>$100</td>
-                    </tr>
-                    <tr className='border-b border-[grey] flex w-full'>
-                      <td className='flex-[3] p-2'>Investment</td>
-                      <td className='flex-1 p-2'>$2000</td>
-                      <td className='flex-1 p-2 text-center bg-[#245e36]'>
-                        $1800
-                      </td>
-                      <td className='flex-1 p-2'>$200</td>
-                    </tr>
-                  </tbody>
-                </table>
+        <div className="stats flex-[1.5] mt-8">
+          <ul className="flex items-center gap-2 w-full">
+            <li className="flex flex-col items-center justify-center p-3 flex-1 bg-[#142038] w-full rounded-md">
+              <div className="income text-3xl text-green-500 font-bold">
+                ${income}
               </div>
-            </div>
+              <div className="w-full mt-3">
+                <p className="text-center text-sm">Total Monthly Limit</p>
+                <div className="bar w-full bg-green-500 h-3 my-2"></div>
+              </div>
+              <div className="flex w-full items-center justify-between text-sm text-green-500">
+                <p>{savingsPercentage.toFixed(2)}% Achieved</p>
+                <p>
+                  {savings >= 0 ? `${savings} saved` : `${-savings} overspent`}
+                </p>
+              </div>
+            </li>
 
-            <div className='income-stats flex flex-[1.5] bg-[#142038] p-4 rounded-md'>
-              <div className='chart flex-[1] border-r border-[grey] pr-2'>
-                <h2>Monthly Income Overview</h2>
-                <div className='flex items-center mt-3'>
-                  <div className='goal-insights flex flex-col items-center w-full'>
-                    <span>Goal</span>
-                    <span className='font-bold text-xl'>$6,125</span>
-                  </div>
-                  <div className='goal-insights flex flex-col items-center w-full'>
-                    <span>Actual</span>
-                    <span className='text-green-500 font-bold text-xl'>
-                      $6,175
-                    </span>
-                  </div>
-                </div>
-                <div className='bar flex flex-col border-b border-[grey] pb-1 mb-3'>
-                  <div className='bar w-full bg-green-500 h-5 my-2'></div>
-                  <span className='text-sm text-green-500'>101%</span>
-                </div>
-                <span className='text-green-500'>
-                  <span className='text-2xl'>$50</span> over goal this month!
-                </span>
+            <li className="flex flex-col items-center justify-center p-3 flex-1 bg-[#142038] w-full rounded-md">
+              <div className="income text-3xl font-bold text-[#f75486]">
+                ${expenses}
               </div>
-              <div className='chart flex-[2] pl-2 w-full'>
-                <h2>Monthly Income Breakdown</h2>
-                <div className='w-[400px]'>
-                  <Pie data={data} options={options} />
-                </div>
+              <div className="w-full mt-3">
+                <p className="text-center text-2xl">Total Monthly Expenses</p>
               </div>
-            </div>
-          </div>
+              <div className="flex w-full items-center justify-between text-sm text-[#f75486]">
+                <p>
+                  {income > 0
+                    ? `${((expenses / income) * 100).toFixed(2)}% Achieved`
+                    : "0%"}
+                </p>
+                <p>On Goal</p>
+              </div>
+            </li>
+
+            <li className="flex flex-col items-center justify-center p-3 flex-1 bg-[#142038] w-full rounded-md">
+              <div className="income text-3xl font-bold text-[yellow]">
+                ${savings}
+              </div>
+              <div className="w-full mt-3">
+                <p className="text-center text-sm">Total Monthly Savings</p>
+                <div className="bar w-full bg-[yellow] h-3 my-2"></div>
+              </div>
+              <div className="flex w-full items-center justify-between text-sm text-[yellow]">
+                <p>{savingsPercentage.toFixed(2)}% Achieved</p>
+                <p>${savings} Under Goal</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <h1 className="text-main-darkPink font-bold text-2xl md:text-4xl lg:text-4xl mt-16 mb-8 tracking-wider text-center lg:text-left">
+          Track Your Monthly Savings
+        </h1>
+        <div className="flex py-10">
+          <Barchart />
         </div>
       </div>
     </Layout>
   );
-}
+};
+
+export default Overview;

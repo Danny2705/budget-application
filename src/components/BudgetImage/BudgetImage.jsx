@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function BudgetImage() {
   const navigate = useNavigate();
@@ -16,12 +17,14 @@ export default function BudgetImage() {
             />
           </span>
         </span>
-        <button
+        <Link to='/budget'>
+          <button
           className='px-6 py-3 bg-secondary-pink text-white font-semibold rounded-lg shadow-md hover:bg-neon-pink transition duration-300'
           onClick={() => navigate("/budget")}
         >
-          Set Budget Goal
-        </button>
+            Set Budget Goal
+          </button>
+        </Link>
       </div>
 
       <div className='w-full lg:w-1/2 overflow-hidden'>

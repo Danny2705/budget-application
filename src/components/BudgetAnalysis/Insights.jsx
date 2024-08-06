@@ -9,11 +9,10 @@ import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import { format } from "date-fns";
 
-export default function Insights() {
+export default function ExportButtons() {
   const user = useSelector((state) => state.auth.user);
   const { labelState, totalMoneySpent, totalBudgetLimit } = useExpenseData();
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0);
-  const [totalSavings, setTotalSavings] = useState();
   const date = format(new Date(), "yyyy-MM-dd")
 
   const styles = StyleSheet.create({

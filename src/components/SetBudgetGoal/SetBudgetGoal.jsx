@@ -115,7 +115,8 @@ export default function SetBudgetGoal() {
           <div className='relative w-full backdrop-blur-sm rounded-lg p-8'>
             <NewBudget getData={getData} handleClick={handleClick} />
             <button
-              className='absolute right-4 top-10 bg-gray-600 w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-pink-600 transition duration-300'
+              className="absolute right-1/3 top-20 bg-gray-600 w-10 h-10 flex items-center justify-center rounded-full text-white hover:bg-pink-600 transition duration-300"
+              style={{ right: 'calc(34.333% + 4rem)' }} // 4rem is the equivalent of right-16
               onClick={handleClick}
             >
               <IoMdClose />
