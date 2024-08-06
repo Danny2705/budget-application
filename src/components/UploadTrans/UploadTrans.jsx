@@ -68,10 +68,11 @@ const UploadTrans = ({
         onSetPDFFiles={handlePDFFiles}
       />
       <div className='flex flex-row py-[16px] px-[32px] space-x-20'>
-        <FileDisplay imageSrc={imageURL} />
+        <FileDisplay fileUrl={imageURL} pdfFiles={pdfFiles}/>
         <JsonDisplay
           json={receiptWAllInfo}
           loading={!!imageURL && !receiptWAllInfo}
+
         />
       </div>
     </div>
