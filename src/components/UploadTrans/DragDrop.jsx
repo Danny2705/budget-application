@@ -146,10 +146,10 @@ const DragDrop = ({
     console.log("Budget ID", budgetID);
 
     //Calling OCR Perform Function
-    // if (imageURL) {
-    //   setReceiptJsonData(await performOcr(imageURL));
-    //   onSetJsonData(await performOcr(imageURL));
-    // }
+    if (imageURL) {
+      setReceiptJsonData(await performOcr(imageURL));
+      onSetJsonData(await performOcr(imageURL));
+    }
   };
 
   const { getRootProps, getInputProps } = useDropzone({
