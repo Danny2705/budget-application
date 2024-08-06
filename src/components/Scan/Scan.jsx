@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FiBatteryCharging, FiWifi } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 const Scan = () => {
   return (
@@ -98,6 +99,7 @@ const HeaderBar = () => {
 };
 
 const Screen = () => {
+  const navigate = useNavigate();
   return (
     <div className='relative z-0 grid h-full w-full place-content-center overflow-hidden rounded-[20px] bg-white'>
       <div className='absolute inset-0 flex items-center justify-center p-4'>
@@ -106,7 +108,10 @@ const Screen = () => {
           application?
         </p>
       </div>
-      <button className='absolute bottom-4 left-4 right-4 z-10 rounded-lg border-[1px] bg-violet-500 py-2 text-sm font-medium text-white backdrop-blur'>
+      <button
+        className='absolute bottom-4 left-4 right-4 z-10 rounded-lg border-[1px] bg-violet-500 py-2 text-sm font-medium text-white backdrop-blur'
+        onClick={() => navigate("/budget")}
+      >
         Visit
       </button>
       <div className='absolute -bottom-72 left-[50%] h-96 w-96 -translate-x-[50%] rounded-full bg-violet-500' />

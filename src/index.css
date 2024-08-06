@@ -180,3 +180,13 @@ body {
     transform: translateY(-20px);
   }
 }
+
+.truncate-multiline {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* Number of lines to show before truncating */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}

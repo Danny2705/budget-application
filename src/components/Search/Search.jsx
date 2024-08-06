@@ -3,8 +3,6 @@ import { IoSearch } from "react-icons/io5";
 import { algoliaConfig, searchClient } from "../../utils/algolia";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../utils/firebase";
 
 //algolia documentation
 const index = searchClient.initIndex(algoliaConfig.ALGOLIA_INDEX_NAME);

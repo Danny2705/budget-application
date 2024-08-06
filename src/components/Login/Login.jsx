@@ -122,7 +122,7 @@ export default function Login() {
                     </button>
                   </form>
                   <GoogleAuth />
-                  <GitHubAuth />
+                  {/* <GitHubAuth /> */}
                 </div>
                 <p className='px-4 pb-4 flex items-center justify-between'>
                   <span className='text-[10px] text-white'>
