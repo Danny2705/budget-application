@@ -8,12 +8,20 @@ export default function RecentBudgetTransTable({
 }) {
   const navigate = useNavigate();
 
-  const handleInputChange = (e, field) => {
+  const handleInputChange = (e, field, extraField = "") => {
     const { value } = e.target;
-    setReceiptData((prevData) => ({
-      ...prevData,
-      [field]: value,
-    }));
+    if (field !== "vendor") {
+      setReceiptData((prevData) => ({
+        ...prevData,
+        [field]: value,
+      }));
+    } else {
+      setReceiptData((prevData) => ({
+        ...prevData,
+        [field]: { ...prevData.vendor, [extraField]: value },
+      }));
+    }
+    console.log(receiptInfo);
   };
 
   return (
@@ -55,7 +63,7 @@ export default function RecentBudgetTransTable({
                   <input
                     type='text'
                     value={receiptInfo?.vendor?.name || ""}
-                    onChange={(e) => handleInputChange(e, "vendorName")}
+                    onChange={(e) => handleInputChange(e, "vendor", "name")}
                     className='w-full bg-transparent border-gray-600 rounded px-2 py-1 text-center'
                   />
                 </td>
@@ -70,8 +78,9 @@ export default function RecentBudgetTransTable({
                 <td className='p-4 text-center text-ellipsis'>
                   <input
                     type='text'
-                    value={receiptInfo?.vendor?.address || "N/A"}
-                    onChange={(e) => handleInputChange(e, "vendorAddress")}
+                    defaultValue={"N/A"}
+                    value={receiptInfo?.vendor?.address}
+                    onChange={(e) => handleInputChange(e, "vendor", "address")}
                     className='w-full bg-transparent border-gray-600 rounded px-2 py-1 text-center'
                   />
                 </td>

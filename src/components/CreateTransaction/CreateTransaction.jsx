@@ -34,7 +34,6 @@ export default function CreateTransaction() {
       imageURL,
       budgetInfo.id
     );
-    console.log(receiptWAllInfo.line_items);
   };
 
   return (
