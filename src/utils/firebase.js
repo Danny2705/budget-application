@@ -66,7 +66,7 @@ export const saveReceiptToFirestore = async (
     console.log(receiptWithImageURLs);
     console.log("Receipt with image URLs", receiptWithImageURLs);
     await setDoc(doc(db, "transactions", receiptNo), receiptWithImageURLs);
-    const receiptRef = doc(db, `budgets/${budgetID}/transactions/${receiptNo}`);
+    const receiptRef = doc(db, `budgets/${budgetID}/receipts/${receiptNo}`);
     await setDoc(receiptRef, receiptWithImageURLs);
     console.log("Submitted to Firestore");
     toast.success("Receipt saved successfully!");

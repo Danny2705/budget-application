@@ -64,10 +64,10 @@ export default function CreateTransaction() {
                 receiptInfo={receiptWAllInfo}
                 setReceiptData={setReceiptWAllInfo}
               />
-              <SaveButton onClick={handleOnClickSaveButton} />
             </>
           )
         )}
+        <SaveButton onClick={handleOnClickSaveButton} />
       </div>
     </Layout>
   );
