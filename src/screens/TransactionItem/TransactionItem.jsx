@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 export default function TransactionItem() {
   const [results, setResults] = useState([]);
   const [clicked, setClicked] = useState(false);
+  const [title, setTitle] = useState("");
   const user = useSelector((state) => state.auth.user);
   const params = useParams();
 
@@ -35,9 +36,13 @@ export default function TransactionItem() {
             const relatedTransactions = transactions.find(
               (tran) => tran.id === Number(params.transaction)
             );
-
+            console.log(relatedTransactions);
+            const relatedBudgets = budgets.find(
+              (budget) => budget.id === relatedTransactions.budgetID
+            );
+            console.log(relatedBudgets);
+            setTitle(relatedBudgets);
             const combine = { ...budget, relatedTransactions };
-            console.log(combine);
             setResults(combine);
           })
         );
@@ -86,7 +91,7 @@ export default function TransactionItem() {
         <div className='mt-4 px-4 xl:px-20'>
           <div className='flex justify-between items-center'>
             <h1 className='large-h1-span border border-pink-400 hover:border-main-darkPink duration-200 cursor-pointer font-bold p-3 rounded-lg'>
-              {results.titleLocal} / {results?.id}
+              {title?.titleLocal} / {title?.id}
             </h1>
 
             <div>

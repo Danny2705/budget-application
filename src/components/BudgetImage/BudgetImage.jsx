@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function BudgetImage() {
+  const navigate = useNavigate();
   return (
     <div className='h-[[calc(100vw*0.6)]] md:h-[900px] lg:h-[calc(100vw*0.35)] xl:h-[calc(100vw*0.35)] bg-[#31164c] rounded-t-xl lg:rounded-xl flex flex-col lg:flex-row justify-between items-center overflow-hidden mt-6'>
       <div className='w-full lg:w-1/2 p-4 lg:p-16 flex flex-col justify-center items-center'>
@@ -14,7 +16,10 @@ export default function BudgetImage() {
             />
           </span>
         </span>
-        <button className='px-6 py-3 bg-secondary-pink text-white font-semibold rounded-lg shadow-md hover:bg-neon-pink transition duration-300'>
+        <button
+          className='px-6 py-3 bg-secondary-pink text-white font-semibold rounded-lg shadow-md hover:bg-neon-pink transition duration-300'
+          onClick={() => navigate("/budget")}
+        >
           Set Budget Goal
         </button>
       </div>

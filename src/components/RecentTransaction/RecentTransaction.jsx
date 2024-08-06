@@ -82,9 +82,9 @@ export default function RecentTransaction() {
             <div className='text-center'>{transaction?.vendor.name}</div>
             <div className='text-center'>{transaction.date}</div>
             <div className='truncate-multiline col-span-2 text-center'>
-              {transaction?.vendor.address}
+              {transaction?.vendor.address || "N/A"}
             </div>
-            <div className='text-center'>{transaction.subtotal}</div>{" "}
+            <div className='text-center'>{transaction.subtotal || "N/A"}</div>{" "}
             {/* Shorter width */}
             <div className='text-center'>{transaction.tax || 0}</div>{" "}
             {/* Shorter width */}

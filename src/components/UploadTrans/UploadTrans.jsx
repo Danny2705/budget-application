@@ -23,6 +23,7 @@ const UploadTrans = ({
   const [imageURL, setImageURL] = useState(null);
   const [receiptNo, setReceiptNo] = useState("");
   const [receiptWAllInfo, setReceiptWAllInfo] = useState([{}]);
+  const [pdfFiles, setPDFFiles] = useState([]);
 
   const handleImageURLChange = (url) => {
     setImageURL(url);
@@ -51,6 +52,11 @@ const UploadTrans = ({
     console.log("receiptWAllInfo from uploadTrans comp", receiptWAllInfo);
   };
 
+  const handlePDFFiles = (pdfFiles) => {
+    setPDFFiles(pdfFiles);
+    console.log("PDF Files in UploadTrans", pdfFiles);
+  };
+
   return (
     <div className='p-(32px) bg-[#2c0b31] md:flex flex-col rounded-[24px] border border-main-neonPink'>
       <DragDrop
@@ -59,12 +65,14 @@ const UploadTrans = ({
         onSetTransactionNo={handleReceiptNoChange}
         onSetReceipWAllInfo={handleReceiptWAllInfo}
         budgetID={budgetID}
+        onSetPDFFiles={handlePDFFiles}
       />
       <div className='flex flex-row py-[16px] px-[32px] space-x-20'>
-        <FileDisplay imageSrc={imageURL} />
+        <FileDisplay fileUrl={imageURL} pdfFiles={pdfFiles}/>
         <JsonDisplay
           json={receiptWAllInfo}
           loading={!!imageURL && !receiptWAllInfo}
+
         />
       </div>
     </div>
@@ -72,14 +80,3 @@ const UploadTrans = ({
 };
 
 export default UploadTrans;
-
-/* Daily spending container */
-
-// position: absolute;
-// width: 1171px;
-// height: 801px;
-// left: 55px;
-// top: 223px;
-
-// background: #FFFFFF;
-// border-radius: 24px;
