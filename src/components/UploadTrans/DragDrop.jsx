@@ -15,6 +15,7 @@ const DragDrop = ({
   onSetTransactionNo,
   budgetID,
   onSetReceipWAllInfo,
+  onSetPDFFiles,
 }) => {
   const [receiptJsonData, setReceiptJsonData] = useState({});
   const [fireImageURL, setFireImageURL] = useState(null);
@@ -24,6 +25,7 @@ const DragDrop = ({
   const [transactionNo, setTransactionNo] = useState("");
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [imageB64, setImageB64] = useState("");
+  const [pdfFiles, setPdfFiles] = useState([]);
 
   //merging the images
   //https://www.npmjs.com/package/merge-images
@@ -83,10 +85,16 @@ const DragDrop = ({
   };
 
   useEffect(() => {
-    if (uploadedFiles.length > 0) {
+    if (pdfFiles.length > 0) {
+      pdfFiles.forEach((file) => {
+        storeAndConvertReceiptImage(file);
+      });
+    }
+  
+    if (uploadedFiles.length > 0 && pdfFiles.length === 0) {
       runMergeImages(uploadedFiles);
     }
-  }, [uploadedFiles]);
+  }, [uploadedFiles, pdfFiles]);
 
   useEffect(() => {
     if (imageB64 !== "") {
@@ -120,8 +128,7 @@ const DragDrop = ({
     setReceiptWAllInfo(receiptWFirebaseURL);
     onSetReceipWAllInfo(receiptWAllInfo);
     console.log("receipt with all info", receiptWAllInfo);
-  },[receiptWAllInfo,receiptWFirebaseURL
-  ]);
+  },[receiptWAllInfo,receiptWFirebaseURL]);
 
 
   // Refers from Demo
@@ -150,12 +157,17 @@ const DragDrop = ({
       "image/jpeg": [],
       "image/jpg": [],
       "image/png": [],
-      "file/pdf": [],
+      "application/pdf": [],
     },
     maxFiles: 10,
     onDrop: (acceptedFiles) => {
-      setUploadedFiles(acceptedFiles);
-      // runMergeImages(acceptedFiles);
+      const imageFiles = acceptedFiles.filter(file => file.type.startsWith("image/"));
+      const pdfFiles = acceptedFiles.filter(file => file.type === "application/pdf");
+      
+      setUploadedFiles(imageFiles);
+      setPdfFiles(pdfFiles);
+      onSetPDFFiles(pdfFiles);
+      console.log("pdfFiles in DragDrop", pdfFiles);
       console.log("acceptedFiles", acceptedFiles);
     },
   });
