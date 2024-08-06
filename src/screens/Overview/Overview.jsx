@@ -3,6 +3,7 @@ import Layout from "../Layout/Layout";
 import Barchart from "../../components/Chart/BarChart";
 import useExpenseData from "../../components/Chart/BarData";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import ExportButtons from "../../components/BudgetAnalysis/Insights";
 
 const Overview = () => {
   const { labelState, totalMoneySpent, totalBudgetLimit } = useExpenseData();
@@ -64,9 +65,8 @@ const Overview = () => {
               <div className="income text-3xl text-green-500 font-bold">
                 ${income}
               </div>
-              <div className="w-full mt-3">
-                <p className="text-center text-sm">Total Monthly Limit</p>
-                <div className="bar w-full bg-green-500 h-3 my-2"></div>
+              <div className="w-full mt-3 text-white p-2">
+                <p className="text-center text-xl">Total Monthly Limit</p>
               </div>
               <div className="flex w-full items-center justify-between text-sm text-green-500">
                 <p>{savingsPercentage.toFixed(2)}% Achieved</p>
@@ -80,8 +80,8 @@ const Overview = () => {
               <div className="income text-3xl font-bold text-[#f75486]">
                 ${expenses}
               </div>
-              <div className="w-full mt-3">
-                <p className="text-center text-2xl">Total Monthly Expenses</p>
+              <div className="w-full mt-3 text-white p-2">
+                <p className="text-center text-xl">Total Monthly Expenses</p>
               </div>
               <div className="flex w-full items-center justify-between text-sm text-[#f75486]">
                 <p>
@@ -97,9 +97,8 @@ const Overview = () => {
               <div className="income text-3xl font-bold text-[yellow]">
                 ${savings}
               </div>
-              <div className="w-full mt-3">
-                <p className="text-center text-sm">Total Monthly Savings</p>
-                <div className="bar w-full bg-[yellow] h-3 my-2"></div>
+              <div className="w-full mt-3 text-white p-2">
+                <p className="text-center text-xl">Total Monthly Savings</p>
               </div>
               <div className="flex w-full items-center justify-between text-sm text-[yellow]">
                 <p>{savingsPercentage.toFixed(2)}% Achieved</p>
@@ -114,6 +113,11 @@ const Overview = () => {
         </h1>
         <div className="flex py-10">
           <Barchart />
+        </div>
+
+        {/* Add ExportButtons component here */}
+        <div className="mt-10">
+          <ExportButtons />
         </div>
       </div>
     </Layout>
