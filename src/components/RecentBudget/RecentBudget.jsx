@@ -63,7 +63,7 @@ export default function RecentBudget({ budget }) {
           (acc, tran) => acc + (tran.total || 0),
           0
         );
-        setTotal(totalAmount);
+        setTotal(Number(totalAmount));
       } catch (error) {
         console.error("Error fetching user transactions:", error);
       }
@@ -92,7 +92,7 @@ export default function RecentBudget({ budget }) {
             {formatDate(budget?.startDate)} - {formatDate(budget?.endDate)}
           </span>
           <div className='text-secondary-orangeRed'>
-            <span className='text-secondary-blue'>${total.toFixed(2)}</span> /{" "}
+            <span className='text-secondary-blue'>${total?.toFixed(2)}</span> /{" "}
             <span className='text-secondary-red'>
               ${Number(budget?.amount).toFixed(2)}
             </span>

@@ -164,7 +164,7 @@ export default function TransactionItem() {
                             type='text'
                             value={
                               item.price ||
-                              (item.total / item.quantity).toFixed(2) ||
+                              (item?.total / item.quantity)?.toFixed(2) ||
                               0
                             }
                             onChange={(e) =>
@@ -190,7 +190,7 @@ export default function TransactionItem() {
                         <td className='py-3 px-2 text-left'>
                           <input
                             type='text'
-                            value={item.total || ""}
+                            value={item?.total || ""}
                             readOnly
                             className='w-full border border-gray-300 rounded px-2 py-1'
                           />
