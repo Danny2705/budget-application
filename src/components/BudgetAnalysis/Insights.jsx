@@ -19,7 +19,7 @@ import { format } from "date-fns";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../Chat/FirebaseConfig";
 
-export default function Insights() {
+export default function ExportButtons() {
   const user = useSelector((state) => state.auth.user);
   const { labelState, totalMoneySpent, totalBudgetLimit } = useExpenseData();
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0);

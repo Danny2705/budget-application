@@ -29,7 +29,6 @@ export default function RecentBudgetTransTable() {
             id: doc.id,
             ...doc.data(),
           }));
-          console.log(transactions);
           setData(transactions);
         } catch (error) {
           console.error("Error fetching user transactions:", error);

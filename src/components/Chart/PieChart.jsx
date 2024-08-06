@@ -1,31 +1,30 @@
 import { Pie } from "react-chartjs-2";
 import { useState, useEffect } from "react";
-import {
-  Chart as ChartJS,
-  ArcElement,
-  Tooltip,
-  Legend,
-  plugins,
-} from "chart.js";
-import { transactionData } from "../TransactionTable/Data";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../utils/firebase.js";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 export default function PieChart() {
   const [transactionLabels, setTransactionLabels] = useState([]);
   const [transactionAmount, setTransactionAmount] = useState([]);
-  // TODO: change if needed
-  const [randomColor, setRandomColor] = useState([]);
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+  const params = useParams();
 
   const options = {
     responsive: true,
     plugins: {
       datalabels: {
         color: "black",
-        
         display: true,
-        // reference from chatGPT: code was not modified
+        font: {
+          size: 15,
+        },
         formatter: (value, context) => {
           let sum = 0;
           const dataArr = context.chart.data.datasets[0].data;
@@ -38,10 +37,56 @@ export default function PieChart() {
         },
       },
       legend: {
-        position: "left",
+        position: "bottom",
       },
     },
   };
+
+  const fetchTransactions = async () => {
+    if (user) {
+      try {
+        const transactionsSnapshot = await getDocs(
+          collection(db, "budgets", params.id, "receipts")
+        );
+        const transactions = transactionsSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        return transactions;
+      } catch (error) {
+        console.error("Error fetching user transactions:", error);
+        return [];
+      }
+    }
+    return [];
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const transactions = await fetchTransactions();
+      const categoryAmountMap = new Map();
+      transactions.forEach((transaction) => {
+        const category = transaction.category;
+        const amount = parseFloat(transaction.total); // Ensure 'total' is used instead of 'amount'
+        if (categoryAmountMap.has(category)) {
+          categoryAmountMap.set(
+            category,
+            categoryAmountMap.get(category) + amount
+          );
+        } else {
+          categoryAmountMap.set(category, amount);
+        }
+      });
+
+      const transCategories = Array.from(categoryAmountMap.keys());
+      const transAmounts = Array.from(categoryAmountMap.values());
+
+      setTransactionLabels(transCategories);
+      setTransactionAmount(transAmounts);
+    };
+
+    fetchData();
+  }, [user, params.id]);
 
   const pieChartData = {
     labels: transactionLabels,
@@ -50,62 +95,26 @@ export default function PieChart() {
         label: "Money spent",
         data: transactionAmount,
         borderColor: "none",
-        backgroundColor: ["rgb(255, 0, 0)",
-        "rgb(0, 255, 0)",
-        "rgb(0, 140, 255)",
-        "rgb(255, 255, 0)",
-        "rgb(0, 255, 255)",
-        "rgb(255, 0, 255)",
-        "rgb(255, 165, 0)",
-        "rgb(255, 192, 203)",
-        "rgb(0, 255, 255)",
-        "rgb(238, 130, 238)"],
+        backgroundColor: [
+          "#ffe6f2",
+          "#ffccdd",
+          "#ffb3c9",
+          "#ff99b5",
+          "#ff80a0",
+          "#ff668c",
+          "#ff4d78",
+          "#ff3363",
+          "#ff1a4f",
+          "#ff003b",
+        ],
         hoverOffset: 4,
       },
     ],
   };
 
-  // Reference from ChatGPT: { i want to be able to iterate through transactions and sum the prices}
-  useEffect(() => {
-    // Create a map to hold the total amount for each category
-    const categoryAmountMap = new Map();
-    transactionData.forEach((transaction) => {
-      const category = transaction.Category;
-      const amount = parseFloat(transaction.Total);
-      if (categoryAmountMap.has(category)) {
-        categoryAmountMap.set(
-          category,
-          categoryAmountMap.get(category) + amount
-        );
-      } else {
-        categoryAmountMap.set(category, amount);
-      }
-    });
-
-    // Extract the unique categories and their corresponding total amounts
-    const transCategories = Array.from(categoryAmountMap.keys());
-    const transAmounts = Array.from(categoryAmountMap.values());
-
-    // TODO: change if needed
-    const generateRandomColor = () => {
-      const letters = "0123456789ABCDEF";
-      let color = "#";
-      for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
-    };
-
-    const colors = transCategories.map(() => generateRandomColor());
-
-    setTransactionLabels(transCategories);
-    setTransactionAmount(transAmounts);
-    setRandomColor(colors);
-  }, []);
-
   return (
-    <div>
-      <div className="w-[700px] h-[500px]">
+    <div className="flex justify-center align-middle"> 
+      <div className="w-1/2">
         <Pie options={options} data={pieChartData} />
       </div>
     </div>
