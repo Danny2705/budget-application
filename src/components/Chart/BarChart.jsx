@@ -47,7 +47,7 @@ export default function Barchart() {
       },
       legend: {
         position: "top",
-        labels: { padding : 10}
+        labels: { padding: 10 }
       },
       datalabels: {
         anchor: "end",
@@ -132,7 +132,7 @@ export default function Barchart() {
   };
 
   return (
-    <div className="w-2/3">
+    <div className="w-full">
       <div className="flex justify-between mb-4">
         <button
           onClick={() => handleScroll("left")}

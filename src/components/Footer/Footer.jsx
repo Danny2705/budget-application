@@ -24,7 +24,6 @@ export default function Footer() {
             <ul className='flex items-center space-x-3 mt-9'>
               <li>
                 <Link
-                  to='/'
                   title=''
                   className='flex items-center justify-center text-main-neonPink hover:text-white transition-all duration-200 bg-gray-800 rounded-full w-10 h-10 hover:bg-main-neonPink focus:bg-main-neonPink'
                 >
@@ -41,7 +40,6 @@ export default function Footer() {
 
               <li>
                 <Link
-                  to='/'
                   title=''
                   className='flex items-center justify-center text-main-neonPink hover:text-white transition-all duration-200 bg-gray-800 rounded-full w-10 h-10 hover:bg-main-neonPink focus:bg-main-neonPink'
                 >
@@ -58,7 +56,6 @@ export default function Footer() {
 
               <li>
                 <Link
-                  to='/'
                   title=''
                   className='flex items-center justify-center text-main-neonPink hover:text-white transition-all duration-200 bg-gray-800 rounded-full w-10 h-10 hover:bg-main-neonPink focus:bg-main-neonPink'
                 >
@@ -77,7 +74,6 @@ export default function Footer() {
 
               <li>
                 <Link
-                  to='/'
                   title=''
                   className='flex items-center justify-center text-main-neonPink hover:text-white transition-all duration-200 bg-gray-800 rounded-full w-10 h-10 hover:bg-main-neonPink focus:bg-main-neonPink'
                 >
