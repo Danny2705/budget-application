@@ -55,13 +55,13 @@ export default function Search() {
                 console.log(result),
                 (
                   <Link
-                    to={`transaction/${result.id}`}
+                    to={`transaction/${result?.id}`}
                     key={result.id}
                     className='flex mb-3 w-full gap-4 border-b pb-3'
                   >
                     <li>
                       <img
-                        src={result.vendor.logo}
+                        src={result?.vendor?.logo}
                         alt='Vendor logo'
                         width={100}
                         className='rounded-full'
