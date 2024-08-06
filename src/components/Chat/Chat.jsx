@@ -189,9 +189,9 @@ const Chat = ({ userId }) => {
                 </div>
                 <div className={`chatbox-message-content ${msg.sender === 'ArthurBot' ? '' : 'user'}`}>
                   {msg.sender === 'ArthurBot' ? (
-                    <div dangerouslySetInnerHTML={{ __html: msg.message }} /> // Display the message as HTML
+                    <div dangerouslySetInnerHTML={{ __html: msg.message }} /> 
                   ) : (
-                    msg.message // Display the message
+                    msg.message
                   )}
                 </div>
               </div>
