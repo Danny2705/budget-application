@@ -14,6 +14,7 @@ const UploadTrans = ({
   onSetTransactionNo,
   onSetReceipWAllInfo,
   budgetID,
+  setLoading,
 }) => {
   //Avoiding using OCR API useState([]) -> useState(items)
   // const [receiptData, setReceiptData] = useState(items);
@@ -23,17 +24,18 @@ const UploadTrans = ({
   const [receiptNo, setReceiptNo] = useState("");
   const [receiptWAllInfo, setReceiptWAllInfo] = useState([{}]);
 
-
   const handleImageURLChange = (url) => {
     setImageURL(url);
     onSetImageURL(url);
     setReceiptData(undefined);
+    setLoading(true);
     console.log("ImageURLChange", url);
   };
 
   const handleJsonDataChange = (data) => {
     setReceiptData(data);
     onSetReceiptData(data);
+    setLoading(false);
     console.log("receiptDataChange", receiptData);
   };
 
@@ -47,20 +49,23 @@ const UploadTrans = ({
     setReceiptWAllInfo(receiptWAllInfo);
     onSetReceipWAllInfo(receiptWAllInfo);
     console.log("receiptWAllInfo from uploadTrans comp", receiptWAllInfo);
-  }
+  };
 
   return (
-    <div className="p-(32px) bg-[#2c0b31] md:flex flex-col rounded-[24px] border border-main-neonPink">
+    <div className='p-(32px) bg-[#2c0b31] md:flex flex-col rounded-[24px] border border-main-neonPink'>
       <DragDrop
         onSetImageURL={handleImageURLChange}
         onSetJsonData={handleJsonDataChange}
         onSetTransactionNo={handleReceiptNoChange}
         onSetReceipWAllInfo={handleReceiptWAllInfo}
-        budgetID = {budgetID}
+        budgetID={budgetID}
       />
-      <div className="flex flex-row py-[16px] px-[32px] space-x-20">
+      <div className='flex flex-row py-[16px] px-[32px] space-x-20'>
         <FileDisplay imageSrc={imageURL} />
-        <JsonDisplay json={receiptWAllInfo} loading={!!imageURL && !receiptWAllInfo}/>
+        <JsonDisplay
+          json={receiptWAllInfo}
+          loading={!!imageURL && !receiptWAllInfo}
+        />
       </div>
     </div>
   );

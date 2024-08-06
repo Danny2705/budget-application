@@ -24,6 +24,7 @@ export default function CreateTransaction() {
   const [imageURL, setImageURL] = useState(null);
   const [receiptNo, setReceiptNo] = useState("");
   const [receiptWAllInfo, setReceiptWAllInfo] = useState([{}]);
+  const [loading, setLoading] = useState(false);
 
   const handleOnClickSaveButton = () => {
     console.log("save****", receiptWAllInfo.transactionNo);
@@ -31,10 +32,10 @@ export default function CreateTransaction() {
       receiptWAllInfo.transactionNo,
       receiptWAllInfo,
       imageURL,
-      budgetInfo.id,
+      budgetInfo.id
     );
+    console.log(receiptWAllInfo.line_items);
   };
-
 
   return (
     <Layout>
@@ -48,10 +49,25 @@ export default function CreateTransaction() {
           onSetTransactionNo={setReceiptNo}
           onSetReceipWAllInfo={setReceiptWAllInfo}
           budgetID={budgetInfo.id}
+          setLoading={setLoading}
         />
         {/* {!!receiptData && <NewTransVenderTable receiptInfo={receiptData} />} */}
-        {<NewTransVenderTable receiptInfo={receiptData} />}
-        {!!receiptData && <NewTransLineItemsTable receiptInfo={receiptData} />}
+        {loading ? (
+          <p className='text-white text-xl text-center mt-4'>Loading....</p>
+        ) : (
+          receiptData && (
+            <>
+              <NewTransVenderTable
+                receiptInfo={receiptWAllInfo}
+                setReceiptData={setReceiptWAllInfo}
+              />
+              <NewTransLineItemsTable
+                receiptInfo={receiptWAllInfo}
+                setReceiptData={setReceiptWAllInfo}
+              />
+            </>
+          )
+        )}
         <SaveButton onClick={handleOnClickSaveButton} />
       </div>
     </Layout>
