@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import Layout from "../Layout/Layout";
 import Barchart from "../../components/Chart/BarChart";
-import {
-  Report,
-  ExportButtons,
-} from "../../components/BudgetAnalysis/Insights";
 import useExpenseData from "../../components/Chart/BarData";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
@@ -119,7 +115,6 @@ const Overview = () => {
         <div className="flex py-10">
           <Barchart />
         </div>
-        <ExportButtons />
       </div>
     </Layout>
   );
