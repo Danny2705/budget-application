@@ -70,7 +70,9 @@ const DropDownMenu = () => {
             <MenuItem text='Edit Profile' Icon={FiEdit} />
           </Link>
           <Link to='/budget'>
+            <Link to='/budget'>
             <MenuItem text='Create New Budget' Icon={FiPlusSquare} />
+          </Link>
           </Link>
           <MenuItem text='Log Out' Icon={FiLogOut} handleClick={handleLogOut} />
         </motion.ul>

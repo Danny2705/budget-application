@@ -1,5 +1,7 @@
-import React from "react";
+import { collection, getDocs } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { db } from "../Chat/FirebaseConfig";
 
 // Function to format Firestore timestamp to a readable date string
 const formatDate = (timestamp) => {
@@ -39,26 +41,48 @@ const calculatePeriod = (startDate, endDate) => {
 };
 
 export default function RecentBudget({ budget }) {
+  const [total, setTotal] = useState(0);
   const startDate = new Date(budget?.startDate?.seconds * 1000);
   const endDate = new Date(budget?.endDate?.seconds * 1000);
   const period = calculatePeriod(startDate, endDate);
+  console.log(budget);
 
-  console.log("Budget title:", budget.title);
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        const transactionsSnapshot = await getDocs(
+          collection(db, "budgets", budget.id, "receipts")
+        );
+        const transactions = transactionsSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
 
-  // Sum the transaction amounts to get the total amount spent
-  const amountSpent = 
-    budget?.transactions?.reduce(
-      (total, transaction) => total + transaction.amount,
-      0
-    ) || 0;
+        // Calculate the total amount spent
+        const totalAmount = transactions.reduce(
+          (acc, tran) => acc + (tran.total || 0),
+          0
+        );
+        setTotal(Number(totalAmount));
+      } catch (error) {
+        console.error("Error fetching user transactions:", error);
+      }
+    };
+
+    fetchTransactions();
+  }, [budget.id]);
+
+  // Ensure that amountTotal is not zero to avoid division by zero
   const amountTotal = budget?.amount || 1; // Default to 1 to avoid division by zero
-  const percentageSpent = (amountSpent / amountTotal) * 100;
+  const percentageSpent = (total / amountTotal) * 100;
 
   return (
     <div className='w-80 mb-5 p-4 bg-[#18001d] hover:bg-[#2c0b31] rounded-lg border border-main-neonPink shadow-lg hover:shadow-2xl transition-shadow duration-300'>
       <Link to={`/budget/transaction/${budget.id}`} className='flex-grow-0'>
         <div className='flex justify-between text-white mb-4'>
-          <div className='text-lg font-bold leading-5'>{budget?.titleLocal}</div>
+          <div className='text-lg font-bold leading-5'>
+            {budget?.titleLocal}
+          </div>
           <div className='text-sm text-right'>
             <div className='font-medium mt-6'>{period}</div>
           </div>
@@ -68,8 +92,10 @@ export default function RecentBudget({ budget }) {
             {formatDate(budget?.startDate)} - {formatDate(budget?.endDate)}
           </span>
           <div className='text-secondary-orangeRed'>
-            <span className='text-secondary-blue'>${amountSpent}</span> out of{" "}
-            <span className='text-secondary-red'>${budget?.amount}</span>
+            <span className='text-secondary-blue'>${total?.toFixed(2)}</span> /{" "}
+            <span className='text-secondary-red'>
+              ${Number(budget?.amount).toFixed(2)}
+            </span>
           </div>
         </div>
         <div className='relative w-full h-3 bg-gray-200 rounded-full overflow-hidden'>

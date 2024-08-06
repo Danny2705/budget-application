@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 export default function TransactionItem() {
   const [results, setResults] = useState([]);
   const [clicked, setClicked] = useState(false);
+  const [title, setTitle] = useState("");
   const user = useSelector((state) => state.auth.user);
   const params = useParams();
 
@@ -35,9 +36,13 @@ export default function TransactionItem() {
             const relatedTransactions = transactions.find(
               (tran) => tran.id === Number(params.transaction)
             );
-
+            console.log(relatedTransactions);
+            const relatedBudgets = budgets.find(
+              (budget) => budget.id === relatedTransactions.budgetID
+            );
+            console.log(relatedBudgets);
+            setTitle(relatedBudgets);
             const combine = { ...budget, relatedTransactions };
-            console.log(combine);
             setResults(combine);
           })
         );
@@ -75,7 +80,7 @@ export default function TransactionItem() {
       toast.error("Failed to update transaction.");
     }
   };
-
+  console.log(results.relatedTransactions?.line_items);
   return (
     <Layout>
       <div className='mt-[90px] relative'>
@@ -86,7 +91,7 @@ export default function TransactionItem() {
         <div className='mt-4 px-4 xl:px-20'>
           <div className='flex justify-between items-center'>
             <h1 className='large-h1-span border border-pink-400 hover:border-main-darkPink duration-200 cursor-pointer font-bold p-3 rounded-lg'>
-              {results.titleLocal} / {results?.id}
+              {title?.titleLocal} / {title?.id}
             </h1>
 
             <div>
@@ -163,7 +168,9 @@ export default function TransactionItem() {
                           <input
                             type='text'
                             value={
-                              (item.total / item.quantity).toFixed(2) || ""
+                              item.price ||
+                              (item?.total / item.quantity)?.toFixed(2) ||
+                              0
                             }
                             onChange={(e) =>
                               handleInputChange(e, `line_items.price`, index)
@@ -188,7 +195,7 @@ export default function TransactionItem() {
                         <td className='py-3 px-2 text-left'>
                           <input
                             type='text'
-                            value={item.total || ""}
+                            value={item?.total || ""}
                             readOnly
                             className='w-full border border-gray-300 rounded px-2 py-1'
                           />

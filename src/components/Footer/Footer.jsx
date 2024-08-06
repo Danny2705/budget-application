@@ -121,6 +121,16 @@ export default function Footer() {
                   Budget Management{" "}
                 </Link>
               </li>
+              <li>
+                <Link
+                  to='/overview'
+                  title=''
+                  className='flex text-base text-white transition-all duration-200 hover:text-main-neonPink focus:text-main-neonPink'
+                >
+                  {" "}
+                  Overview{" "}
+                </Link>
+              </li>
             </ul>
           </div>
 
