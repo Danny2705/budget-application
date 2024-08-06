@@ -38,7 +38,7 @@
     "merge-images": "^2.0.0",
     "node-sass": "^9.0.0",
     "openai": "^4.52.3",
-    "pdfjs-dist": "^2.11.338",
+    "pdfjs-dist": "^2.16.105",
     "react": "^18.3.1",
     "react-avatar": "^5.0.3",
     "react-chartjs-2": "^5.2.0",

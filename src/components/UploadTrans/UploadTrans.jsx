@@ -16,9 +16,7 @@ const UploadTrans = ({
   budgetID,
   setLoading,
 }) => {
-  //Avoiding using OCR API useState([]) -> useState(items)
-  // const [receiptData, setReceiptData] = useState(items);
-  //Using OCR API
+
   const [receiptData, setReceiptData] = useState();
   const [imageURL, setImageURL] = useState(null);
   const [receiptNo, setReceiptNo] = useState("");

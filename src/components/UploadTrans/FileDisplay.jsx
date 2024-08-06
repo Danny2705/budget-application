@@ -26,7 +26,7 @@ const FileDisplay = ({ fileUrl, pdfFiles }) => {
         {isPdf ? (
           <div className="w-full h-full">
             <Worker
-              workerUrl={`https://unpkg.com/pdfjs-dist@2.11.338/build/pdf.worker.min.js`}
+              workerUrl={`https://unpkg.com/pdfjs-dist@2.16.105/build/pdf.worker.min.js`}
             >
               <Viewer fileUrl={fileUrl} />
             </Worker>
