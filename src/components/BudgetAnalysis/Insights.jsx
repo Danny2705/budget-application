@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { FiDownload } from "react-icons/fi";
-
-// import { transactionData } from "../TransactionTable/Data";
 import useExpenseData from "../Chart/BarData";
 import {
   Document,
@@ -19,21 +17,19 @@ import { format } from "date-fns";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../Chat/FirebaseConfig";
 
-export default function ExportButtons() {
+const ExportButtons = () => {
   const user = useSelector((state) => state.auth.user);
   const { labelState, totalMoneySpent, totalBudgetLimit } = useExpenseData();
   const [currentMonthIndex, setCurrentMonthIndex] = useState(0);
-  const [totalSavings, setTotalSavings] = useState();
-  const date = format(new Date(), "yyyy-MM-dd");
   const [transactionData, setTransactionData] = useState([]);
+  const date = format(new Date(), "yyyy-MM-dd");
 
   useEffect(() => {
     const getBudgetWithTransactions = async () => {
       try {
-        // Fetch transactions filtered by userId
         const transactionsQuery = query(
           collection(db, `transactions`),
-          where("uid", "==", user.uid) // Filter by userId
+          where("uid", "==", user.uid)
         );
         const transactionsSnapshot = await getDocs(transactionsQuery);
         const allTransactions = transactionsSnapshot.docs.map((doc) => ({
@@ -211,89 +207,45 @@ export default function ExportButtons() {
     saveAs(blob, "Vio Vault report.xlsx");
   };
 
-  const month = labelState[currentMonthIndex];
-  const spent = totalMoneySpent[month] || 0;
-  const budgetLimit = totalBudgetLimit[month] || 0;
-  const savings = budgetLimit - spent;
-
   return (
-    <div className='w-full max-w-md bg-transparent border-pink-900 border-2 rounded-lg shadow-lg text-white p-5 mx-10'>
-      <div className='text-3xl font-bold text-center mb-4'>Insights</div>
-      <div className='text-2xl mb-6 text-main-darkPink'>
-        Hello, {user.displayName}!
-      </div>
-      <div className='relative'>
-        <div className='overflow-hidden'>
-          <div className='transition-transform transform'>
-            {labelState.map((month) => {
-              const spent = totalMoneySpent[month] || 0;
-              const budgetLimit = totalBudgetLimit[month] || 0;
-              const savings = budgetLimit - spent;
-              return (
-                <div
-                  key={month}
-                  className='w-full min-w-full p-4 bg-main-darkPurple shadow-md mb-4'
-                >
-                  {savings >= 0 ? (
-                    <div>
-                      <p className='text-lg'>
-                        In {month}, you saved{" "}
-                        <span className='font-bold'>${savings}</span>. Great
-                        job!
-                      </p>
-                    </div>
-                  ) : (
-                    <div>
-                      <p className='text-lg'>
-                        In {month}, you overspent by{" "}
-                        <span className='font-bold'>${-savings}</span>.
-                      </p>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <div className='flex justify-between mt-4'></div>
-      </div>
-      <div className='mt-6 text-center flex gap-1'>
-        <PDFDownloadLink
-          document={<ReportDocument />}
-          fileName='Vio Vault report.pdf'
-        >
-          {({ loading }) => (
-            <button className='bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow inline-flex items-center'>
-              <FiDownload className='mr-2 text-xl' />
-              {loading ? "Generating PDF..." : "Download PDF report"}
-            </button>
-          )}
-        </PDFDownloadLink>
-        <CSVLink
-          data={transactionData}
-          headers={[
-            { label: "Transaction No", key: "TransactionNo" },
-            { label: "Vender", key: "Vender" },
-            { label: "Date", key: "Date" },
-            { label: "Category", key: "Category" },
-            { label: "Total", key: "Total" },
-          ]}
-          filename='Vio Vault report.csv'
-          className='bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg shadow inline-flex items-center'
+    <div className='mt-6 text-center justify-center flex gap-1'>
+      <PDFDownloadLink
+        document={<ReportDocument />}
+        fileName='Vio Vault report.pdf'
+      >
+        {({ loading }) => (
+          <button className='text-white border border-main-neonPink px-[25px] py-[9px] z-10 hover:bg-gradient-to-br hover:from-pink-600 hover:via-red-500 hover:to-purple-700 text-lg'>
+            <FiDownload className='mr-2 text-xl' />
+            {loading ? "Generating PDF..." : "Download PDF report"}
+          </button>
+        )}
+      </PDFDownloadLink>
+      <CSVLink
+        data={transactionData}
+        headers={[
+          { label: "Transaction No", key: "TransactionNo" },
+          { label: "Vender", key: "Vender" },
+          { label: "Date", key: "Date" },
+          { label: "Category", key: "Category" },
+          { label: "Total", key: "Total" },
+        ]}
+        filename='Vio Vault report.csv'
+        className='text-white border border-main-neonPink px-[25px] py-[9px] z-10 hover:bg-gradient-to-br hover:from-pink-600 hover:via-red-500 hover:to-purple-700 text-lge'
+      >
+        <FiDownload className='mr-2 text-xl' />
+        Download CSV
+      </CSVLink>
+      <div>
+        <button
+          onClick={exportToExcel}
+          className='text-white border border-main-neonPink px-[25px] py-[9px] z-10 hover:bg-gradient-to-br hover:from-pink-600 hover:via-red-500 hover:to-purple-700 text-lg'
         >
           <FiDownload className='mr-2 text-xl' />
-          Download CSV
-        </CSVLink>
-        <div>
-          <button
-            onClick={exportToExcel}
-            className='bg-green-400 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-lg shadow inline-flex items-center'
-          >
-            <FiDownload className='mr-2 text-xl' />
-            Download Excel
-          </button>
-        </div>
+          Download Excel
+        </button>
       </div>
     </div>
   );
-}
+};
+
+export default ExportButtons;
