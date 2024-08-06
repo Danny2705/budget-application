@@ -115,7 +115,7 @@ export default function PieChart() {
   return (
     <div className="flex justify-center align-middle"> 
       <div className="w-1/2">
-        <Pie options={options} data={pieChartData} />
+        {params === true ? <Pie options={options} data={pieChartData} /> : <div className="text-2xl text-main-darkPurple flex justify-center py-3 m-5">Upload a transaction to get started</div>}
       </div>
     </div>
   );
