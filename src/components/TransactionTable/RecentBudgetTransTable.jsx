@@ -16,6 +16,7 @@ export default function RecentBudgetTransTable() {
   const [data, setData] = useState([]);
   const user = useSelector((state) => state.auth.user);
   const params = useParams();
+  console.log(params);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,6 +30,7 @@ export default function RecentBudgetTransTable() {
             id: doc.id,
             ...doc.data(),
           }));
+          console.log(transactions);
           setData(transactions);
         } catch (error) {
           console.error("Error fetching user transactions:", error);
